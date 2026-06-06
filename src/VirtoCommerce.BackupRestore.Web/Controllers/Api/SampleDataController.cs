@@ -28,7 +28,7 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
     [Route("api/platform")]
     [ApiExplorerSettings(IgnoreApi = true)]
     [Authorize]
-    public class PlatformSampleDataController : Controller
+    public class SampleDataController : Controller
     {
         private readonly IBackupRestoreManager _platformExportManager;
         private readonly IPushNotificationManager _pushNotifier;
@@ -39,7 +39,7 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
 
         private static readonly object _lockObject = new();
 
-        public PlatformSampleDataController(
+        public SampleDataController(
             IBackupRestoreManager platformExportManager,
             IPushNotificationManager pushNotifier,
             ISettingsManager settingManager,

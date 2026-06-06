@@ -27,7 +27,7 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
     [Route("api/platform")]
     [ApiExplorerSettings(IgnoreApi = true)]
     [Authorize]
-    public class PlatformBackupRestoreController : Controller
+    public class BackupRestoreController : Controller
     {
         // Purpose string for IDataProtector. Distinct enough that a key collision with another
         // platform component is unrealistic — the protected blob's only consumer is this controller.
@@ -41,16 +41,16 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
         private readonly IPushNotificationManager _pushNotifier;
         private readonly IUserNameResolver _userNameResolver;
         private readonly PlatformOptions _platformOptions;
-        private readonly ILogger<PlatformBackupRestoreController> _logger;
+        private readonly ILogger<BackupRestoreController> _logger;
         private readonly IDataProtector _protector;
 
-        public PlatformBackupRestoreController(
+        public BackupRestoreController(
             IBackupRestoreManager platformExportManager,
             IPushNotificationManager pushNotifier,
             IUserNameResolver userNameResolver,
             IOptions<PlatformOptions> options,
             IDataProtectionProvider dataProtectionProvider,
-            ILogger<PlatformBackupRestoreController> logger)
+            ILogger<BackupRestoreController> logger)
         {
             _platformExportManager = platformExportManager;
             _pushNotifier = pushNotifier;

@@ -18,7 +18,7 @@ namespace VirtoCommerce.BackupRestore.Tests;
 [Trait("Category", "Unit")]
 public class GetSafeFullPathTests
 {
-    private readonly PlatformBackupRestoreController _controller;
+    private readonly BackupRestoreController _controller;
 
     public GetSafeFullPathTests()
     {
@@ -28,13 +28,13 @@ public class GetSafeFullPathTests
             LocalUploadFolderPath = Path.Combine(Path.GetTempPath(), "vc-test-uploads"),
         });
 
-        _controller = new PlatformBackupRestoreController(
+        _controller = new BackupRestoreController(
             Mock.Of<IBackupRestoreManager>(),
             Mock.Of<IPushNotificationManager>(),
             Mock.Of<IUserNameResolver>(),
             options,
             Mock.Of<IDataProtectionProvider>(),
-            Mock.Of<ILogger<PlatformBackupRestoreController>>());
+            Mock.Of<ILogger<BackupRestoreController>>());
     }
 
     [Theory]

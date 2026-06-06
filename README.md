@@ -45,8 +45,8 @@ The module follows the standard Virto Commerce vertical slice (Core / Data / Web
 ```
 ┌───────────────────────────────────────────────────────────────┐
 │  VirtoCommerce.BackupRestore.Web                              │
-│  • PlatformBackupRestoreController  (api/platform/export…)    │
-│  • PlatformSampleDataController     (api/platform/sampledata) │
+│  • BackupRestoreController  (api/platform/export…)            │
+│  • SampleDataController     (api/platform/sampledata)         │
 │  • AngularJS admin UI (export / import / sample data wizard)  │
 ├───────────────────────────────────────────────────────────────┤
 │  VirtoCommerce.BackupRestore.Data                             │
