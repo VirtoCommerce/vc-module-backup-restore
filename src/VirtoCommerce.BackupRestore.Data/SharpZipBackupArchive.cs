@@ -122,6 +122,19 @@ public class SharpZipBackupArchive : IZipBackupArchive
 
     public void Dispose()
     {
+        Cleanup();
+        GC.SuppressFinalize(this);
+    }
+
+    public ValueTask DisposeAsync()
+    {
+        Cleanup();
+        GC.SuppressFinalize(this);
+        return ValueTask.CompletedTask;
+    }
+
+    private void Cleanup()
+    {
         if (_currentEntryStream is { IsClosed: false })
         {
             // Best-effort: a writer leaked an entry stream. Close it so the archive
@@ -136,12 +149,6 @@ public class SharpZipBackupArchive : IZipBackupArchive
         catch { /* nothing to do during dispose */ }
         _zipOut?.Dispose();
         _zipFile?.Close();
-    }
-
-    public ValueTask DisposeAsync()
-    {
-        Dispose();
-        return ValueTask.CompletedTask;
     }
 
     /// <summary>

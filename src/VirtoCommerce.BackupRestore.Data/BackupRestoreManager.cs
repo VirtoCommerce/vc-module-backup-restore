@@ -32,9 +32,9 @@ namespace VirtoCommerce.BackupRestore.Data;
 // Implements the modern module-owned IBackupRestoreManager and, for backward compatibility during the
 // deprecation period, the (now obsolete) platform IPlatformExportImportManager. Both interfaces declare
 // the same CancellationToken-based members, so a single set of method bodies satisfies both.
-#pragma warning disable CS0618 // IPlatformExportImportManager is obsolete; implemented intentionally for back-compat.
+#pragma warning disable VC0014 // IPlatformExportImportManager is obsolete; implemented intentionally for back-compat.
 public class BackupRestoreManager : IBackupRestoreManager, IPlatformExportImportManager
-#pragma warning restore CS0618
+#pragma warning restore VC0014
 {
     private const string ManifestZipEntryName = "Manifest.json";
     private const string PlatformZipEntryName = "PlatformEntries.json";
@@ -654,7 +654,6 @@ public class BackupRestoreManager : IBackupRestoreManager, IPlatformExportImport
                         var errorsBefore = progressInfo.Errors.Count;
                         try
                         {
-                            //TODO: Add JsonConverter which will be materialized concrete ExportImport option type
                             var options = manifest.Options
                                 .DefaultIfEmpty(new ExportImportOptions { HandleBinaryData = manifest.HandleBinaryData, ModuleIdentity = new ModuleIdentity(moduleDescriptor.Identity.Id, moduleDescriptor.Identity.Version, false) })
                                 .FirstOrDefault(x => x.ModuleIdentity.Id == moduleDescriptor.Identity.Id);
@@ -716,8 +715,6 @@ public class BackupRestoreManager : IBackupRestoreManager, IPlatformExportImport
                     var errorsBefore = progressInfo.Errors.Count;
                     try
                     {
-                        //TODO: Add JsonConverter which will be materialized concrete ExportImport option type
-                        //ToDo: Added check ExportImportOptions for modules (DefaultIfEmpty)
                         var options = manifest.Options
                             .DefaultIfEmpty(new ExportImportOptions { HandleBinaryData = manifest.HandleBinaryData, ModuleIdentity = new ModuleIdentity(module.Id, SemanticVersion.Parse(module.Version.Trim()), module.Optional) })
                             .FirstOrDefault(x => x.ModuleIdentity.Id == moduleDescriptor.Identity.Id);

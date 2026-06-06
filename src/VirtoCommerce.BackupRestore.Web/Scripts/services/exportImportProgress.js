@@ -168,7 +168,7 @@ angular.module('platformWebApp')
              */
             attach: function ($scope, blade, verb) {
                 if (!VERB_PATTERNS[verb]) {
-                    throw new Error("exportImportProgress: unknown verb '" + verb + "'. Expected 'export' or 'import'.");
+                    throw new Error(`exportImportProgress: unknown verb '${verb}'. Expected 'export' or 'import'.`);
                 }
                 $scope.progressItems = [];
                 $scope.progressStats = { total: 0, completed: 0, percent: 0 };

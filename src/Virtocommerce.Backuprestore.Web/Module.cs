@@ -19,9 +19,9 @@ public class Module : IModule
         // IPlatformExportImportManager keep working unchanged (no breaking changes).
         serviceCollection.AddScoped<BackupRestoreManager>();
         serviceCollection.AddScoped<IBackupRestoreManager>(sp => sp.GetRequiredService<BackupRestoreManager>());
-#pragma warning disable CS0618 // IPlatformExportImportManager is obsolete; kept for backward compatibility.
+#pragma warning disable VC0014 // IPlatformExportImportManager is obsolete; kept for backward compatibility.
         serviceCollection.AddScoped<IPlatformExportImportManager>(sp => sp.GetRequiredService<BackupRestoreManager>());
-#pragma warning restore CS0618
+#pragma warning restore VC0014
         // Fully-qualified: IZipBackupArchiveFactory moved into this module but the referenced
         // Platform.Core NuGet still ships a copy, so the simple name would be ambiguous.
         serviceCollection.AddSingleton<Core.IZipBackupArchiveFactory, SharpZipBackupArchiveFactory>();

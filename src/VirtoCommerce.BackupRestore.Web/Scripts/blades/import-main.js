@@ -132,7 +132,7 @@ angular.module('platformWebApp')
             // zip only
             uploader.filters.push({
                 name: 'zipFilter',
-                fn: function (i /*{File|FileLikeObject}*/, options) {
+                fn: function (i, options) {
                     return i.name.toLowerCase().endsWith('.zip');
                 }
             });
@@ -142,7 +142,7 @@ angular.module('platformWebApp')
             };
 
             uploader.onErrorItem = function (item, response, status, headers) {
-                bladeNavigationService.setError(item._file.name + ' failed: ' + (response.message ? response.message : status), blade);
+                bladeNavigationService.setError(`${item._file.name} failed: ${response.message ? response.message : status}`, blade);
             };
 
             uploader.onSuccessItem = function (fileItem, asset, status, headers) {
