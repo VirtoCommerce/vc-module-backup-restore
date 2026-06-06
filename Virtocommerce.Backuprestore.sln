@@ -1,24 +1,19 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.4.11605.240 stable
+VisualStudioVersion = 18.4.11605.240
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8FFF9687-2B86-4F1C-B74C-E29EB65FC164}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Virtocommerce.Backuprestore.Web", "src\Virtocommerce.Backuprestore.Web\Virtocommerce.Backuprestore.Web.csproj", "{68EFD5A6-5A71-463F-81CD-01DD786D045F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtoCommerce.BackupRestore.Web", "src\VirtoCommerce.BackupRestore.Web\VirtoCommerce.BackupRestore.Web.csproj", "{68EFD5A6-5A71-463F-81CD-01DD786D045F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Virtocommerce.Backuprestore.Data", "src\Virtocommerce.Backuprestore.Data\Virtocommerce.Backuprestore.Data.csproj", "{E732A7F8-3435-4C72-963D-FEA24EE4EC77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtoCommerce.BackupRestore.Data", "src\VirtoCommerce.BackupRestore.Data\VirtoCommerce.BackupRestore.Data.csproj", "{E732A7F8-3435-4C72-963D-FEA24EE4EC77}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Virtocommerce.Backuprestore.Core", "src\Virtocommerce.Backuprestore.Core\Virtocommerce.Backuprestore.Core.csproj", "{64A63949-1CBE-4630-973C-A0C51F9956A2}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Virtocommerce.Backuprestore.Data.MySql", "src\Virtocommerce.Backuprestore.Data.MySql\Virtocommerce.Backuprestore.Data.MySql.csproj", "{2A88A6EA-CA16-4EBA-860D-BA3DD83BAD46}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Virtocommerce.Backuprestore.Data.PostgreSql", "src\Virtocommerce.Backuprestore.Data.PostgreSql\Virtocommerce.Backuprestore.Data.PostgreSql.csproj", "{3797918E-A7A7-4D17-BD62-1B459F365212}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Virtocommerce.Backuprestore.Data.SqlServer", "src\Virtocommerce.Backuprestore.Data.SqlServer\Virtocommerce.Backuprestore.Data.SqlServer.csproj", "{39920BEC-DB3F-4E94-BAD6-14C15F2E2712}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtoCommerce.BackupRestore.Core", "src\VirtoCommerce.BackupRestore.Core\VirtoCommerce.BackupRestore.Core.csproj", "{64A63949-1CBE-4630-973C-A0C51F9956A2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{D7EB5CD6-1D58-4E8D-828C-0FFFD7FB183B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Virtocommerce.Backuprestore.Tests", "tests\Virtocommerce.Backuprestore.Tests\Virtocommerce.Backuprestore.Tests.csproj", "{90BE9F2F-3111-4A97-9296-F4FA2524EFDC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtoCommerce.BackupRestore.Tests", "tests\VirtoCommerce.BackupRestore.Tests\VirtoCommerce.BackupRestore.Tests.csproj", "{90BE9F2F-3111-4A97-9296-F4FA2524EFDC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1CB2DD90-360F-43B5-9CEA-CC9F6870E34E}"
 	ProjectSection(SolutionItems) = preProject
@@ -27,8 +22,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Directory.Build.props = Directory.Build.props
 		LICENSE = LICENSE
 		module.ignore = module.ignore
+		module.keep = module.keep
 		README.md = README.md
-		Virtocommerce.Backuprestore.sln.DotSettings = Virtocommerce.Backuprestore.sln.DotSettings
+		VirtoCommerce.BackupRestore.sln.DotSettings = VirtoCommerce.BackupRestore.sln.DotSettings
 	EndProjectSection
 EndProject
 Global
@@ -49,18 +45,6 @@ Global
 		{64A63949-1CBE-4630-973C-A0C51F9956A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64A63949-1CBE-4630-973C-A0C51F9956A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64A63949-1CBE-4630-973C-A0C51F9956A2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2A88A6EA-CA16-4EBA-860D-BA3DD83BAD46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2A88A6EA-CA16-4EBA-860D-BA3DD83BAD46}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2A88A6EA-CA16-4EBA-860D-BA3DD83BAD46}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2A88A6EA-CA16-4EBA-860D-BA3DD83BAD46}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3797918E-A7A7-4D17-BD62-1B459F365212}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3797918E-A7A7-4D17-BD62-1B459F365212}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3797918E-A7A7-4D17-BD62-1B459F365212}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3797918E-A7A7-4D17-BD62-1B459F365212}.Release|Any CPU.Build.0 = Release|Any CPU
-		{39920BEC-DB3F-4E94-BAD6-14C15F2E2712}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{39920BEC-DB3F-4E94-BAD6-14C15F2E2712}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{39920BEC-DB3F-4E94-BAD6-14C15F2E2712}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{39920BEC-DB3F-4E94-BAD6-14C15F2E2712}.Release|Any CPU.Build.0 = Release|Any CPU
 		{90BE9F2F-3111-4A97-9296-F4FA2524EFDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{90BE9F2F-3111-4A97-9296-F4FA2524EFDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90BE9F2F-3111-4A97-9296-F4FA2524EFDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -73,9 +57,6 @@ Global
 		{68EFD5A6-5A71-463F-81CD-01DD786D045F} = {8FFF9687-2B86-4F1C-B74C-E29EB65FC164}
 		{E732A7F8-3435-4C72-963D-FEA24EE4EC77} = {8FFF9687-2B86-4F1C-B74C-E29EB65FC164}
 		{64A63949-1CBE-4630-973C-A0C51F9956A2} = {8FFF9687-2B86-4F1C-B74C-E29EB65FC164}
-		{2A88A6EA-CA16-4EBA-860D-BA3DD83BAD46} = {8FFF9687-2B86-4F1C-B74C-E29EB65FC164}
-		{3797918E-A7A7-4D17-BD62-1B459F365212} = {8FFF9687-2B86-4F1C-B74C-E29EB65FC164}
-		{39920BEC-DB3F-4E94-BAD6-14C15F2E2712} = {8FFF9687-2B86-4F1C-B74C-E29EB65FC164}
 		{90BE9F2F-3111-4A97-9296-F4FA2524EFDC} = {D7EB5CD6-1D58-4E8D-828C-0FFFD7FB183B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

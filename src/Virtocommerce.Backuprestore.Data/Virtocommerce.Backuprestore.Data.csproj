@@ -4,9 +4,10 @@
     <SonarQubeTestProject>false</SonarQubeTestProject>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="VirtoCommerce.Platform.Data" Version="3.1007.10" />
+    <PackageReference Include="VirtoCommerce.Platform.Core" Version="3.1035.0-alpha.13291-vcst-5208" />
+    <PackageReference Include="SharpZipLib" Version="1.4.2" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Virtocommerce.Backuprestore.Core\Virtocommerce.Backuprestore.Core.csproj" />
+    <ProjectReference Include="..\VirtoCommerce.BackupRestore.Core\VirtoCommerce.BackupRestore.Core.csproj" />
   </ItemGroup>
 </Project>

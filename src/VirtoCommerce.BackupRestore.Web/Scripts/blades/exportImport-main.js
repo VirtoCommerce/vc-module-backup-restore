@@ -1,0 +1,28 @@
+angular.module('platformWebApp')
+.controller('platformWebApp.exportImport.mainController', ['$scope', 'platformWebApp.bladeNavigationService', 'platformWebApp.authService', function ($scope, bladeNavigationService, authService) {
+
+    $scope.export = function () {
+        $scope.selectedNodeId = 'export';
+
+        var newBlade = {
+            controller: 'platformWebApp.exportImport.exportMainController',
+            template: 'Modules/$(VirtoCommerce.BackupRestore)/Scripts/blades/export-main.tpl.html'
+        };
+        bladeNavigationService.showBlade(newBlade, $scope.blade);
+    };
+
+    $scope.import = function () {
+        if (authService.checkPermission('platform:import')) {
+            $scope.selectedNodeId = 'import';
+
+            var newBlade = {
+                controller: 'platformWebApp.exportImport.importMainController',
+                template: 'Modules/$(VirtoCommerce.BackupRestore)/Scripts/blades/import-main.tpl.html'
+            };
+            bladeNavigationService.showBlade(newBlade, $scope.blade);
+        }
+    };
+
+    $scope.blade.headIcon = 'fa fa-database';
+    $scope.blade.isLoading = false;
+}]);

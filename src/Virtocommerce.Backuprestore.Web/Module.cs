@@ -1,71 +1,40 @@
 using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using VirtoCommerce.BackupRestore.Core;
+using VirtoCommerce.BackupRestore.Data;
+using VirtoCommerce.Platform.Core.ExportImport;
 using VirtoCommerce.Platform.Core.Modularity;
 using VirtoCommerce.Platform.Core.Security;
-using VirtoCommerce.Platform.Core.Settings;
-using VirtoCommerce.Platform.Data.MySql.Extensions;
-using VirtoCommerce.Platform.Data.PostgreSql.Extensions;
-using VirtoCommerce.Platform.Data.SqlServer.Extensions;
-using Virtocommerce.Backuprestore.Core;
-using Virtocommerce.Backuprestore.Data.MySql;
-using Virtocommerce.Backuprestore.Data.PostgreSql;
-using Virtocommerce.Backuprestore.Data.Repositories;
-using Virtocommerce.Backuprestore.Data.SqlServer;
 
-namespace Virtocommerce.Backuprestore.Web;
+namespace VirtoCommerce.BackupRestore.Web;
 
-public class Module : IModule, IHasConfiguration
+public class Module : IModule
 {
     public ManifestModuleInfo ModuleInfo { get; set; }
-    public IConfiguration Configuration { get; set; }
 
     public void Initialize(IServiceCollection serviceCollection)
     {
-        serviceCollection.AddDbContext<BackuprestoreDbContext>(options =>
-        {
-            var databaseProvider = Configuration.GetValue("DatabaseProvider", "SqlServer");
-            var connectionString = Configuration.GetConnectionString(ModuleInfo.Id) ?? Configuration.GetConnectionString("VirtoCommerce");
-
-            switch (databaseProvider)
-            {
-                case "MySql":
-                    options.UseMySqlDatabase(connectionString, typeof(MySqlDataAssemblyMarker), Configuration);
-                    break;
-                case "PostgreSql":
-                    options.UsePostgreSqlDatabase(connectionString, typeof(PostgreSqlDataAssemblyMarker), Configuration);
-                    break;
-                default:
-                    options.UseSqlServerDatabase(connectionString, typeof(SqlServerDataAssemblyMarker), Configuration);
-                    break;
-            }
-        });
-
-        // Override models
-        //AbstractTypeFactory<OriginalModel>.OverrideType<OriginalModel, ExtendedModel>().MapToType<ExtendedEntity>();
-        //AbstractTypeFactory<OriginalEntity>.OverrideType<OriginalEntity, ExtendedEntity>();
-
-        // Register services
-        //serviceCollection.AddTransient<IMyService, MyService>();
+        // Single implementation, exposed under both the modern module interface and — for the
+        // deprecation period — the obsolete platform interface, so existing consumers that resolve
+        // IPlatformExportImportManager keep working unchanged (no breaking changes).
+        serviceCollection.AddScoped<BackupRestoreManager>();
+        serviceCollection.AddScoped<IBackupRestoreManager>(sp => sp.GetRequiredService<BackupRestoreManager>());
+#pragma warning disable CS0618 // IPlatformExportImportManager is obsolete; kept for backward compatibility.
+        serviceCollection.AddScoped<IPlatformExportImportManager>(sp => sp.GetRequiredService<BackupRestoreManager>());
+#pragma warning restore CS0618
+        // Fully-qualified: IZipBackupArchiveFactory moved into this module but the referenced
+        // Platform.Core NuGet still ships a copy, so the simple name would be ambiguous.
+        serviceCollection.AddSingleton<Core.IZipBackupArchiveFactory, SharpZipBackupArchiveFactory>();
     }
 
     public void PostInitialize(IApplicationBuilder appBuilder)
     {
         var serviceProvider = appBuilder.ApplicationServices;
 
-        // Register settings
-        var settingsRegistrar = serviceProvider.GetRequiredService<ISettingsRegistrar>();
-        settingsRegistrar.RegisterSettings(ModuleConstants.Settings.AllSettings, ModuleInfo.Id);
-
-        // Register permissions
+        // Register permissions under the "Platform" group with the SAME string values the platform
+        // used before, so existing role assignments continue to grant access.
         var permissionsRegistrar = serviceProvider.GetRequiredService<IPermissionsRegistrar>();
-        permissionsRegistrar.RegisterPermissions(ModuleInfo.Id, "BackupRestore", ModuleConstants.Security.Permissions.AllPermissions);
-
-        // Apply migrations
-        using var serviceScope = serviceProvider.CreateScope();
-        using var dbContext = serviceScope.ServiceProvider.GetRequiredService<BackuprestoreDbContext>();
-        dbContext.Database.Migrate();
+        permissionsRegistrar.RegisterPermissions(ModuleInfo.Id, "Platform", ModuleConstants.Security.Permissions.AllPermissions);
     }
 
     public void Uninstall()

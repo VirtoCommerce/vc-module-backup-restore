@@ -19,10 +19,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Virtocommerce.Backuprestore.Core\Virtocommerce.Backuprestore.Core.csproj" />
-    <ProjectReference Include="..\Virtocommerce.Backuprestore.Data\Virtocommerce.Backuprestore.Data.csproj" />
-    <ProjectReference Include="..\Virtocommerce.Backuprestore.Data.MySql\Virtocommerce.Backuprestore.Data.MySql.csproj" />
-    <ProjectReference Include="..\Virtocommerce.Backuprestore.Data.PostgreSql\Virtocommerce.Backuprestore.Data.PostgreSql.csproj" />
-    <ProjectReference Include="..\Virtocommerce.Backuprestore.Data.SqlServer\Virtocommerce.Backuprestore.Data.SqlServer.csproj" />
+    <PackageReference Include="Hangfire.Core" Version="1.8.23" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VirtoCommerce.BackupRestore.Core\VirtoCommerce.BackupRestore.Core.csproj" />
+    <ProjectReference Include="..\VirtoCommerce.BackupRestore.Data\VirtoCommerce.BackupRestore.Data.csproj" />
   </ItemGroup>
 </Project>

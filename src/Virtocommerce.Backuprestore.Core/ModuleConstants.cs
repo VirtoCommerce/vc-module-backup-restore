@@ -1,7 +1,4 @@
-using System.Collections.Generic;
-using VirtoCommerce.Platform.Core.Settings;
-
-namespace Virtocommerce.Backuprestore.Core;
+namespace VirtoCommerce.BackupRestore.Core;
 
 public static class ModuleConstants
 {
@@ -9,50 +6,20 @@ public static class ModuleConstants
     {
         public static class Permissions
         {
-            public const string Access = "backup-restore:access";
-            public const string Create = "backup-restore:create";
-            public const string Read = "backup-restore:read";
-            public const string Update = "backup-restore:update";
-            public const string Delete = "backup-restore:delete";
+            // NOTE: these permission string values are intentionally identical to the ones the
+            // platform used to register (VirtoCommerce.Platform.Core.PlatformConstants.Security.Permissions).
+            // Keeping the exact strings means existing role assignments keep working after the
+            // feature moves out of the platform into this module — no breaking changes.
+            public const string Access = "platform:exportImport:access";
+            public const string Export = "platform:export";
+            public const string Import = "platform:import";
 
             public static string[] AllPermissions { get; } =
             [
                 Access,
-                Create,
-                Read,
-                Update,
-                Delete,
+                Export,
+                Import,
             ];
-        }
-    }
-
-    public static class Settings
-    {
-        public static class General
-        {
-            public static SettingDescriptor BackuprestoreEnabled { get; } = new()
-            {
-                Name = "Backuprestore.Enabled",
-                GroupName = "BackupRestore|General",
-                ValueType = SettingValueType.Boolean,
-                DefaultValue = false,
-            };
-
-            public static IEnumerable<SettingDescriptor> AllGeneralSettings
-            {
-                get
-                {
-                    yield return BackuprestoreEnabled;
-                }
-            }
-        }
-
-        public static IEnumerable<SettingDescriptor> AllSettings
-        {
-            get
-            {
-                return General.AllGeneralSettings;
-            }
         }
     }
 }

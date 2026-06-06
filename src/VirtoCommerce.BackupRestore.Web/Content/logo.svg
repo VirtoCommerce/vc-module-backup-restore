@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Backup and Restore">
+  <title>Backup and Restore</title>
+  <defs>
+    <linearGradient id="bgGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#43B0E6"/>
+      <stop offset="1" stop-color="#2E8BC0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Tile -->
+  <rect width="512" height="512" rx="104" fill="url(#bgGradient)"/>
+
+  <!-- Circular restore arrow encircling the data store -->
+  <g fill="none" stroke="#ffffff" stroke-width="24" stroke-linecap="round">
+    <path d="M310 97.5 A158 158 0 1 1 202 97.5"/>
+  </g>
+  <polygon points="225,89 203,117 190,83" fill="#ffffff"/>
+
+  <!-- Database / data archive -->
+  <g fill="#ffffff">
+    <rect x="164" y="150" width="184" height="150"/>
+    <ellipse cx="256" cy="300" rx="92" ry="28"/>
+    <ellipse cx="256" cy="150" rx="92" ry="28"/>
+  </g>
+  <!-- Disk separation bands -->
+  <g fill="none" stroke="#2E8BC0" stroke-width="9" stroke-linecap="round">
+    <path d="M164 208 a92 28 0 0 0 184 0"/>
+    <path d="M164 250 a92 28 0 0 0 184 0"/>
+  </g>
+</svg>

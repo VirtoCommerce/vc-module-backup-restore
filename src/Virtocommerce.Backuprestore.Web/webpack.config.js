@@ -1,4 +1,4 @@
-const namespace = 'Virtocommerce.Backuprestore';
+const namespace = 'VirtoCommerce.BackupRestore';
 
 const glob = require('glob');
 const path = require('path');
