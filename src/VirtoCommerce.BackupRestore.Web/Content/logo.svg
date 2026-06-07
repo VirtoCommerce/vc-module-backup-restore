@@ -1,88 +1,47 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Backup and Restore">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="Backup and Restore">
   <title>Backup and Restore</title>
   <defs>
-    <!-- Tile: vibrant diagonal PBC gradient (Core / Platform) + top-left sheen -->
-    <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#5FC8F5"/>
-      <stop offset="0.5" stop-color="#3A93E2"/>
-      <stop offset="1" stop-color="#265FC6"/>
+    <!-- Subtle 2-step gradients, lighter hue top-left (~120 deg) -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="92%" y2="100%">
+      <stop offset="0%" stop-color="#5FC8F5"/>
+      <stop offset="100%" stop-color="#265FC6"/>
     </linearGradient>
-    <radialGradient id="tileSheen" cx="0.26" cy="0.16" r="0.95">
-      <stop offset="0" stop-color="#ffffff" stop-opacity="0.55"/>
-      <stop offset="0.42" stop-color="#ffffff" stop-opacity="0.08"/>
-      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    <linearGradient id="arrow" x1="0%" y1="0%" x2="92%" y2="100%">
+      <stop offset="0%" stop-color="#5BE3B0"/>
+      <stop offset="100%" stop-color="#0E9E80"/>
+    </linearGradient>
+    <linearGradient id="dbBody" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#CFE8FF"/>
+    </linearGradient>
+    <radialGradient id="dbTop" cx="42%" cy="38%" r="80%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#E6F3FF"/>
     </radialGradient>
-
-    <!-- Frosted glass panel + top reflection -->
-    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#ffffff" stop-opacity="0.55"/>
-      <stop offset="1" stop-color="#ffffff" stop-opacity="0.12"/>
-    </linearGradient>
-    <linearGradient id="glassTop" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#ffffff" stop-opacity="0.70"/>
-      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
-    </linearGradient>
-
-    <!-- Restore arrow volume -->
-    <linearGradient id="arrow" x1="0.1" y1="0" x2="0.9" y2="1">
-      <stop offset="0" stop-color="#ffffff"/>
-      <stop offset="1" stop-color="#BFDDFA"/>
-    </linearGradient>
-
-    <!-- Database volume -->
-    <linearGradient id="dbBody" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#ffffff"/>
-      <stop offset="1" stop-color="#BBDCF7"/>
-    </linearGradient>
-    <linearGradient id="dbSide" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#ffffff" stop-opacity="0"/>
-      <stop offset="0.68" stop-color="#8FBFEA" stop-opacity="0"/>
-      <stop offset="1" stop-color="#6FA8E1" stop-opacity="0.60"/>
-    </linearGradient>
-    <radialGradient id="dbTop" cx="0.40" cy="0.34" r="0.88">
-      <stop offset="0" stop-color="#ffffff"/>
-      <stop offset="1" stop-color="#D8ECFF"/>
-    </radialGradient>
-
-    <!-- Soft drop shadow + blurred contact shadow -->
-    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
-      <feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#0B3F66" flood-opacity="0.34"/>
-    </filter>
-    <filter id="contact" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="9"/>
+    <!-- Soft drop shadow to define layers (light-on-dark) -->
+    <filter id="lift" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3.5" flood-color="#0B3F66" flood-opacity="0.30"/>
     </filter>
   </defs>
 
-  <!-- Vibrant gradient tile + glossy sheen -->
-  <rect x="16" y="16" width="480" height="480" rx="112" fill="url(#tile)"/>
-  <rect x="16" y="16" width="480" height="480" rx="112" fill="url(#tileSheen)"/>
+  <!-- Background rounded square -->
+  <rect width="128" height="128" rx="28" fill="url(#bg)"/>
 
-  <!-- Frosted glass panel (glassmorphism) with top reflection -->
-  <rect x="96" y="96" width="320" height="320" rx="72" fill="url(#glass)" stroke="#ffffff" stroke-opacity="0.55" stroke-width="2"/>
-  <path d="M96 168 v-40 a32 32 0 0 1 32-32 h256 a32 32 0 0 1 32 32 v40 a160 92 0 0 0 -320 0 z" fill="url(#glassTop)" opacity="0.7"/>
+  <!-- Backup & Restore glyph: database (backup) + circular arrow (restore) -->
+  <g transform="translate(64,64)" filter="url(#lift)">
+    <!-- Restore arrow: vibrant green loop with gap + arrowhead at top -->
+    <path d="M22.3,-35.6 A42,42 0 1 1 -22.3,-35.6" fill="none" stroke="url(#arrow)" stroke-width="10" stroke-linecap="round"/>
+    <polygon points="-8,-44 -16,-26 -29,-45" fill="#0E9E80"/>
+    <polygon points="-9,-42 -16,-28 -27,-43" fill="#5BE3B0"/>
 
-  <!-- Contact shadow under the data store -->
-  <ellipse cx="256" cy="334" rx="92" ry="18" fill="#0B3F66" opacity="0.22" filter="url(#contact)"/>
+    <!-- Database cylinder (straight-on, top shown for volume) -->
+    <path d="M-21,-19 V18 A21,7 0 0 0 21,18 V-19 Z" fill="url(#dbBody)"/>
+    <ellipse cx="0" cy="-19" rx="21" ry="7" fill="url(#dbTop)"/>
 
-  <g filter="url(#soft)">
-    <!-- Restore arrow: navy edge contour for small-size separation, then glossy body -->
-    <path d="M308 139 A120 120 0 1 1 204 139" fill="none" stroke="#1E5BB0" stroke-opacity="0.22" stroke-width="42" stroke-linecap="round"/>
-    <path d="M308 139 A120 120 0 1 1 204 139" fill="none" stroke="url(#arrow)" stroke-width="34" stroke-linecap="round"/>
-    <polygon points="190,110 248,118 214,172" fill="#1E5BB0" fill-opacity="0.22"/>
-    <polygon points="192,113 244,120 213,168" fill="#ffffff"/>
-
-    <!-- Volumetric database cylinder (centered) with subtle navy contour -->
-    <path d="M186 204 v100 a70 21 0 0 0 140 0 v-100 z" fill="url(#dbBody)" stroke="#1E5BB0" stroke-opacity="0.20" stroke-width="3"/>
-    <path d="M186 204 v100 a70 21 0 0 0 140 0 v-100 z" fill="url(#dbSide)"/>
-    <ellipse cx="256" cy="204" rx="70" ry="21" fill="url(#dbTop)" stroke="#1E5BB0" stroke-opacity="0.20" stroke-width="3"/>
-
-    <!-- Two recessed bands -->
-    <g fill="none" stroke="#2A6FD0" stroke-width="11" stroke-linecap="round" opacity="0.9">
-      <path d="M186 242 a70 21 0 0 0 140 0"/>
-      <path d="M186 273 a70 21 0 0 0 140 0"/>
+    <!-- Data bands (support the database metaphor) -->
+    <g fill="none" stroke="#2F7FD6" stroke-width="4.5" stroke-linecap="round">
+      <path d="M-21,-6 A21,7 0 0 0 21,-6"/>
+      <path d="M-21,6 A21,7 0 0 0 21,6"/>
     </g>
-
-    <!-- Single subtle top gloss (no thin streak that turns to noise at small size) -->
-    <ellipse cx="238" cy="199" rx="36" ry="9" fill="#ffffff" opacity="0.55"/>
   </g>
 </svg>
