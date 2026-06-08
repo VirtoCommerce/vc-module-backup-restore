@@ -120,9 +120,12 @@ angular.module('platformWebApp')
 
         if (!$scope.uploader) {
             // create the uploader
+            // Upload to shared blob storage (Assets module) under the backups folder, instead of the
+            // instance-local upload folder, so the restore background job can read the file on any
+            // instance in a multi-instance deployment.
             var uploader = $scope.uploader = new FileUploader({
                 scope: $scope,
-                url: 'api/assets/localstorage',
+                url: 'api/assets?folderUrl=backups',
                 method: 'POST',
                 autoUpload: true,
                 removeAfterUpload: true
@@ -146,7 +149,9 @@ angular.module('platformWebApp')
             };
 
             uploader.onSuccessItem = function (fileItem, asset, status, headers) {
-                $scope.importRequest.fileUrl = asset[0].url;
+                // Use the relative blob url (e.g. "backups/<name>") so the backend resolves and reads
+                // it from the configured blob store; the backend confines it to the backups folder.
+                $scope.importRequest.fileUrl = asset[0].relativeUrl;
                 $scope.importRequest.fileName = asset[0].name;
 
                 exportImportResourse.loadExportManifest({ fileUrl: $scope.importRequest.fileUrl }, function (data) {

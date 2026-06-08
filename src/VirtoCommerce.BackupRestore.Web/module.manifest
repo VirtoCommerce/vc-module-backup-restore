@@ -6,7 +6,7 @@
 
   <platformVersion>3.1035.0-alpha.13291-vcst-5208</platformVersion>
   <dependencies>
-    <!--<dependency id="VirtoCommerce.Core" version="3.1001.2" />-->
+    <dependency id="VirtoCommerce.Assets" version="3.1000.0" />
   </dependencies>
 
   <title>Backup &amp; Restore</title>

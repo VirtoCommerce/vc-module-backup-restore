@@ -10,6 +10,7 @@ using Hangfire.Server;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using VirtoCommerce.AssetsModule.Core.Assets;
 using VirtoCommerce.Platform.Core;
 using VirtoCommerce.Platform.Core.Common;
 using VirtoCommerce.Platform.Core.Exceptions;
@@ -36,6 +37,7 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
         private readonly IUserNameResolver _userNameResolver;
         private readonly PlatformOptions _platformOptions;
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IBlobStorageProvider _blobProvider;
 
         private static readonly object _lockObject = new();
 
@@ -45,7 +47,8 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
             ISettingsManager settingManager,
             IUserNameResolver userNameResolver,
             IOptions<PlatformOptions> options,
-            IHttpClientFactory httpClientFactory)
+            IHttpClientFactory httpClientFactory,
+            IBlobStorageProvider blobProvider)
         {
             _platformExportManager = platformExportManager;
             _pushNotifier = pushNotifier;
@@ -53,6 +56,7 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
             _userNameResolver = userNameResolver;
             _httpClientFactory = httpClientFactory;
             _platformOptions = options.Value;
+            _blobProvider = blobProvider;
         }
 
         [HttpGet]
@@ -151,17 +155,17 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
         [HttpGet]
         [Route("export/manifest/load")]
         [Authorize(Permissions.Import)]
-        public ActionResult<PlatformExportManifest> LoadExportManifest([FromQuery] string fileUrl)
+        public async Task<ActionResult<PlatformExportManifest>> LoadExportManifest([FromQuery] string fileUrl)
         {
             if (string.IsNullOrEmpty(fileUrl))
             {
                 throw new ArgumentNullException(nameof(fileUrl));
             }
 
-            var localPath = GetSafeFullPath(_platformOptions.LocalUploadFolderPath, fileUrl);
+            var blobUrl = BackupBlobUrl.GetSafe(fileUrl);
 
             PlatformExportManifest retVal;
-            using (var stream = new FileStream(localPath, FileMode.Open))
+            await using (var stream = await _blobProvider.OpenReadAsync(blobUrl))
             {
                 retVal = _platformExportManager.ReadExportManifest(stream);
             }
@@ -248,26 +252,25 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
 
                 await _pushNotifier.SendAsync(pushNotification);
 
-                var tmpPath = Path.GetFullPath(_platformOptions.LocalUploadFolderPath);
-                if (!Directory.Exists(tmpPath))
+                // Stage the downloaded sample data in shared blob storage (Assets module) instead of a
+                // local temp file, so the module performs no local file I/O.
+                var blobUrl = BackupBlobUrl.GetSafe(Path.GetFileName(url));
+
+                await using (var blobStream = await _blobProvider.OpenWriteAsync(blobUrl))
                 {
-                    Directory.CreateDirectory(tmpPath);
+                    await DownloadFileAsync(new Uri(url), blobStream, async (bytesReceived, bytesTotal) =>
+                    {
+                        cancellationToken.ThrowIfCancellationRequested();
+                        var message = $"Sample data {bytesReceived.ToHumanReadableSize()} of {bytesTotal.ToHumanReadableSize()} downloading...";
+                        if (message != pushNotification.Description)
+                        {
+                            pushNotification.Description = message;
+                            await _pushNotifier.SendAsync(pushNotification);
+                        }
+                    });
                 }
 
-                var tmpFilePath = Path.Combine(tmpPath, Path.GetFileName(url));
-
-                await DownloadFileAsync(new Uri(url), tmpFilePath, async (bytesReceived, bytesTotal) =>
-                {
-                    cancellationToken.ThrowIfCancellationRequested();
-                    var message = $"Sample data {bytesReceived.ToHumanReadableSize()} of {bytesTotal.ToHumanReadableSize()} downloading...";
-                    if (message != pushNotification.Description)
-                    {
-                        pushNotification.Description = message;
-                        await _pushNotifier.SendAsync(pushNotification);
-                    }
-                });
-
-                using (var stream = new FileStream(tmpFilePath, FileMode.Open))
+                await using (var stream = await _blobProvider.OpenReadAsync(blobUrl))
                 {
                     var manifest = _platformExportManager.ReadExportManifest(stream);
                     if (manifest != null)
@@ -275,6 +278,9 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
                         await _platformExportManager.ImportAsync(stream, manifest, progressCallback, cancellationToken);
                     }
                 }
+
+                // The staged sample data is consumed; remove it so it doesn't linger in blob storage.
+                await _blobProvider.RemoveAsync([blobUrl]);
             }
             catch (JobAbortedException)
             {
@@ -299,20 +305,7 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
         }
 
 
-        private static string GetSafeFullPath(string basePath, string relativePath)
-        {
-            var baseFullPath = Path.GetFullPath(basePath);
-            var result = Path.GetFullPath(Path.Combine(baseFullPath, relativePath));
-
-            if (!result.StartsWith(baseFullPath + Path.DirectorySeparatorChar))
-            {
-                throw new PlatformException($"Invalid path {relativePath}");
-            }
-
-            return result;
-        }
-
-        private async Task DownloadFileAsync(Uri uri, string filePath, Func<long, long, Task> progress)
+        private async Task DownloadFileAsync(Uri uri, Stream writeStream, Func<long, long, Task> progress)
         {
             var httpClient = _httpClientFactory.CreateClient();
 
@@ -328,7 +321,6 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
             var buffer = new byte[bufferSize];
 
             await using var readStream = await response.Content.ReadAsStreamAsync();
-            await using var writeStream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None, bufferSize, FileOptions.Asynchronous);
 
             while (true)
             {

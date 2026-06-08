@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using VirtoCommerce.AssetsModule.Core.Assets;
 using VirtoCommerce.Platform.Core;
 using VirtoCommerce.Platform.Core.Exceptions;
 using VirtoCommerce.Platform.Core.ExportImport;
@@ -41,6 +41,7 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
         private readonly IPushNotificationManager _pushNotifier;
         private readonly IUserNameResolver _userNameResolver;
         private readonly PlatformOptions _platformOptions;
+        private readonly IBlobStorageProvider _blobProvider;
         private readonly ILogger<BackupRestoreController> _logger;
         private readonly IDataProtector _protector;
 
@@ -49,6 +50,7 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
             IPushNotificationManager pushNotifier,
             IUserNameResolver userNameResolver,
             IOptions<PlatformOptions> options,
+            IBlobStorageProvider blobProvider,
             IDataProtectionProvider dataProtectionProvider,
             ILogger<BackupRestoreController> logger)
         {
@@ -56,6 +58,7 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
             _pushNotifier = pushNotifier;
             _userNameResolver = userNameResolver;
             _platformOptions = options.Value;
+            _blobProvider = blobProvider;
             _protector = dataProtectionProvider.CreateProtector(DataProtectionPurpose);
             _logger = logger;
         }
@@ -131,20 +134,28 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
         [HttpGet]
         [Route("export/download/{fileName}")]
         [Authorize(Permissions.Export)]
-        public ActionResult DownloadExportFile([FromRoute] string fileName)
+        public async Task<ActionResult> DownloadExportFile([FromRoute] string fileName)
         {
-            var localPath = GetSafeFullPath(_platformOptions.DefaultExportFolder, fileName);
+            // Backups live in shared blob storage (Assets module), so a download request can be served
+            // by any instance regardless of which one produced the backup.
+            var blobUrl = BackupBlobUrl.GetSafe(fileName);
 
-            //Load source data only from local file system
-            using (System.IO.File.Open(localPath, FileMode.Open))
+            var blobInfo = await _blobProvider.GetBlobInfoAsync(blobUrl);
+            if (blobInfo == null)
             {
-                var provider = new FileExtensionContentTypeProvider();
-                if (!provider.TryGetContentType(localPath, out var contentType))
-                {
-                    contentType = "application/octet-stream";
-                }
-                return PhysicalFile(localPath, contentType);
+                return NotFound();
             }
+
+            var provider = new FileExtensionContentTypeProvider();
+            if (!provider.TryGetContentType(fileName, out var contentType))
+            {
+                contentType = "application/octet-stream";
+            }
+
+            // Stream the blob through this authorized action rather than redirecting to the blob's
+            // public URL, so the Export permission check is preserved for the download too.
+            var stream = await _blobProvider.OpenReadAsync(blobUrl);
+            return File(stream, contentType, fileName);
         }
 
 
@@ -165,10 +176,11 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
             {
                 plainPassword = string.IsNullOrEmpty(protectedPassword) ? null : _protector.Unprotect(protectedPassword);
 
-                var localPath = GetSafeFullPath(_platformOptions.LocalUploadFolderPath, importRequest.FileUrl);
+                // The admin UI uploads the backup to blob storage (api/assets) and passes the
+                // resulting relative url here, so any instance can read it.
+                var blobUrl = BackupBlobUrl.GetSafe(importRequest.FileUrl);
 
-                //Load source data only from local file system
-                using (var stream = new FileStream(localPath, FileMode.Open))
+                await using (var stream = await _blobProvider.OpenReadAsync(blobUrl))
                 {
                     var manifest = importRequest.ToManifest();
                     manifest.Created = now;
@@ -180,6 +192,10 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
                     await _platformExportManager.ImportAsync(stream, manifest, ProgressCallback, cancellationToken);
                     manifest.Password = null;
                 }
+
+                // Restore succeeded: drop the uploaded backup from blob storage. On failure we
+                // intentionally leave it in place so the admin can retry without re-uploading.
+                await _blobProvider.RemoveAsync([blobUrl]);
             }
             catch (OperationCanceledException)
             {
@@ -221,21 +237,12 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
                 plainPassword = string.IsNullOrEmpty(protectedPassword) ? null : _protector.Unprotect(protectedPassword);
 
                 var fileName = string.Format(_platformOptions.DefaultExportFileName, DateTime.UtcNow);
-                var localTmpFolder = Path.GetFullPath(Path.Combine(_platformOptions.DefaultExportFolder));
-                var localTmpPath = Path.Combine(localTmpFolder, Path.GetFileName(fileName));
+                var blobUrl = BackupBlobUrl.GetSafe(fileName);
 
-                if (!Directory.Exists(localTmpFolder))
-                {
-                    Directory.CreateDirectory(localTmpFolder);
-                }
-
-                if (System.IO.File.Exists(localTmpPath))
-                {
-                    System.IO.File.Delete(localTmpPath);
-                }
-
-                //Import first to local tmp folder because Azure blob storage doesn't support some special file access mode
-                using (var stream = System.IO.File.OpenWrite(localTmpPath))
+                // Write the backup straight to shared blob storage. SharpZipLib's ZipOutputStream is a
+                // forward-only writer (it emits data descriptors when the target stream is non-seekable),
+                // so it works on the non-seekable write stream that cloud providers such as Azure return.
+                await using (var stream = await _blobProvider.OpenWriteAsync(blobUrl))
                 {
                     var manifest = exportRequest.ToManifest();
                     manifest.Password = plainPassword;
@@ -265,43 +272,6 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
                 pushNotification.Finished = DateTime.UtcNow;
                 await _pushNotifier.SendAsync(pushNotification);
             }
-        }
-
-        private static string GetSafeFullPath(string basePath, string relativePath)
-        {
-            // Reject inputs that should never be accepted as a filename in the export/upload
-            // folder before they reach `Path.Combine` / `Path.GetFullPath`. Two cases this
-            // catches that the post-resolution StartsWith check below misses:
-            //
-            //  * Whitespace-only input: `Path.GetFullPath(baseFullPath + "\\   ")` normalizes
-            //    the trailing whitespace away and returns `baseFullPath + "\\"`, which then
-            //    passes the StartsWith guard and lets the caller File.Open() the directory
-            //    itself (yielding a confusing FileNotFoundException instead of a clear 400).
-            //
-            //  * Embedded separators: `subdir/file.zip` resolves to a real path INSIDE the
-            //    base folder, so the StartsWith guard happily accepts it. But the download
-            //    endpoint's contract is "serve files DIRECTLY in the export folder, not
-            //    arbitrary descendants" — nested access widens the attack surface (e.g. an
-            //    operator who can write into a subfolder shouldn't be able to download from
-            //    it via this API). Reject any path separator outright.
-            if (string.IsNullOrWhiteSpace(relativePath))
-            {
-                throw new PlatformException("File name is required");
-            }
-            if (relativePath.IndexOfAny(['/', '\\']) >= 0)
-            {
-                throw new PlatformException($"Invalid path {relativePath}");
-            }
-
-            var baseFullPath = Path.GetFullPath(basePath);
-            var result = Path.GetFullPath(Path.Combine(baseFullPath, relativePath));
-
-            if (!result.StartsWith(baseFullPath + Path.DirectorySeparatorChar))
-            {
-                throw new PlatformException($"Invalid path {relativePath}");
-            }
-
-            return result;
         }
 
         private static string GeneratePassword()
