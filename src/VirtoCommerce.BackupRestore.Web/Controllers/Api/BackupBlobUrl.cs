@@ -27,8 +27,21 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
                 throw new PlatformException("File name is required");
             }
 
-            var normalized = relativePath.Replace('\\', '/').TrimStart('/');
-            foreach (var segment in normalized.Split('/'))
+            var prefix = ModuleConstants.BackupBlobFolder + "/";
+
+            // Build the returned value from the ORIGINAL (still-encoded) input so it round-trips
+            // through the provider's single percent-decode unchanged. Re-encoding or returning a
+            // decoded form would double-decode a filename that legitimately contains '%'.
+            var raw = relativePath.Replace('\\', '/').TrimStart('/');
+            var result = raw.StartsWith(prefix, StringComparison.OrdinalIgnoreCase) ? raw : prefix + raw;
+
+            // Validate against the DECODED value: blob providers percent-decode the url before
+            // resolving it to a real path (FileSystem via Uri.UnescapeDataString, Azure via
+            // HttpUtility.UrlDecode), so a check against the encoded string would miss an encoded
+            // separator such as "%2F" that decodes into a traversal (e.g.
+            // "a%2F..%2F..%2Fsecret.zip" -> "a/../../secret.zip", escaping the backups folder).
+            var decoded = Uri.UnescapeDataString(result).Replace('\\', '/');
+            foreach (var segment in decoded.Split('/'))
             {
                 if (segment == "..")
                 {
@@ -36,12 +49,8 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
                 }
             }
 
-            var prefix = ModuleConstants.BackupBlobFolder + "/";
-            var result = normalized.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)
-                ? normalized
-                : prefix + normalized;
-
-            var fileSegment = result.Substring(prefix.Length);
+            // The result must denote a single file DIRECTLY inside the backups folder.
+            var fileSegment = decoded.Substring(prefix.Length);
             if (fileSegment.Length == 0 || fileSegment.Contains('/'))
             {
                 throw new PlatformException($"Invalid path {relativePath}");

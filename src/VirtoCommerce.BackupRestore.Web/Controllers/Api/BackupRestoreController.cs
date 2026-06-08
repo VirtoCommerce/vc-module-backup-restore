@@ -193,9 +193,14 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
                     manifest.Password = null;
                 }
 
-                // Restore succeeded: drop the uploaded backup from blob storage. On failure we
-                // intentionally leave it in place so the admin can retry without re-uploading.
-                await _blobProvider.RemoveAsync([blobUrl]);
+                // Drop the uploaded backup only on a fully clean restore. ImportAsync records
+                // per-module/per-section failures as progress errors WITHOUT throwing, so a partial
+                // failure reaches this line normally — deleting then would leave the admin unable to
+                // retry without re-uploading. On any error (here or via the catch below) we keep it.
+                if (pushNotification.Errors.Count == 0)
+                {
+                    await _blobProvider.RemoveAsync([blobUrl]);
+                }
             }
             catch (OperationCanceledException)
             {
