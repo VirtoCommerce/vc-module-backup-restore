@@ -4,7 +4,7 @@
     <SonarQubeTestProject>false</SonarQubeTestProject>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="VirtoCommerce.Platform.Core" Version="3.1035.0-alpha.13291-vcst-5208" />
+    <PackageReference Include="VirtoCommerce.Platform.Core" Version="3.1037.0" />
     <PackageReference Include="SharpZipLib" Version="1.4.2" />
   </ItemGroup>
   <ItemGroup>
