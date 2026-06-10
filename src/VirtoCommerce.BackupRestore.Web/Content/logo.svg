@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="Backup and Restore">
+  <title>Backup and Restore</title>
+  <defs>
+    <!-- Subtle 2-step gradients, lighter hue top-left (~120 deg) -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="92%" y2="100%">
+      <stop offset="0%" stop-color="#5FC8F5"/>
+      <stop offset="100%" stop-color="#265FC6"/>
+    </linearGradient>
+    <linearGradient id="arrow" x1="0%" y1="0%" x2="92%" y2="100%">
+      <stop offset="0%" stop-color="#5BE3B0"/>
+      <stop offset="100%" stop-color="#0E9E80"/>
+    </linearGradient>
+    <linearGradient id="dbBody" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#CFE8FF"/>
+    </linearGradient>
+    <radialGradient id="dbTop" cx="42%" cy="38%" r="80%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#E6F3FF"/>
+    </radialGradient>
+    <!-- Soft drop shadow to define layers (light-on-dark) -->
+    <filter id="lift" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3.5" flood-color="#0B3F66" flood-opacity="0.30"/>
+    </filter>
+  </defs>
+
+  <!-- Background rounded square -->
+  <rect width="128" height="128" rx="28" fill="url(#bg)"/>
+
+  <!-- Backup & Restore glyph: database (backup) + circular arrow (restore) -->
+  <g transform="translate(64,64)" filter="url(#lift)">
+    <!-- Restore arrow: vibrant green loop with gap + arrowhead at top -->
+    <path d="M22.3,-35.6 A42,42 0 1 1 -22.3,-35.6" fill="none" stroke="url(#arrow)" stroke-width="10" stroke-linecap="round"/>
+    <polygon points="-8,-44 -16,-26 -29,-45" fill="#0E9E80"/>
+    <polygon points="-9,-42 -16,-28 -27,-43" fill="#5BE3B0"/>
+
+    <!-- Database cylinder (straight-on, top shown for volume) -->
+    <path d="M-21,-19 V18 A21,7 0 0 0 21,18 V-19 Z" fill="url(#dbBody)"/>
+    <ellipse cx="0" cy="-19" rx="21" ry="7" fill="url(#dbTop)"/>
+
+    <!-- Data bands (support the database metaphor) -->
+    <g fill="none" stroke="#2F7FD6" stroke-width="4.5" stroke-linecap="round">
+      <path d="M-21,-6 A21,7 0 0 0 21,-6"/>
+      <path d="M-21,6 A21,7 0 0 0 21,6"/>
+    </g>
+  </g>
+</svg>
