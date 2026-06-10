@@ -87,7 +87,10 @@ public class BackupRestoreManager : IBackupRestoreManager, IPlatformExportImport
         {
             Author = author,
             PlatformVersion = PlatformVersion.CurrentVersion.ToString(),
-            Modules = GetModulesWithImportSupport().Select(x => new ExportModuleInfo
+            // The export UI must offer exactly the modules that can actually be exported
+            // (IExportSupport). Using the import-support set here would both omit export-only
+            // modules from backups and list import-only modules that produce nothing on export.
+            Modules = GetModulesWithExportSupport().Select(x => new ExportModuleInfo
             {
                 Id = x.Id,
                 Version = x.Version.ToString()
@@ -686,7 +689,7 @@ public class BackupRestoreManager : IBackupRestoreManager, IPlatformExportImport
     {
         foreach (var module in manifest.Modules)
         {
-            var moduleDescriptor = GetModulesWithImportSupport().FirstOrDefault(x => x.Id == module.Id);
+            var moduleDescriptor = GetModulesWithExportSupport().FirstOrDefault(x => x.Id == module.Id);
             if (moduleDescriptor != null)
             {
                 //Create part for module
@@ -749,6 +752,11 @@ public class BackupRestoreManager : IBackupRestoreManager, IPlatformExportImport
     private IEnumerable<ManifestModuleInfo> GetModulesWithImportSupport()
     {
         return _moduleService.GetInstalledModules().Where(x => x.ModuleInstance is IImportSupport);
+    }
+
+    private IEnumerable<ManifestModuleInfo> GetModulesWithExportSupport()
+    {
+        return _moduleService.GetInstalledModules().Where(x => x.ModuleInstance is IExportSupport);
     }
 
     private static JsonSerializer GetJsonSerializer()
