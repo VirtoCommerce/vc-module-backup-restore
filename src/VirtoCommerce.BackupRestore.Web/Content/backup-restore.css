@@ -41,10 +41,73 @@
     margin-bottom: 10px;
 }
 
-/* Scrollable list so a large 'backups' folder doesn't blow out the blade height. */
+/* Name filter (shown only once the list is long enough to need it). */
+.backup-restore-import .existing-backups-filter {
+    position: relative;
+    margin: 10px 0;
+}
+
+.backup-restore-import .existing-backups-filter-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 7px 28px 7px 30px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #333;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.backup-restore-import .existing-backups-filter-input::placeholder {
+    color: #aaa;
+}
+
+.backup-restore-import .existing-backups-filter-input:focus {
+    border-color: #43b0e6;
+    box-shadow: 0 0 0 2px rgba(67, 176, 230, 0.2);
+}
+
+.backup-restore-import .existing-backups-filter-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    font-size: 13px;
+    pointer-events: none;
+}
+
+.backup-restore-import .existing-backups-filter-clear {
+    position: absolute;
+    right: 9px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #bbb;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.backup-restore-import .existing-backups-filter-clear:hover {
+    color: #888;
+}
+
+/* Scrollable list so a large 'backups' folder doesn't blow out the blade height.
+   This wrapper carries no platform class (the inner .table-wrapper does), so its overflow
+   can't be overridden by global table styles. */
 .backup-restore-import .existing-backups-list {
     max-height: 320px;
     overflow-y: auto;
+    overflow-x: hidden;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+}
+
+/* Drop the inner wrapper's own scrolling/margins so the outer wrapper is the sole scroller. */
+.backup-restore-import .existing-backups-list .table-wrapper {
+    overflow: visible;
+    margin: 0;
 }
 
 /* --- Upload progress --------------------------------------------------------------- */

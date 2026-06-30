@@ -55,28 +55,31 @@
                     </div>
                     <!-- The folder listing is not paged server-side, so a large folder is filtered
                          and scrolled here on the client. The filter shows only once it's useful. -->
-                    <div class="form-group" ng-show="existingBackups.length > 8">
-                        <div class="form-input">
-                            <input type="text" ng-model="backupFilter"
-                                   placeholder="{{ 'platform.blades.import-main.placeholders.filter-backups' | translate }}">
-                        </div>
+                    <div class="existing-backups-filter" ng-show="existingBackups.length > 8">
+                        <i class="fa fa-search existing-backups-filter-icon"></i>
+                        <input type="text" class="existing-backups-filter-input" ng-model="backupFilter"
+                               placeholder="{{ 'platform.blades.import-main.placeholders.filter-backups' | translate }}">
+                        <i class="fa fa-times-circle existing-backups-filter-clear"
+                           ng-show="backupFilter" ng-click="backupFilter = ''"></i>
                     </div>
-                    <div class="table-wrapper existing-backups-list" ng-show="existingBackups.length > 0">
-                        <table class="table __items">
-                            <tbody>
-                                <tr class="table-item"
-                                    ng-repeat="file in existingBackups | filter:{ name: backupFilter } as filteredBackups"
-                                    ng-click="selectExistingBackup(file)">
-                                    <td class="table-col">
-                                        <i class="table-ico fa fa-file-archive-o"></i>
-                                    </td>
-                                    <td class="table-col">
-                                        <span class="table-t">{{ file.name }}</span>
-                                        <span class="table-descr">{{ (file.size / 1048576) | number:1 }} MB &middot; {{ file.modifiedDate | date:'medium' }}</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="existing-backups-list" ng-show="existingBackups.length > 0">
+                        <div class="table-wrapper">
+                            <table class="table __items">
+                                <tbody>
+                                    <tr class="table-item"
+                                        ng-repeat="file in existingBackups | filter:{ name: backupFilter } as filteredBackups"
+                                        ng-click="selectExistingBackup(file)">
+                                        <td class="table-col">
+                                            <i class="table-ico fa fa-file-archive-o"></i>
+                                        </td>
+                                        <td class="table-col">
+                                            <span class="table-t">{{ file.name }}</span>
+                                            <span class="table-descr">{{ (file.size / 1048576) | number:1 }} MB &middot; {{ file.modifiedDate | date:'medium' }}</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div class="form-hint" ng-if="existingBackups.length > 0">
                         {{ 'platform.blades.import-main.labels.backup-count' | translate:{ shown: filteredBackups.length, total: existingBackups.length } }}

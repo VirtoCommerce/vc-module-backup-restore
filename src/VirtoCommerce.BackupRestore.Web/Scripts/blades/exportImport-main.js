@@ -26,10 +26,17 @@ angular.module('platformWebApp')
     // "Backup storage" option — only for users granted platform:backuprestore:storage.
     // Opens the Assets module's browser scoped to the backups folder (review / download /
     // cleanup), as a child blade — same approach as the Store module's assets widget.
-    $scope.canViewBackupStorage = authService.checkPermission('platform:backuprestore:storage');
+    //
+    // Must be a FUNCTION (not a cached boolean): on a hard reload (F5) of the deep link this
+    // controller can initialize before the current user's permissions have loaded, so a
+    // one-time checkPermission would latch to false and the row would never reappear. As a
+    // function, ng-if re-evaluates it each digest and the row shows once permissions arrive.
+    $scope.canViewBackupStorage = function () {
+        return authService.checkPermission('platform:backuprestore:storage');
+    };
 
     $scope.backupStorage = function () {
-        if (!$scope.canViewBackupStorage) {
+        if (!$scope.canViewBackupStorage()) {
             return;
         }
         $scope.selectedNodeId = 'backupStorage';
