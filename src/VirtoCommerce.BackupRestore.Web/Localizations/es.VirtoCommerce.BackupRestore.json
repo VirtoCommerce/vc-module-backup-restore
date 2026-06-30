@@ -135,7 +135,9 @@
           "upload-gateway-unavailable": "El servicio de subida no está disponible temporalmente. Inténtelo de nuevo en un momento.",
           "upload-unauthorized": "No tiene autorización para subir este archivo, o su sesión ha expirado. Inicie sesión de nuevo.",
           "upload-network": "La subida falló debido a un error de red o a una conexión interrumpida. Inténtelo de nuevo.",
-          "upload-failed-status": "La subida falló con el estado"
+          "upload-failed-status": "La subida falló con el estado",
+          "manifest-not-found": "La copia de seguridad seleccionada ya no está en el almacenamiento. Actualice la lista e inténtelo de nuevo.",
+          "manifest-load-failed": "No se pudo leer esta copia de seguridad. El archivo puede estar dañado o no fue creado por la copia de seguridad de datos de Virto Commerce."
         }
       },
       "exportImport-main": {

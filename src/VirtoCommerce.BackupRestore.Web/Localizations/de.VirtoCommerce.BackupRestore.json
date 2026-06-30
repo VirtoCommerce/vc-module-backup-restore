@@ -135,7 +135,9 @@
           "upload-gateway-unavailable": "Der Upload-Dienst ist vorübergehend nicht verfügbar. Bitte versuchen Sie es in Kürze erneut.",
           "upload-unauthorized": "Sie sind nicht berechtigt, diese Datei hochzuladen, oder Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.",
           "upload-network": "Der Upload ist aufgrund eines Netzwerkfehlers oder einer unterbrochenen Verbindung fehlgeschlagen. Bitte versuchen Sie es erneut.",
-          "upload-failed-status": "Upload fehlgeschlagen mit Status"
+          "upload-failed-status": "Upload fehlgeschlagen mit Status",
+          "manifest-not-found": "Die ausgewählte Sicherung ist nicht mehr im Speicher vorhanden. Aktualisieren Sie die Liste und versuchen Sie es erneut.",
+          "manifest-load-failed": "Diese Sicherung konnte nicht gelesen werden. Die Datei ist möglicherweise beschädigt oder wurde nicht von der Virto Commerce-Datensicherung erstellt."
         }
       },
       "exportImport-main": {

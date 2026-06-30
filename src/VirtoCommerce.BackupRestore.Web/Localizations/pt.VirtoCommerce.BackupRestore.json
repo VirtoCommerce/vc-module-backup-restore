@@ -135,7 +135,9 @@
           "upload-gateway-unavailable": "O serviço de envio está temporariamente indisponível. Tente novamente em instantes.",
           "upload-unauthorized": "Você não tem autorização para enviar este arquivo, ou sua sessão expirou. Faça login novamente.",
           "upload-network": "O envio falhou devido a um erro de rede ou a uma conexão interrompida. Tente novamente.",
-          "upload-failed-status": "Falha no envio com o status"
+          "upload-failed-status": "Falha no envio com o status",
+          "manifest-not-found": "O backup selecionado não está mais no armazenamento. Atualize a lista e tente novamente.",
+          "manifest-load-failed": "Não foi possível ler este backup. O arquivo pode estar corrompido ou não foi produzido pelo backup de dados do Virto Commerce."
         }
       },
       "exportImport-main": {

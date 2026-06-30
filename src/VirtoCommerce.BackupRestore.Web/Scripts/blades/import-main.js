@@ -210,7 +210,28 @@ angular.module('platformWebApp')
                 $scope.importRequest.exportManifest = data;
                 $scope.updateModuleSelection();
                 blade.isLoading = false;
+            }, function (response) {
+                // Manifest read failed (file missing/404, unauthorized, network, or the zip is
+                // corrupt / not a Virto Commerce backup). Without this the blade would stay
+                // stuck on the loading spinner with no message — most likely when picking a
+                // stale file from the storage list. Clear loading, keep the file name visible
+                // in the error row, and surface a specific reason so the user can retry or pick
+                // another backup. exportManifest stays null, so the drop zone + picker remain.
+                blade.isLoading = false;
+                $scope.importRequest.fileName = fileName;
+                bladeNavigationService.setError(describeManifestError(response && response.status, response && response.data), blade);
             });
+        }
+
+        // Plain-language reason for a failed manifest load, mapped from the HTTP status.
+        function describeManifestError(status, data) {
+            var t = function (k) { return $translate.instant('platform.blades.import-main.errors.' + k); };
+            if (status === 404) { return t('manifest-not-found'); }
+            if (status === 401 || status === 403) { return t('upload-unauthorized'); }
+            if (!status) { return t('upload-network'); }
+            // 4xx/5xx: prefer the backend's own message (e.g. a PlatformException), else generic.
+            var serverMsg = data && data.message ? data.message : null;
+            return serverMsg || t('manifest-load-failed');
         }
 
         $scope.$on("new-notification-event", function (event, notification) {

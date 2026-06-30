@@ -135,7 +135,9 @@
           "upload-gateway-unavailable": "Le service de téléversement est temporairement indisponible. Veuillez réessayer dans un instant.",
           "upload-unauthorized": "Vous n’êtes pas autorisé à téléverser ce fichier, ou votre session a expiré. Veuillez vous reconnecter.",
           "upload-network": "Le téléversement a échoué en raison d’une erreur réseau ou d’une connexion interrompue. Veuillez réessayer.",
-          "upload-failed-status": "Échec du téléversement avec le statut"
+          "upload-failed-status": "Échec du téléversement avec le statut",
+          "manifest-not-found": "La sauvegarde sélectionnée n’est plus dans le stockage. Actualisez la liste et réessayez.",
+          "manifest-load-failed": "Impossible de lire cette sauvegarde. Le fichier est peut-être corrompu ou n’a pas été produit par la sauvegarde de données Virto Commerce."
         }
       },
       "exportImport-main": {

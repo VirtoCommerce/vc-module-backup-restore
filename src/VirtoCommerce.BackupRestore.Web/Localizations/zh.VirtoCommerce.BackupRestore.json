@@ -135,7 +135,9 @@
           "upload-gateway-unavailable": "上传服务暂时不可用。请稍后重试。",
           "upload-unauthorized": "您无权上传此文件，或您的会话已过期。请重新登录。",
           "upload-network": "由于网络错误或连接中断，上传失败。请重试。",
-          "upload-failed-status": "上传失败，状态"
+          "upload-failed-status": "上传失败，状态",
+          "manifest-not-found": "所选备份已不在存储中。请刷新列表后重试。",
+          "manifest-load-failed": "无法读取此备份。该文件可能已损坏，或不是由 Virto Commerce 数据备份生成的。"
         }
       },
       "exportImport-main": {

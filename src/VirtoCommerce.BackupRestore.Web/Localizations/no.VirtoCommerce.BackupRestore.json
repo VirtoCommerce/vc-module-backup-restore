@@ -135,7 +135,9 @@
           "upload-gateway-unavailable": "Opplastingstjenesten er midlertidig utilgjengelig. Prøv igjen om litt.",
           "upload-unauthorized": "Du har ikke tillatelse til å laste opp denne filen, eller økten din har utløpt. Logg inn på nytt.",
           "upload-network": "Opplastingen mislyktes på grunn av en nettverksfeil eller en avbrutt tilkobling. Prøv igjen.",
-          "upload-failed-status": "Opplasting mislyktes med status"
+          "upload-failed-status": "Opplasting mislyktes med status",
+          "manifest-not-found": "Den valgte sikkerhetskopien finnes ikke lenger i lagringen. Oppdater listen og prøv igjen.",
+          "manifest-load-failed": "Kunne ikke lese denne sikkerhetskopien. Filen kan være skadet eller ble ikke laget av Virto Commerce-datasikkerhetskopiering."
         }
       },
       "exportImport-main": {

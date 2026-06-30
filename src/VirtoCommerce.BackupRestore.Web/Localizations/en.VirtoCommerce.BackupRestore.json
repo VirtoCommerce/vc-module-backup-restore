@@ -112,7 +112,9 @@
           "upload-gateway-unavailable": "The upload service is temporarily unavailable. Please try again in a moment.",
           "upload-unauthorized": "You are not authorized to upload this file, or your session has expired. Please sign in again.",
           "upload-network": "The upload failed because of a network error or an interrupted connection. Please try again.",
-          "upload-failed-status": "Upload failed with status"
+          "upload-failed-status": "Upload failed with status",
+          "manifest-not-found": "The selected backup is no longer in storage. Refresh the list and try again.",
+          "manifest-load-failed": "Could not read this backup. The file may be corrupted or was not produced by Virto Commerce data backup."
         },
         "menu": {
           "security": {

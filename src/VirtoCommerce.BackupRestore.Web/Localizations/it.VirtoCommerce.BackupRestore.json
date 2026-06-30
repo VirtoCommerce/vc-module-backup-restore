@@ -135,7 +135,9 @@
           "upload-gateway-unavailable": "Il servizio di caricamento è temporaneamente non disponibile. Riprova tra poco.",
           "upload-unauthorized": "Non disponi dell’autorizzazione per caricare questo file oppure la sessione è scaduta. Effettua di nuovo l’accesso.",
           "upload-network": "Il caricamento non è riuscito a causa di un errore di rete o di una connessione interrotta. Riprova.",
-          "upload-failed-status": "Caricamento non riuscito con stato"
+          "upload-failed-status": "Caricamento non riuscito con stato",
+          "manifest-not-found": "Il backup selezionato non è più presente nell’archivio. Aggiorna l’elenco e riprova.",
+          "manifest-load-failed": "Impossibile leggere questo backup. Il file potrebbe essere danneggiato o non è stato prodotto dal backup dei dati di Virto Commerce."
         }
       },
       "exportImport-main": {

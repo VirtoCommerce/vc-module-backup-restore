@@ -135,7 +135,9 @@
           "upload-gateway-unavailable": "Uppladdningstjänsten är tillfälligt otillgänglig. Försök igen om en stund.",
           "upload-unauthorized": "Du har inte behörighet att ladda upp den här filen, eller så har din session löpt ut. Logga in igen.",
           "upload-network": "Uppladdningen misslyckades på grund av ett nätverksfel eller en avbruten anslutning. Försök igen.",
-          "upload-failed-status": "Uppladdningen misslyckades med status"
+          "upload-failed-status": "Uppladdningen misslyckades med status",
+          "manifest-not-found": "Den valda säkerhetskopian finns inte längre i lagringen. Uppdatera listan och försök igen.",
+          "manifest-load-failed": "Det gick inte att läsa den här säkerhetskopian. Filen kan vara skadad eller skapades inte av Virto Commerce-datasäkerhetskopiering."
         }
       },
       "exportImport-main": {

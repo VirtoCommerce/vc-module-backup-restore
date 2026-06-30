@@ -135,7 +135,9 @@
           "upload-gateway-unavailable": "Latauspalvelu ei ole tilapäisesti käytettävissä. Yritä hetken kuluttua uudelleen.",
           "upload-unauthorized": "Sinulla ei ole oikeutta ladata tätä tiedostoa, tai istuntosi on vanhentunut. Kirjaudu uudelleen sisään.",
           "upload-network": "Lataus epäonnistui verkkovirheen tai katkenneen yhteyden vuoksi. Yritä uudelleen.",
-          "upload-failed-status": "Lataus epäonnistui tilakoodilla"
+          "upload-failed-status": "Lataus epäonnistui tilakoodilla",
+          "manifest-not-found": "Valittua varmuuskopiota ei enää ole tallennustilassa. Päivitä luettelo ja yritä uudelleen.",
+          "manifest-load-failed": "Tätä varmuuskopiota ei voitu lukea. Tiedosto voi olla vioittunut tai sitä ei ole luotu Virto Commerce -datavarmuuskopiolla."
         }
       },
       "exportImport-main": {

@@ -135,7 +135,9 @@
           "upload-gateway-unavailable": "Usługa przesyłania jest tymczasowo niedostępna. Spróbuj ponownie za chwilę.",
           "upload-unauthorized": "Nie masz uprawnień do przesłania tego pliku lub Twoja sesja wygasła. Zaloguj się ponownie.",
           "upload-network": "Przesyłanie nie powiodło się z powodu błędu sieci lub przerwanego połączenia. Spróbuj ponownie.",
-          "upload-failed-status": "Przesyłanie nie powiodło się ze statusem"
+          "upload-failed-status": "Przesyłanie nie powiodło się ze statusem",
+          "manifest-not-found": "Wybrana kopia zapasowa nie znajduje się już w magazynie. Odśwież listę i spróbuj ponownie.",
+          "manifest-load-failed": "Nie można odczytać tej kopii zapasowej. Plik może być uszkodzony lub nie został utworzony przez kopię zapasową danych Virto Commerce."
         }
       },
       "exportImport-main": {
