@@ -22,7 +22,8 @@
           "copy-log": "Protokoll kopieren",
           "download-backup": "Sicherung herunterladen",
           "backup-password": "Sicherungspasswort",
-          "password-shown-once": "Nur einmal angezeigt"
+          "password-shown-once": "Nur einmal angezeigt",
+          "start-backup": "Sicherung starten"
         },
         "menu": {
           "security": {
@@ -84,7 +85,15 @@
           "copy-error": "Fehler kopieren",
           "copy-log": "Protokoll kopieren",
           "password-section": "Sicherungspasswort",
-          "password": "Sicherungspasswort"
+          "password": "Sicherungspasswort",
+          "uploading": "Wird hochgeladen…",
+          "upload-processing": "Upload abgeschlossen — wird auf dem Server überprüft…",
+          "cancel-upload": "Upload abbrechen",
+          "existing-backups": "Oder aus einer bereits im Speicher vorhandenen Sicherung wiederherstellen",
+          "no-existing-backups": "Keine Sicherungen im Speicher gefunden. Laden Sie oben eine hoch oder kopieren Sie eine Sicherung in den Ordner 'backups' im Speicher und aktualisieren Sie dann.",
+          "backup-count": "{{shown}} von {{total}} werden angezeigt",
+          "refresh": "Aktualisieren",
+          "back": "Zurück"
         },
         "menu": {
           "security": {
@@ -110,13 +119,23 @@
           "security-data-admin-preserved": "Ihr eigenes Administrator-Konto ({{username}}) wird nicht geändert — Ihr Passwort und Ihre aktive Sitzung bleiben erhalten."
         },
         "placeholders": {
-          "password": "Geben Sie das bei der Erstellung dieser Sicherung angezeigte Passwort ein"
+          "password": "Geben Sie das bei der Erstellung dieser Sicherung angezeigte Passwort ein",
+          "filter-backups": "Sicherungen nach Name filtern…"
         },
         "hints": {
-          "password": "Geben Sie das bei der Erstellung dieser Sicherung angezeigte Passwort ein."
+          "password": "Geben Sie das bei der Erstellung dieser Sicherung angezeigte Passwort ein.",
+          "existing-backups": "Verwenden Sie eine bereits im Blob-Speicher vorhandene Datei, anstatt sie hochzuladen."
         },
         "errors": {
-          "wrong-password": "Falsches Passwort. Bitte versuchen Sie es erneut."
+          "wrong-password": "Falsches Passwort. Bitte versuchen Sie es erneut.",
+          "upload-too-large": "Diese Datei ist zu groß für den Upload — sie überschreitet das Upload-Größenlimit des Servers (in dieser Umgebung typischerweise 100 MB). Verwenden Sie eine kleinere Sicherung (schließen Sie z. B. Binärdaten aus) oder bitten Sie Ihren Administrator, das Limit zu erhöhen.",
+          "upload-no-response": "Die Datei wurde gesendet, aber der Server hat nicht geantwortet. Das bedeutet normalerweise, dass die Datei das Upload-Größenlimit (oft 100 MB) überschreitet. Versuchen Sie eine kleinere Sicherung oder bitten Sie Ihren Administrator, das Limit zu erhöhen.",
+          "upload-stalled": "Der Upload ist ins Stocken geraten — eine Zeit lang wurden keine Daten übertragen. Überprüfen Sie Ihre Netzwerkverbindung und versuchen Sie es erneut.",
+          "upload-gateway-timeout": "Der Server hat beim Empfang der Datei nicht rechtzeitig geantwortet. Große Uploads können das Gateway-Timeout überschreiten — versuchen Sie es erneut oder verwenden Sie eine kleinere Sicherung.",
+          "upload-gateway-unavailable": "Der Upload-Dienst ist vorübergehend nicht verfügbar. Bitte versuchen Sie es in Kürze erneut.",
+          "upload-unauthorized": "Sie sind nicht berechtigt, diese Datei hochzuladen, oder Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.",
+          "upload-network": "Der Upload ist aufgrund eines Netzwerkfehlers oder einer unterbrochenen Verbindung fehlgeschlagen. Bitte versuchen Sie es erneut.",
+          "upload-failed-status": "Upload fehlgeschlagen mit Status"
         }
       },
       "exportImport-main": {
@@ -129,6 +148,10 @@
           "import": {
             "title": "Wiederherstellung",
             "description": "Stellen Sie Daten aus einer Sicherungsdatei für die zukünftige Nutzung wieder her"
+          },
+          "storage": {
+            "title": "Sicherungsspeicher",
+            "description": "Sicherungsdateien im Speicher überprüfen und bereinigen"
           }
         }
       }
@@ -141,8 +164,9 @@
     }
   },
   "permissions": {
-    "platform:exportImport:access": "Backup/Wiederherstellung im Hauptmenü anzeigen",
-    "platform:export": "Plattform- und Modul-Daten sichern",
-    "platform:import": "Plattform- und Modul-Daten wiederherstellen"
+    "platform:backuprestore:access": "Backup/Wiederherstellung im Hauptmenü anzeigen",
+    "platform:backuprestore:backup": "Plattform- und Modul-Daten sichern",
+    "platform:backuprestore:restore": "Plattform- und Modul-Daten wiederherstellen",
+    "platform:backuprestore:storage": "Den Sicherungsspeicher-Ordner anzeigen und verwalten"
   }
 }

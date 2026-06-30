@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using VirtoCommerce.AssetsModule.Core.Assets;
+using VirtoCommerce.BackupRestore.Core;
 using VirtoCommerce.Platform.Core;
 using VirtoCommerce.Platform.Core.Exceptions;
 using VirtoCommerce.Platform.Core.ExportImport;
@@ -18,8 +19,6 @@ using VirtoCommerce.Platform.Core.ExportImport.PushNotifications;
 using VirtoCommerce.Platform.Core.Modularity;
 using VirtoCommerce.Platform.Core.PushNotifications;
 using VirtoCommerce.Platform.Core.Security;
-
-using VirtoCommerce.BackupRestore.Core;
 using Permissions = VirtoCommerce.BackupRestore.Core.ModuleConstants.Security.Permissions;
 
 namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
@@ -66,7 +65,7 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
 
         [HttpPost]
         [Route("export")]
-        [Authorize(Permissions.Export)]
+        [Authorize(Permissions.Backup)]
         public ActionResult<PlatformExportStartedResult> ProcessExport([FromBody] PlatformImportExportRequest exportRequest)
         {
             var notification = new PlatformExportPushNotification(_userNameResolver.GetCurrentUserName())
@@ -99,7 +98,7 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
 
         [HttpPost]
         [Route("import")]
-        [Authorize(Permissions.Import)]
+        [Authorize(Permissions.Restore)]
         public ActionResult<PlatformImportPushNotification> ProcessImport([FromBody] PlatformImportExportRequest importRequest)
         {
             var notification = new PlatformImportPushNotification(_userNameResolver.GetCurrentUserName())
@@ -133,7 +132,7 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
 
         [HttpGet]
         [Route("export/download/{fileName}")]
-        [Authorize(Permissions.Export)]
+        [Authorize(Permissions.Backup)]
         public async Task<ActionResult> DownloadExportFile([FromRoute] string fileName)
         {
             // Backups live in shared blob storage (Assets module), so a download request can be served

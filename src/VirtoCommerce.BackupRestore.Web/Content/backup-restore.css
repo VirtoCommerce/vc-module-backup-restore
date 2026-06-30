@@ -1,0 +1,55 @@
+/* Custom styles for the Backup & Restore "Data restore" blade.
+   Everything is scoped under .backup-restore-import so it can't leak into other blades.
+   The module otherwise relies on the platform's global classes. */
+
+/* --- "Or restore from a backup already in storage" picker -------------------------- */
+
+/* Title row: title + help icon on the left, refresh pushed to the far right. */
+.backup-restore-import .existing-backups-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.backup-restore-import .existing-backups-header .existing-backups-title {
+    flex: 1 1 auto;
+    margin: 0;
+}
+
+.backup-restore-import .existing-backups-header .existing-backups-refresh {
+    flex: 0 0 auto;
+    margin-left: auto;
+}
+
+/* Spacing between the title and its help icon (the refresh icon is positioned
+   separately via margin-left:auto, so scope this to the title only). */
+.backup-restore-import .existing-backups-title .form-ico {
+    margin-left: 8px;
+}
+
+/* Compact, muted hint text. */
+.backup-restore-import .form-hint {
+    color: #999;
+    font-size: 12px;
+    margin: 5px 0 0;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+/* The toggled description sits right under the title; tighten the gap. */
+.backup-restore-import .existing-backups-description {
+    margin-bottom: 10px;
+}
+
+/* Scrollable list so a large 'backups' folder doesn't blow out the blade height. */
+.backup-restore-import .existing-backups-list {
+    max-height: 320px;
+    overflow-y: auto;
+}
+
+/* --- Upload progress --------------------------------------------------------------- */
+
+/* Spacing for the cancel-upload action under the progress bar. */
+.backup-restore-import .cancel-upload {
+    margin-top: 15px;
+}

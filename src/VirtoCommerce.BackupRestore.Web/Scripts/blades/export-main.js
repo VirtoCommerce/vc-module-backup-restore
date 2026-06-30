@@ -37,7 +37,7 @@ angular.module('platformWebApp')
         });
 
         $scope.canStartProcess = function () {
-            return authService.checkPermission('platform:export') && (_.any($scope.exportRequest.modules) || $scope.exportRequest.handleSecurity || $scope.exportRequest.handleSettings || $scope.exportRequest.handleDynamicProperties);
+            return authService.checkPermission('platform:backuprestore:backup') && (_.any($scope.exportRequest.modules) || $scope.exportRequest.handleSecurity || $scope.exportRequest.handleSettings || $scope.exportRequest.handleDynamicProperties);
         }
 
         $scope.updateModuleSelection = function () {
@@ -62,7 +62,13 @@ angular.module('platformWebApp')
                     blade.isLoading = false;
                 });
 
-            blade.toolbarCommands.splice(0, 2, commandCancel);
+            // Swap the start command for cancel while the job runs, wherever it sits in the
+            // toolbar. Select/Unselect stay but disable themselves (canExecuteMethod) once a
+            // notification is active.
+            var startIndex = blade.toolbarCommands.indexOf(commandStart);
+            if (startIndex >= 0) {
+                blade.toolbarCommands.splice(startIndex, 1, commandCancel);
+            }
         };
 
         $scope.copyBackupPassword = function () {
@@ -91,12 +97,14 @@ angular.module('platformWebApp')
             }
         };
 
+        var commandStart = {
+            name: "platform.blades.export-main.labels.start-backup", icon: 'fa fa-upload',
+            executeMethod: () => startExport(),
+            canExecuteMethod: () => $scope.canStartProcess() && !blade.notification
+        };
+
+        // Toolbar order: Select all, Unselect all, Start backup.
         blade.toolbarCommands = [
-            {
-                name: "platform.commands.start-export", icon: 'fa fa-upload',
-                executeMethod: () => startExport(),
-                canExecuteMethod: () => $scope.canStartProcess() && !blade.notification
-            },
             {
                 name: "platform.commands.select-all", icon: 'far fa-check-square',
                 executeMethod: () => selectAll(true),
@@ -106,7 +114,8 @@ angular.module('platformWebApp')
                 name: "platform.commands.unselect-all", icon: 'far fa-square',
                 executeMethod: () => selectAll(false),
                 canExecuteMethod: () => $scope.exportRequest.exportManifest && !blade.notification && $scope.canStartProcess()
-            }
+            },
+            commandStart
         ];
 
         var selectAll = function (action) {

@@ -94,7 +94,7 @@ angular.module('platformWebApp')
                 title: 'platform.menu.export-import',
                 priority: 10,
                 action: function () { $state.go('workspace.exportImport'); },
-                permission: 'platform:exportImport:access'
+                permission: 'platform:backuprestore:access'
             };
             mainMenuService.addMenuItem(menuItem);
 

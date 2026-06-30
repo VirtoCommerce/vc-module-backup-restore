@@ -22,7 +22,8 @@
           "copy-log": "Copiar registro",
           "download-backup": "Descargar copia de seguridad",
           "backup-password": "Contraseña de copia de seguridad",
-          "password-shown-once": "Mostrada solo una vez"
+          "password-shown-once": "Mostrada solo una vez",
+          "start-backup": "Iniciar copia de seguridad"
         },
         "menu": {
           "security": {
@@ -84,7 +85,15 @@
           "copy-error": "Copiar error",
           "copy-log": "Copiar registro",
           "password-section": "Contraseña de copia de seguridad",
-          "password": "Contraseña de copia de seguridad"
+          "password": "Contraseña de copia de seguridad",
+          "uploading": "Subiendo…",
+          "upload-processing": "Subida completa — validando en el servidor…",
+          "cancel-upload": "Cancelar subida",
+          "existing-backups": "O restaurar desde una copia de seguridad ya existente en el almacenamiento",
+          "no-existing-backups": "No se encontraron copias de seguridad en el almacenamiento. Suba una arriba o copie una copia de seguridad en la carpeta 'backups' del almacenamiento y luego actualice.",
+          "backup-count": "Mostrando {{shown}} de {{total}}",
+          "refresh": "Actualizar",
+          "back": "Atrás"
         },
         "menu": {
           "security": {
@@ -110,13 +119,23 @@
           "security-data-admin-preserved": "Su propia cuenta de administrador ({{username}}) no se modificará — se conserva su contraseña y su sesión activa."
         },
         "placeholders": {
-          "password": "Introduzca la contraseña mostrada cuando se creó esta copia de seguridad"
+          "password": "Introduzca la contraseña mostrada cuando se creó esta copia de seguridad",
+          "filter-backups": "Filtrar copias de seguridad por nombre…"
         },
         "hints": {
-          "password": "Introduzca la contraseña mostrada cuando se creó esta copia de seguridad."
+          "password": "Introduzca la contraseña mostrada cuando se creó esta copia de seguridad.",
+          "existing-backups": "Reutilice un archivo que ya está en el almacenamiento de blobs en lugar de subirlo."
         },
         "errors": {
-          "wrong-password": "Contraseña incorrecta. Inténtelo de nuevo."
+          "wrong-password": "Contraseña incorrecta. Inténtelo de nuevo.",
+          "upload-too-large": "Este archivo es demasiado grande para subirlo — supera el límite de tamaño de subida del servidor (normalmente 100 MB en este entorno). Use una copia de seguridad más pequeña (por ejemplo, excluya los datos binarios) o pida a su administrador que aumente el límite.",
+          "upload-no-response": "El archivo se envió, pero el servidor no respondió. Esto normalmente significa que el archivo supera el límite de tamaño de subida (a menudo 100 MB). Pruebe con una copia de seguridad más pequeña o pida a su administrador que aumente el límite.",
+          "upload-stalled": "La subida se detuvo — no se transfirieron datos durante un tiempo. Compruebe su conexión de red e inténtelo de nuevo.",
+          "upload-gateway-timeout": "El servidor no respondió a tiempo al recibir el archivo. Las subidas grandes pueden superar el tiempo de espera de la puerta de enlace — inténtelo de nuevo o use una copia de seguridad más pequeña.",
+          "upload-gateway-unavailable": "El servicio de subida no está disponible temporalmente. Inténtelo de nuevo en un momento.",
+          "upload-unauthorized": "No tiene autorización para subir este archivo, o su sesión ha expirado. Inicie sesión de nuevo.",
+          "upload-network": "La subida falló debido a un error de red o a una conexión interrumpida. Inténtelo de nuevo.",
+          "upload-failed-status": "La subida falló con el estado"
         }
       },
       "exportImport-main": {
@@ -129,6 +148,10 @@
           "import": {
             "title": "Restauración",
             "description": "Restaurar datos desde un archivo de copia de seguridad para su uso futuro"
+          },
+          "storage": {
+            "title": "Almacenamiento de copias de seguridad",
+            "description": "Revisar y limpiar los archivos de copia de seguridad en el almacenamiento"
           }
         }
       }
@@ -141,8 +164,9 @@
     }
   },
   "permissions": {
-    "platform:exportImport:access": "Ver Copia de seguridad/Restauración en el menú principal",
-    "platform:export": "Hacer copia de seguridad de la plataforma y módulos",
-    "platform:import": "Restaurar datos de la plataforma y módulos"
+    "platform:backuprestore:access": "Ver Copia de seguridad/Restauración en el menú principal",
+    "platform:backuprestore:backup": "Hacer copia de seguridad de la plataforma y módulos",
+    "platform:backuprestore:restore": "Restaurar datos de la plataforma y módulos",
+    "platform:backuprestore:storage": "Ver y gestionar la carpeta de almacenamiento de copias de seguridad"
   }
 }

@@ -22,7 +22,8 @@
           "copy-log": "Copia registro",
           "download-backup": "Scarica backup",
           "backup-password": "Password del backup",
-          "password-shown-once": "Mostrata una sola volta"
+          "password-shown-once": "Mostrata una sola volta",
+          "start-backup": "Avvia backup"
         },
         "menu": {
           "security": {
@@ -84,7 +85,15 @@
           "copy-error": "Copia errore",
           "copy-log": "Copia registro",
           "password-section": "Password del backup",
-          "password": "Password del backup"
+          "password": "Password del backup",
+          "uploading": "Caricamento…",
+          "upload-processing": "Caricamento completato — convalida sul server…",
+          "cancel-upload": "Annulla caricamento",
+          "existing-backups": "Oppure ripristina da un backup già presente nell’archivio",
+          "no-existing-backups": "Nessun backup trovato nell'archivio. Caricane uno sopra oppure copia un backup nella cartella 'backups' dell'archivio, quindi aggiorna.",
+          "backup-count": "Visualizzati {{shown}} di {{total}}",
+          "refresh": "Aggiorna",
+          "back": "Indietro"
         },
         "menu": {
           "security": {
@@ -110,13 +119,23 @@
           "security-data-admin-preserved": "Il tuo account amministratore ({{username}}) non sarà modificato — la tua password e la sessione attiva sono preservate."
         },
         "placeholders": {
-          "password": "Inserisci la password mostrata quando è stato creato questo backup"
+          "password": "Inserisci la password mostrata quando è stato creato questo backup",
+          "filter-backups": "Filtra i backup per nome…"
         },
         "hints": {
-          "password": "Inserisci la password mostrata quando è stato creato questo backup."
+          "password": "Inserisci la password mostrata quando è stato creato questo backup.",
+          "existing-backups": "Riutilizza un file già presente nell’archivio blob invece di caricarlo."
         },
         "errors": {
-          "wrong-password": "Password non corretta. Riprova."
+          "wrong-password": "Password non corretta. Riprova.",
+          "upload-too-large": "Questo file è troppo grande per essere caricato — supera il limite di dimensione di caricamento del server (in genere 100 MB in questo ambiente). Usa un backup più piccolo (ad esempio, escludi i dati binari) o chiedi all’amministratore di aumentare il limite.",
+          "upload-no-response": "Il file è stato inviato, ma il server non ha mai risposto. Di solito significa che il file supera il limite di dimensione di caricamento (spesso 100 MB). Prova con un backup più piccolo o chiedi all’amministratore di aumentare il limite.",
+          "upload-stalled": "Il caricamento si è bloccato — non è stato trasferito alcun dato per un po’. Controlla la connessione di rete e riprova.",
+          "upload-gateway-timeout": "Il server non ha risposto in tempo durante la ricezione del file. I caricamenti di grandi dimensioni possono superare il timeout del gateway — riprova o usa un backup più piccolo.",
+          "upload-gateway-unavailable": "Il servizio di caricamento è temporaneamente non disponibile. Riprova tra poco.",
+          "upload-unauthorized": "Non disponi dell’autorizzazione per caricare questo file oppure la sessione è scaduta. Effettua di nuovo l’accesso.",
+          "upload-network": "Il caricamento non è riuscito a causa di un errore di rete o di una connessione interrotta. Riprova.",
+          "upload-failed-status": "Caricamento non riuscito con stato"
         }
       },
       "exportImport-main": {
@@ -129,6 +148,10 @@
           "import": {
             "title": "Ripristino",
             "description": "Ripristina i dati da un file di backup per utilizzi futuri"
+          },
+          "storage": {
+            "title": "Archivio dei backup",
+            "description": "Esamina e pulisci i file di backup nell’archivio"
           }
         }
       }
@@ -141,8 +164,9 @@
     }
   },
   "permissions": {
-    "platform:exportImport:access": "Visualizza Backup/Ripristino nel menu principale",
-    "platform:export": "Esegui il backup della piattaforma e dei moduli",
-    "platform:import": "Ripristina dati della piattaforma e dei moduli"
+    "platform:backuprestore:access": "Visualizza Backup/Ripristino nel menu principale",
+    "platform:backuprestore:backup": "Esegui il backup della piattaforma e dei moduli",
+    "platform:backuprestore:restore": "Ripristina dati della piattaforma e dei moduli",
+    "platform:backuprestore:storage": "Visualizza e gestisci la cartella di archiviazione dei backup"
   }
 }

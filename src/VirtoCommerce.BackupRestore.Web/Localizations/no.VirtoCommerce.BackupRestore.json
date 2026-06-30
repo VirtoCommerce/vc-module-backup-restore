@@ -22,7 +22,8 @@
           "copy-log": "Kopier logg",
           "download-backup": "Last ned sikkerhetskopi",
           "backup-password": "Sikkerhetskopipassord",
-          "password-shown-once": "Vises kun én gang"
+          "password-shown-once": "Vises kun én gang",
+          "start-backup": "Start sikkerhetskopiering"
         },
         "menu": {
           "security": {
@@ -84,7 +85,15 @@
           "copy-error": "Kopier feil",
           "copy-log": "Kopier logg",
           "password-section": "Sikkerhetskopipassord",
-          "password": "Sikkerhetskopipassord"
+          "password": "Sikkerhetskopipassord",
+          "uploading": "Laster opp…",
+          "upload-processing": "Opplasting fullført — validerer på serveren…",
+          "cancel-upload": "Avbryt opplasting",
+          "existing-backups": "Eller gjenopprett fra en sikkerhetskopi som allerede finnes i lagringen",
+          "no-existing-backups": "Ingen sikkerhetskopier funnet i lagringen. Last opp en ovenfor, eller kopier en sikkerhetskopi til 'backups'-mappen i lagringen, og oppdater deretter.",
+          "backup-count": "Viser {{shown}} av {{total}}",
+          "refresh": "Oppdater",
+          "back": "Tilbake"
         },
         "menu": {
           "security": {
@@ -110,13 +119,23 @@
           "security-data-admin-preserved": "Din egen administratorkonto ({{username}}) vil ikke bli endret — passordet og den aktive økten beholdes."
         },
         "placeholders": {
-          "password": "Skriv inn passordet som ble vist da denne sikkerhetskopien ble opprettet"
+          "password": "Skriv inn passordet som ble vist da denne sikkerhetskopien ble opprettet",
+          "filter-backups": "Filtrer sikkerhetskopier etter navn…"
         },
         "hints": {
-          "password": "Skriv inn passordet som ble vist da denne sikkerhetskopien ble opprettet."
+          "password": "Skriv inn passordet som ble vist da denne sikkerhetskopien ble opprettet.",
+          "existing-backups": "Gjenbruk en fil som allerede finnes i blob-lagringen i stedet for å laste den opp."
         },
         "errors": {
-          "wrong-password": "Feil passord. Prøv igjen."
+          "wrong-password": "Feil passord. Prøv igjen.",
+          "upload-too-large": "Denne filen er for stor til å lastes opp — den overskrider serverens grense for opplastingsstørrelse (vanligvis 100 MB i dette miljøet). Bruk en mindre sikkerhetskopi (ekskluder for eksempel binærdata), eller be administratoren om å øke grensen.",
+          "upload-no-response": "Filen ble sendt, men serveren svarte aldri. Dette betyr vanligvis at filen overskrider grensen for opplastingsstørrelse (ofte 100 MB). Prøv en mindre sikkerhetskopi, eller be administratoren om å øke grensen.",
+          "upload-stalled": "Opplastingen stoppet opp — ingen data ble overført på en stund. Kontroller nettverkstilkoblingen og prøv igjen.",
+          "upload-gateway-timeout": "Serveren svarte ikke i tide mens filen ble mottatt. Store opplastinger kan overskride gateway-tidsavbruddet — prøv igjen eller bruk en mindre sikkerhetskopi.",
+          "upload-gateway-unavailable": "Opplastingstjenesten er midlertidig utilgjengelig. Prøv igjen om litt.",
+          "upload-unauthorized": "Du har ikke tillatelse til å laste opp denne filen, eller økten din har utløpt. Logg inn på nytt.",
+          "upload-network": "Opplastingen mislyktes på grunn av en nettverksfeil eller en avbrutt tilkobling. Prøv igjen.",
+          "upload-failed-status": "Opplasting mislyktes med status"
         }
       },
       "exportImport-main": {
@@ -129,6 +148,10 @@
           "import": {
             "title": "Gjenoppretting",
             "description": "Gjenopprett data fra en sikkerhetskopifil for fremtidig bruk"
+          },
+          "storage": {
+            "title": "Lagring av sikkerhetskopier",
+            "description": "Gå gjennom og rydd opp i sikkerhetskopifiler i lagringen"
           }
         }
       }
@@ -141,8 +164,9 @@
     }
   },
   "permissions": {
-    "platform:exportImport:access": "Vis Sikkerhetskopiering/Gjenoppretting i hovedmenyen",
-    "platform:export": "Sikkerhetskopier plattform- og moduldata",
-    "platform:import": "Gjenopprett plattform- og moduldata"
+    "platform:backuprestore:access": "Vis Sikkerhetskopiering/Gjenoppretting i hovedmenyen",
+    "platform:backuprestore:backup": "Sikkerhetskopier plattform- og moduldata",
+    "platform:backuprestore:restore": "Gjenopprett plattform- og moduldata",
+    "platform:backuprestore:storage": "Vis og administrer mappen for lagring av sikkerhetskopier"
   }
 }

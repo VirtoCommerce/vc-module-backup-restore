@@ -15,15 +15,20 @@ public static class ModuleConstants
             // platform used to register (VirtoCommerce.Platform.Core.PlatformConstants.Security.Permissions).
             // Keeping the exact strings means existing role assignments keep working after the
             // feature moves out of the platform into this module — no breaking changes.
-            public const string Access = "platform:exportImport:access";
-            public const string Export = "platform:export";
-            public const string Import = "platform:import";
+            public const string Access = "platform:backuprestore:access";
+            public const string Backup = "platform:backuprestore:backup";
+            public const string Restore = "platform:backuprestore:restore";
+
+            // Grants access to the "Backup storage" menu item, which opens the Assets browser
+            // scoped to the backups folder so admins can review / download / clean up backups.
+            public const string Storage = "platform:backuprestore:storage";
 
             public static string[] AllPermissions { get; } =
             [
                 Access,
-                Export,
-                Import,
+                Backup,
+                Restore,
+                Storage,
             ];
         }
     }
