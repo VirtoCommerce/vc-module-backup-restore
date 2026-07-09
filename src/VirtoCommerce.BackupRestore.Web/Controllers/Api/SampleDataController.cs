@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using VirtoCommerce.AssetsModule.Core.Assets;
+using VirtoCommerce.BackupRestore.Core;
 using VirtoCommerce.Platform.Core;
 using VirtoCommerce.Platform.Core.Common;
 using VirtoCommerce.Platform.Core.Exceptions;
@@ -20,8 +21,6 @@ using VirtoCommerce.Platform.Core.Modularity;
 using VirtoCommerce.Platform.Core.PushNotifications;
 using VirtoCommerce.Platform.Core.Security;
 using VirtoCommerce.Platform.Core.Settings;
-
-using VirtoCommerce.BackupRestore.Core;
 using Permissions = VirtoCommerce.BackupRestore.Core.ModuleConstants.Security.Permissions;
 
 namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
@@ -69,7 +68,7 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
 
         [HttpPost]
         [Route("sampledata/autoinstall")]
-        [Authorize(Permissions.Import)]
+        [Authorize(Permissions.Restore)]
         public async Task<ActionResult<SampleDataImportPushNotification>> TryToAutoInstallSampleData()
         {
             var sampleData = (await InnerDiscoverSampleDataAsync()).FirstOrDefault(x => !x.Url.IsNullOrEmpty());
@@ -83,7 +82,7 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
 
         [HttpPost]
         [Route("sampledata/import")]
-        [Authorize(Permissions.Import)]
+        [Authorize(Permissions.Restore)]
         public async Task<ActionResult<SampleDataImportPushNotification>> ImportSampleData([FromQuery] string name = null, [FromQuery] string url = null)
         {
             var sampleDataList = await InnerDiscoverSampleDataAsync();
@@ -146,7 +145,7 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
 
         [HttpGet]
         [Route("export/manifest/new")]
-        [Authorize(Permissions.Export)]
+        [Authorize(Permissions.Backup)]
         public ActionResult<PlatformExportManifest> GetNewExportManifest()
         {
             return Ok(_platformExportManager.GetNewExportManifest(_userNameResolver.GetCurrentUserName()));
@@ -154,7 +153,7 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
 
         [HttpGet]
         [Route("export/manifest/load")]
-        [Authorize(Permissions.Import)]
+        [Authorize(Permissions.Restore)]
         public async Task<ActionResult<PlatformExportManifest>> LoadExportManifest([FromQuery] string fileUrl)
         {
             if (string.IsNullOrEmpty(fileUrl))

@@ -22,7 +22,8 @@
           "copy-log": "复制日志",
           "download-backup": "下载备份",
           "backup-password": "备份密码",
-          "password-shown-once": "仅显示一次"
+          "password-shown-once": "仅显示一次",
+          "start-backup": "开始备份"
         },
         "menu": {
           "security": {
@@ -84,7 +85,15 @@
           "copy-error": "复制错误",
           "copy-log": "复制日志",
           "password-section": "备份密码",
-          "password": "备份密码"
+          "password": "备份密码",
+          "uploading": "正在上传…",
+          "upload-processing": "上传完成 — 正在服务器上验证…",
+          "cancel-upload": "取消上传",
+          "existing-backups": "或从存储中已有的备份恢复",
+          "no-existing-backups": "在存储中未找到备份。请在上方上传一个，或将备份复制到存储的“backups”文件夹中，然后刷新。",
+          "backup-count": "显示 {{total}} 个中的 {{shown}} 个",
+          "refresh": "刷新",
+          "back": "返回"
         },
         "menu": {
           "security": {
@@ -110,13 +119,25 @@
           "security-data-admin-preserved": "您自己的管理员账户 ({{username}}) 不会被修改 — 您的密码和当前会话将被保留。"
         },
         "placeholders": {
-          "password": "请输入创建此备份时显示的密码"
+          "password": "请输入创建此备份时显示的密码",
+          "filter-backups": "按名称筛选备份…"
         },
         "hints": {
-          "password": "请输入创建此备份时显示的密码。"
+          "password": "请输入创建此备份时显示的密码。",
+          "existing-backups": "重复使用已在 Blob 存储中的文件，而不是上传它。"
         },
         "errors": {
-          "wrong-password": "密码不正确。请重试。"
+          "wrong-password": "密码不正确。请重试。",
+          "upload-too-large": "此文件太大，无法上传 — 它超出了服务器的上传大小限制（在此环境中通常为 100 MB）。请使用较小的备份（例如，排除二进制数据），或请管理员提高限制。",
+          "upload-no-response": "文件已发送，但服务器未响应。这通常意味着文件超出了上传大小限制（通常为 100 MB）。请尝试较小的备份，或请管理员提高限制。",
+          "upload-stalled": "上传已停滞 — 一段时间内未传输任何数据。请检查您的网络连接，然后重试。",
+          "upload-gateway-timeout": "服务器在接收文件时未及时响应。大型上传可能会超过网关超时 — 请重试或使用较小的备份。",
+          "upload-gateway-unavailable": "上传服务暂时不可用。请稍后重试。",
+          "upload-unauthorized": "您无权上传此文件，或您的会话已过期。请重新登录。",
+          "upload-network": "由于网络错误或连接中断，上传失败。请重试。",
+          "upload-failed-status": "上传失败，状态",
+          "manifest-not-found": "所选备份已不在存储中。请刷新列表后重试。",
+          "manifest-load-failed": "无法读取此备份。该文件可能已损坏，或不是由 Virto Commerce 数据备份生成的。"
         }
       },
       "exportImport-main": {
@@ -129,6 +150,10 @@
           "import": {
             "title": "恢复",
             "description": "从备份文件恢复数据，以供将来使用"
+          },
+          "storage": {
+            "title": "备份存储",
+            "description": "查看并清理存储中的备份文件"
           }
         }
       }
@@ -141,8 +166,9 @@
     }
   },
   "permissions": {
-    "platform:exportImport:access": "在主菜单中查看备份/恢复",
-    "platform:export": "备份平台和模块数据",
-    "platform:import": "恢复平台和模块数据"
+    "platform:backuprestore:access": "在主菜单中查看备份/恢复",
+    "platform:backuprestore:backup": "备份平台和模块数据",
+    "platform:backuprestore:restore": "恢复平台和模块数据",
+    "platform:backuprestore:storage": "查看和管理备份存储文件夹"
   }
 }
