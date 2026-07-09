@@ -28,7 +28,7 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
     [Route("api/platform")]
     [ApiExplorerSettings(IgnoreApi = true)]
     [Authorize]
-    public class BackupRestoreController : Controller
+    public partial class BackupRestoreController : Controller
     {
         // Purpose string for IDataProtector. Distinct enough that a key collision with another
         // platform component is unrealistic — the protected blob's only consumer is this controller.
@@ -316,9 +316,14 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
                 return null;
             }
 
-            var cleaned = Regex.Replace(host.Trim(), @"[^A-Za-z0-9.\-]", "-");
+            var cleaned = UnsafeHostCharsRegex().Replace(host.Trim(), "-");
             return cleaned.Trim('-', '.');
         }
+
+        // Compile-time generated regex (SYSLIB1045): matches any char that is NOT a letter,
+        // digit, dot or dash — those are collapsed to '-' to keep the host file-name safe.
+        [GeneratedRegex(@"[^A-Za-z0-9.\-]")]
+        private static partial Regex UnsafeHostCharsRegex();
 
         private static string GeneratePassword()
         {

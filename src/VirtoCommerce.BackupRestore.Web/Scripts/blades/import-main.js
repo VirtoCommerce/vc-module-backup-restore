@@ -180,7 +180,7 @@ angular.module('platformWebApp')
                 order++;
                 len = len / 1024;
             }
-            return (Math.round(len * 100) / 100) + ' ' + sizes[order];
+            return `${Math.round(len * 100) / 100} ${sizes[order]}`;
         };
 
         // Revert from the "Restore data information" step back to file selection: drop the
