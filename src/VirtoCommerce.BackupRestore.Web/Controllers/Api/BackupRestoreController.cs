@@ -1,5 +1,7 @@
 using System;
+using System.IO;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Hangfire;
@@ -87,7 +89,12 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
                 protectedPassword = _protector.Protect(plainPassword);
             }
 
-            var jobId = BackgroundJob.Enqueue(() => PlatformBackupBackgroundAsync(exportRequest, protectedPassword, notification, null, CancellationToken.None));
+            // Capture the back-office host now, while we still have the HTTP request; the
+            // Hangfire job runs without an HttpContext. It's baked into the backup file name so
+            // the source of each backup is obvious in the storage list / on download.
+            var backOfficeHost = Request.Host.Host;
+
+            var jobId = BackgroundJob.Enqueue(() => PlatformBackupBackgroundAsync(exportRequest, protectedPassword, backOfficeHost, notification, null, CancellationToken.None));
             notification.JobId = jobId;
             return Ok(new PlatformExportStartedResult
             {
@@ -226,7 +233,7 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
             }
         }
 
-        public async Task PlatformBackupBackgroundAsync(PlatformImportExportRequest exportRequest, string protectedPassword, PlatformExportPushNotification pushNotification, PerformContext context, CancellationToken cancellationToken)
+        public async Task PlatformBackupBackgroundAsync(PlatformImportExportRequest exportRequest, string protectedPassword, string backOfficeHost, PlatformExportPushNotification pushNotification, PerformContext context, CancellationToken cancellationToken)
         {
             void ProgressCallback(ExportImportProgressInfo x)
             {
@@ -240,7 +247,7 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
             {
                 plainPassword = string.IsNullOrEmpty(protectedPassword) ? null : _protector.Unprotect(protectedPassword);
 
-                var fileName = string.Format(_platformOptions.DefaultExportFileName, DateTime.UtcNow);
+                var fileName = BuildBackupFileName(backOfficeHost);
                 var blobUrl = BackupBlobUrl.GetSafe(fileName);
 
                 // Write the backup straight to shared blob storage. SharpZipLib's ZipOutputStream is a
@@ -276,6 +283,41 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
                 pushNotification.Finished = DateTime.UtcNow;
                 await _pushNotifier.SendAsync(pushNotification);
             }
+        }
+
+        // Build the backup file name and append the back-office host, so a backup's source is
+        // obvious both in the storage list and once downloaded — e.g.
+        // "vc_backup_20260630123456_vcst-qa.govirto.com.zip". Falls back to the plain
+        // platform-configured name when the host is unknown.
+        private string BuildBackupFileName(string backOfficeHost)
+        {
+            var fileName = string.Format(_platformOptions.DefaultExportFileName, DateTime.UtcNow);
+            var slug = SanitizeHostForFileName(backOfficeHost);
+            if (string.IsNullOrEmpty(slug))
+            {
+                return fileName;
+            }
+
+            // Insert the host before the extension via Path helpers, so this doesn't depend on
+            // the exact shape of DefaultExportFileName.
+            var extension = Path.GetExtension(fileName);
+            var stem = Path.GetFileNameWithoutExtension(fileName);
+            return $"{stem}_{slug}{extension}";
+        }
+
+        // Reduce a host to a safe, single file-name segment: keep letters, digits, dot and dash
+        // (so "vcst-qa.govirto.com" survives intact), collapse anything else to '-', and trim
+        // leading/trailing separators. Result never contains a path separator, so it stays a
+        // direct child of the backups folder (see BackupBlobUrl.GetSafe).
+        private static string SanitizeHostForFileName(string host)
+        {
+            if (string.IsNullOrWhiteSpace(host))
+            {
+                return null;
+            }
+
+            var cleaned = Regex.Replace(host.Trim(), @"[^A-Za-z0-9.\-]", "-");
+            return cleaned.Trim('-', '.');
         }
 
         private static string GeneratePassword()

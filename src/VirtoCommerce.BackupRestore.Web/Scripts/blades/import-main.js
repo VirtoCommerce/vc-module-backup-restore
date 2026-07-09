@@ -166,6 +166,23 @@ angular.module('platformWebApp')
 
         $scope.refreshExistingBackups = loadExistingBackups;
 
+        // Human-readable file size (Bytes/KB/MB/GB/TB), mirroring the platform's
+        // FormattingExtensions.ToHumanReadableSize — but with up to 2 decimals so small files
+        // no longer collapse to "0.0 MB" (e.g. a 970-byte file now reads "970 Bytes").
+        $scope.formatSize = function (bytes) {
+            if (bytes === null || bytes === undefined || isNaN(bytes)) {
+                return '';
+            }
+            var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+            var order = 0;
+            var len = bytes;
+            while (len >= 1024 && order + 1 < sizes.length) {
+                order++;
+                len = len / 1024;
+            }
+            return (Math.round(len * 100) / 100) + ' ' + sizes[order];
+        };
+
         // Revert from the "Restore data information" step back to file selection: drop the
         // resolved manifest and the chosen file so the drop zone + existing-backups picker
         // come back, letting the user pick a different backup without reopening the blade.

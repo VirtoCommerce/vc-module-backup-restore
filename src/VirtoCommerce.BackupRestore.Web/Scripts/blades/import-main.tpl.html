@@ -74,7 +74,7 @@
                                         </td>
                                         <td class="table-col">
                                             <span class="table-t">{{ file.name }}</span>
-                                            <span class="table-descr">{{ (file.size / 1048576) | number:1 }} MB &middot; {{ file.modifiedDate | date:'medium' }}</span>
+                                            <span class="table-descr">{{ formatSize(file.size) }} &middot; {{ file.modifiedDate | date:'medium' }}</span>
                                         </td>
                                     </tr>
                                 </tbody>
