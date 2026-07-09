@@ -22,7 +22,8 @@
           "copy-log": "Kopiuj dziennik",
           "download-backup": "Pobierz kopię zapasową",
           "backup-password": "Hasło kopii zapasowej",
-          "password-shown-once": "Pokazane tylko raz"
+          "password-shown-once": "Pokazane tylko raz",
+          "start-backup": "Rozpocznij kopię zapasową"
         },
         "menu": {
           "security": {
@@ -84,7 +85,15 @@
           "copy-error": "Kopiuj błąd",
           "copy-log": "Kopiuj dziennik",
           "password-section": "Hasło kopii zapasowej",
-          "password": "Hasło kopii zapasowej"
+          "password": "Hasło kopii zapasowej",
+          "uploading": "Przesyłanie…",
+          "upload-processing": "Przesyłanie zakończone — trwa weryfikacja na serwerze…",
+          "cancel-upload": "Anuluj przesyłanie",
+          "existing-backups": "Lub przywróć z kopii zapasowej już znajdującej się w magazynie",
+          "no-existing-backups": "Nie znaleziono kopii zapasowych w magazynie. Prześlij jedną powyżej lub skopiuj kopię zapasową do folderu „backups” w magazynie, a następnie odśwież.",
+          "backup-count": "Wyświetlono {{shown}} z {{total}}",
+          "refresh": "Odśwież",
+          "back": "Wstecz"
         },
         "menu": {
           "security": {
@@ -110,13 +119,25 @@
           "security-data-admin-preserved": "Twoje konto administratora ({{username}}) nie zostanie zmienione — Twoje hasło i aktywna sesja są zachowane."
         },
         "placeholders": {
-          "password": "Wprowadź hasło pokazane podczas tworzenia tej kopii zapasowej"
+          "password": "Wprowadź hasło pokazane podczas tworzenia tej kopii zapasowej",
+          "filter-backups": "Filtruj kopie zapasowe według nazwy…"
         },
         "hints": {
-          "password": "Wprowadź hasło pokazane podczas tworzenia tej kopii zapasowej."
+          "password": "Wprowadź hasło pokazane podczas tworzenia tej kopii zapasowej.",
+          "existing-backups": "Użyj ponownie pliku, który już znajduje się w magazynie blob, zamiast go przesyłać."
         },
         "errors": {
-          "wrong-password": "Nieprawidłowe hasło. Spróbuj ponownie."
+          "wrong-password": "Nieprawidłowe hasło. Spróbuj ponownie.",
+          "upload-too-large": "Ten plik jest za duży, aby go przesłać — przekracza limit rozmiaru przesyłania serwera (w tym środowisku zwykle 100 MB). Użyj mniejszej kopii zapasowej (na przykład wyklucz dane binarne) lub poproś administratora o zwiększenie limitu.",
+          "upload-no-response": "Plik został wysłany, ale serwer nie odpowiedział. Zwykle oznacza to, że plik przekracza limit rozmiaru przesyłania (często 100 MB). Spróbuj mniejszej kopii zapasowej lub poproś administratora o zwiększenie limitu.",
+          "upload-stalled": "Przesyłanie zostało wstrzymane — przez pewien czas nie przesłano żadnych danych. Sprawdź połączenie sieciowe i spróbuj ponownie.",
+          "upload-gateway-timeout": "Serwer nie odpowiedział na czas podczas odbierania pliku. Duże przesyłania mogą przekroczyć limit czasu bramy — spróbuj ponownie lub użyj mniejszej kopii zapasowej.",
+          "upload-gateway-unavailable": "Usługa przesyłania jest tymczasowo niedostępna. Spróbuj ponownie za chwilę.",
+          "upload-unauthorized": "Nie masz uprawnień do przesłania tego pliku lub Twoja sesja wygasła. Zaloguj się ponownie.",
+          "upload-network": "Przesyłanie nie powiodło się z powodu błędu sieci lub przerwanego połączenia. Spróbuj ponownie.",
+          "upload-failed-status": "Przesyłanie nie powiodło się ze statusem",
+          "manifest-not-found": "Wybrana kopia zapasowa nie znajduje się już w magazynie. Odśwież listę i spróbuj ponownie.",
+          "manifest-load-failed": "Nie można odczytać tej kopii zapasowej. Plik może być uszkodzony lub nie został utworzony przez kopię zapasową danych Virto Commerce."
         }
       },
       "exportImport-main": {
@@ -129,6 +150,10 @@
           "import": {
             "title": "Przywracanie",
             "description": "Przywróć dane z pliku kopii zapasowej do późniejszego użycia"
+          },
+          "storage": {
+            "title": "Magazyn kopii zapasowych",
+            "description": "Przeglądaj i porządkuj pliki kopii zapasowych w magazynie"
           }
         }
       }
@@ -141,8 +166,9 @@
     }
   },
   "permissions": {
-    "platform:exportImport:access": "Wyświetl Kopia zapasowa/Przywracanie w menu głównym",
-    "platform:export": "Utwórz kopię zapasową danych platformy i modułów",
-    "platform:import": "Przywróć dane platformy i modułów"
+    "platform:backuprestore:access": "Wyświetl Kopia zapasowa/Przywracanie w menu głównym",
+    "platform:backuprestore:backup": "Utwórz kopię zapasową danych platformy i modułów",
+    "platform:backuprestore:restore": "Przywróć dane platformy i modułów",
+    "platform:backuprestore:storage": "Wyświetlanie magazynu kopii zapasowych i zarządzanie nim"
   }
 }

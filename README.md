@@ -23,9 +23,10 @@ Registered under the **Platform** group (string values unchanged from the platfo
 
 | Permission | Description |
 | --- | --- |
-| `platform:exportImport:access` | View Backup/Restore in the main menu |
-| `platform:export` | Backup Platform and modules data |
-| `platform:import` | Restore Platform and modules data |
+| `platform:backuprestore:access` | View Backup/Restore in the main menu |
+| `platform:backuprestore:backup` | Create platform and module backups |
+| `platform:backuprestore:restore` | Restore platform and module data |
+| `platform:backuprestore:storage` | Grants access to the "Backup storage" menu item |
 
 ### Application settings
 

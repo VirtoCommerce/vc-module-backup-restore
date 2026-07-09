@@ -22,7 +22,8 @@
           "copy-log": "Kopiera logg",
           "download-backup": "Ladda ner säkerhetskopia",
           "backup-password": "Säkerhetskopielösenord",
-          "password-shown-once": "Visas endast en gång"
+          "password-shown-once": "Visas endast en gång",
+          "start-backup": "Starta säkerhetskopiering"
         },
         "menu": {
           "security": {
@@ -84,7 +85,15 @@
           "copy-error": "Kopiera fel",
           "copy-log": "Kopiera logg",
           "password-section": "Säkerhetskopielösenord",
-          "password": "Säkerhetskopielösenord"
+          "password": "Säkerhetskopielösenord",
+          "uploading": "Laddar upp…",
+          "upload-processing": "Uppladdning klar — validerar på servern…",
+          "cancel-upload": "Avbryt uppladdning",
+          "existing-backups": "Eller återställ från en säkerhetskopia som redan finns i lagringen",
+          "no-existing-backups": "Inga säkerhetskopior hittades i lagringen. Ladda upp en ovan, eller kopiera en säkerhetskopia till mappen 'backups' i lagringen och uppdatera sedan.",
+          "backup-count": "Visar {{shown}} av {{total}}",
+          "refresh": "Uppdatera",
+          "back": "Tillbaka"
         },
         "menu": {
           "security": {
@@ -110,13 +119,25 @@
           "security-data-admin-preserved": "Ditt eget administratörskonto ({{username}}) kommer inte att ändras — ditt lösenord och din aktiva session bevaras."
         },
         "placeholders": {
-          "password": "Ange lösenordet som visades när den här säkerhetskopian skapades"
+          "password": "Ange lösenordet som visades när den här säkerhetskopian skapades",
+          "filter-backups": "Filtrera säkerhetskopior efter namn…"
         },
         "hints": {
-          "password": "Ange lösenordet som visades när den här säkerhetskopian skapades."
+          "password": "Ange lösenordet som visades när den här säkerhetskopian skapades.",
+          "existing-backups": "Återanvänd en fil som redan finns i blob-lagringen i stället för att ladda upp den."
         },
         "errors": {
-          "wrong-password": "Felaktigt lösenord. Försök igen."
+          "wrong-password": "Felaktigt lösenord. Försök igen.",
+          "upload-too-large": "Den här filen är för stor för att laddas upp — den överskrider serverns gräns för uppladdningsstorlek (vanligtvis 100 MB i den här miljön). Använd en mindre säkerhetskopia (uteslut till exempel binärdata), eller be administratören att höja gränsen.",
+          "upload-no-response": "Filen skickades, men servern svarade aldrig. Detta betyder vanligtvis att filen överskrider gränsen för uppladdningsstorlek (ofta 100 MB). Prova en mindre säkerhetskopia, eller be administratören att höja gränsen.",
+          "upload-stalled": "Uppladdningen avstannade — inga data överfördes på ett tag. Kontrollera din nätverksanslutning och försök igen.",
+          "upload-gateway-timeout": "Servern svarade inte i tid när filen togs emot. Stora uppladdningar kan överskrida gateway-tidsgränsen — försök igen eller använd en mindre säkerhetskopia.",
+          "upload-gateway-unavailable": "Uppladdningstjänsten är tillfälligt otillgänglig. Försök igen om en stund.",
+          "upload-unauthorized": "Du har inte behörighet att ladda upp den här filen, eller så har din session löpt ut. Logga in igen.",
+          "upload-network": "Uppladdningen misslyckades på grund av ett nätverksfel eller en avbruten anslutning. Försök igen.",
+          "upload-failed-status": "Uppladdningen misslyckades med status",
+          "manifest-not-found": "Den valda säkerhetskopian finns inte längre i lagringen. Uppdatera listan och försök igen.",
+          "manifest-load-failed": "Det gick inte att läsa den här säkerhetskopian. Filen kan vara skadad eller skapades inte av Virto Commerce-datasäkerhetskopiering."
         }
       },
       "exportImport-main": {
@@ -129,6 +150,10 @@
           "import": {
             "title": "Återställning",
             "description": "Återställ data från en säkerhetskopieringsfil för framtida användning"
+          },
+          "storage": {
+            "title": "Lagring av säkerhetskopior",
+            "description": "Granska och rensa säkerhetskopiefiler i lagringen"
           }
         }
       }
@@ -141,8 +166,9 @@
     }
   },
   "permissions": {
-    "platform:exportImport:access": "Visa Säkerhetskopiering/Återställning i huvudmenyn",
-    "platform:export": "Säkerhetskopiera plattforms- och moduldata",
-    "platform:import": "Återställ plattforms- och moduldata"
+    "platform:backuprestore:access": "Visa Säkerhetskopiering/Återställning i huvudmenyn",
+    "platform:backuprestore:backup": "Säkerhetskopiera plattforms- och moduldata",
+    "platform:backuprestore:restore": "Återställ plattforms- och moduldata",
+    "platform:backuprestore:storage": "Visa och hantera mappen för lagring av säkerhetskopior"
   }
 }

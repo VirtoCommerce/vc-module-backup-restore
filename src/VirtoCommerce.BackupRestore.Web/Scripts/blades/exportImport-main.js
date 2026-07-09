@@ -12,7 +12,7 @@ angular.module('platformWebApp')
     };
 
     $scope.import = function () {
-        if (authService.checkPermission('platform:import')) {
+        if (authService.checkPermission('platform:backuprestore:restore')) {
             $scope.selectedNodeId = 'import';
 
             var newBlade = {
@@ -21,6 +21,36 @@ angular.module('platformWebApp')
             };
             bladeNavigationService.showBlade(newBlade, $scope.blade);
         }
+    };
+
+    // "Backup storage" option — only for users granted platform:backuprestore:storage.
+    // Opens the Assets module's browser scoped to the backups folder (review / download /
+    // cleanup), as a child blade — same approach as the Store module's assets widget.
+    //
+    // Must be a FUNCTION (not a cached boolean): on a hard reload (F5) of the deep link this
+    // controller can initialize before the current user's permissions have loaded, so a
+    // one-time checkPermission would latch to false and the row would never reappear. As a
+    // function, ng-if re-evaluates it each digest and the row shows once permissions arrive.
+    $scope.canViewBackupStorage = function () {
+        return authService.checkPermission('platform:backuprestore:storage');
+    };
+
+    $scope.backupStorage = function () {
+        if (!$scope.canViewBackupStorage()) {
+            return;
+        }
+        $scope.selectedNodeId = 'backupStorage';
+
+        var newBlade = {
+            id: 'backupStorage',
+            subtitle: 'platform.blades.exportImport-main.menu.storage.title',
+            controller: 'virtoCommerce.assetsModule.assetListController',
+            template: 'Modules/$(VirtoCommerce.Assets)/Scripts/blades/asset-list.tpl.html',
+            // The Assets browser searches blob storage at currentEntity.url; point it at the
+            // same 'backups' folder backups are written to / restored from.
+            currentEntity: { url: 'backups' }
+        };
+        bladeNavigationService.showBlade(newBlade, $scope.blade);
     };
 
     $scope.blade.headIcon = 'fa fa-database';

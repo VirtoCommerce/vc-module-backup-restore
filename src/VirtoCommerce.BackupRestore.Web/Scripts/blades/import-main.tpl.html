@@ -1,9 +1,9 @@
 <div class="blade-content">
     <div class="blade-inner">
         <div class="inner-block">
-            <form class="form" ng-if="!blade.notification">
+            <form class="form backup-restore-import" ng-if="!blade.notification && !importRequest.exportManifest">
                 <fieldset>
-                    <div ng-show="uploader.isHTML5 && !uploader.isUploading">
+                    <div ng-show="uploader.isHTML5 && !uploadPhase">
                         <input type="file" id="importZipFileInput" nv-file-select uploader="uploader" accept=".zip" style="display: none">
                         <label for="importZipFileInput" class="well my-drop-zone panel drag-area drag-area--clickable" uploader="uploader" nv-file-drop nv-file-over>
                             <div class="drag-content">
@@ -13,12 +13,82 @@
                             </div>
                         </label>
                     </div>
-                    <div ng-show="uploader.isUploading">
-                        <div class="sub-t">{{ 'platform.blades.import-main.labels.upload-progress' | translate }}</div>
-                        <div class="progress-bar __aqua"></div>
+                    <div ng-show="uploadPhase">
+                        <!-- Transfer phase: bytes leaving the browser. Determinate bar + live %. -->
+                        <div class="sub-t" ng-if="uploadPhase === 'uploading'">
+                            {{ 'platform.blades.import-main.labels.uploading' | translate }} {{ uploadProgress }}%
+                        </div>
+                        <div class="module-progress-bar-container" ng-if="uploadPhase === 'uploading'">
+                            <div class="progress-bar __aqua" ng-style="{'width': uploadProgress + '%'}" style="margin: 0; transition: width 0.3s ease;"></div>
+                        </div>
+                        <!-- Processing phase: all bytes sent, waiting on the server. Indeterminate
+                             bar so 100% no longer reads as "done" while the backend is still working. -->
+                        <div class="sub-t" ng-if="uploadPhase === 'processing'">{{ 'platform.blades.import-main.labels.upload-processing' | translate }}</div>
+                        <div ng-if="uploadPhase === 'processing'">
+                            <span class="list-bar progress-bar __aqua" style="margin-left: 0"></span>
+                        </div>
+                        <div class="cancel-upload">
+                            <button type="button" class="btn" ng-click="cancelUpload()">
+                                {{ 'platform.blades.import-main.labels.cancel-upload' | translate }}
+                            </button>
+                        </div>
                     </div>
                 </fieldset>
             </form>
+            <!-- Restore from a backup already in storage (no upload → no proxy size limit) -->
+            <div class="form backup-restore-import" ng-if="!importRequest.exportManifest && !blade.notification && !uploadPhase">
+                <fieldset>
+                    <div class="existing-backups-header">
+                        <label class="form-label existing-backups-title">
+                            {{ 'platform.blades.import-main.labels.existing-backups' | translate }}
+                            <i class="form-ico fa fa-question-circle __link __lightblue"
+                               ng-click="existingBackupsDescrVisible = !existingBackupsDescrVisible"></i>
+                        </label>
+                        <i class="form-ico fa fa-refresh __link __lightblue existing-backups-refresh"
+                           ng-class="{'fa-spin': backupsLoading}"
+                           ng-click="refreshExistingBackups()"
+                           title="{{ 'platform.blades.import-main.labels.refresh' | translate }}"></i>
+                    </div>
+                    <div class="existing-backups-description" ng-if="existingBackupsDescrVisible">
+                        <div class="form-hint">{{ 'platform.blades.import-main.hints.existing-backups' | translate }}</div>
+                        <a href="" ng-click="existingBackupsDescrVisible = false">{{ 'platform.blades.settings-detail.hide-description' | translate }}</a>
+                    </div>
+                    <!-- The folder listing is not paged server-side, so a large folder is filtered
+                         and scrolled here on the client. The filter shows only once it's useful. -->
+                    <div class="existing-backups-filter" ng-show="existingBackups.length > 8">
+                        <i class="fa fa-search existing-backups-filter-icon"></i>
+                        <input type="text" class="existing-backups-filter-input" ng-model="backupFilter"
+                               placeholder="{{ 'platform.blades.import-main.placeholders.filter-backups' | translate }}">
+                        <i class="fa fa-times-circle existing-backups-filter-clear"
+                           ng-show="backupFilter" ng-click="backupFilter = ''"></i>
+                    </div>
+                    <div class="existing-backups-list" ng-show="existingBackups.length > 0">
+                        <div class="table-wrapper">
+                            <table class="table __items">
+                                <tbody>
+                                    <tr class="table-item"
+                                        ng-repeat="file in existingBackups | filter:{ name: backupFilter } as filteredBackups"
+                                        ng-click="selectExistingBackup(file)">
+                                        <td class="table-col">
+                                            <i class="table-ico fa fa-file-archive-o"></i>
+                                        </td>
+                                        <td class="table-col">
+                                            <span class="table-t">{{ file.name }}</span>
+                                            <span class="table-descr">{{ formatSize(file.size) }} &middot; {{ file.modifiedDate | date:'medium' }}</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="form-hint" ng-if="existingBackups.length > 0">
+                        {{ 'platform.blades.import-main.labels.backup-count' | translate:{ shown: filteredBackups.length, total: existingBackups.length } }}
+                    </div>
+                    <div class="form-hint" ng-if="existingBackups.length === 0 && !backupsLoading">
+                        {{ 'platform.blades.import-main.labels.no-existing-backups' | translate }}
+                    </div>
+                </fieldset>
+            </div>
             <!-- valid zip -->
             <div class="sub-t __border" ng-if="importRequest.exportManifest && !blade.notification && !blade.error || blade.notification.jobId && blade.notification.finished">{{ 'platform.blades.import-main.labels.import-data-information' | translate }}</div>
             <ul class="list __info" ng-if="importRequest.exportManifest && !blade.notification && !blade.error || blade.notification.jobId && blade.notification.finished">

@@ -22,7 +22,8 @@
           "copy-log": "Kopioi loki",
           "download-backup": "Lataa varmuuskopio",
           "backup-password": "Varmuuskopion salasana",
-          "password-shown-once": "Näytetään vain kerran"
+          "password-shown-once": "Näytetään vain kerran",
+          "start-backup": "Aloita varmuuskopiointi"
         },
         "menu": {
           "security": {
@@ -84,7 +85,15 @@
           "copy-error": "Kopioi virhe",
           "copy-log": "Kopioi loki",
           "password-section": "Varmuuskopion salasana",
-          "password": "Varmuuskopion salasana"
+          "password": "Varmuuskopion salasana",
+          "uploading": "Ladataan…",
+          "upload-processing": "Lataus valmis — vahvistetaan palvelimella…",
+          "cancel-upload": "Peruuta lataus",
+          "existing-backups": "Tai palauta tallennustilassa jo olevasta varmuuskopiosta",
+          "no-existing-backups": "Tallennustilasta ei löytynyt varmuuskopioita. Lataa sellainen yllä tai kopioi varmuuskopio tallennustilan 'backups'-kansioon ja päivitä sitten.",
+          "backup-count": "Näytetään {{shown}} / {{total}}",
+          "refresh": "Päivitä",
+          "back": "Takaisin"
         },
         "menu": {
           "security": {
@@ -110,13 +119,25 @@
           "security-data-admin-preserved": "Omaa ylläpitäjätiliäsi ({{username}}) ei muuteta — salasanasi ja aktiivinen istuntosi säilyvät."
         },
         "placeholders": {
-          "password": "Anna salasana, joka näytettiin tämän varmuuskopion luonnin yhteydessä"
+          "password": "Anna salasana, joka näytettiin tämän varmuuskopion luonnin yhteydessä",
+          "filter-backups": "Suodata varmuuskopioita nimen mukaan…"
         },
         "hints": {
-          "password": "Anna salasana, joka näytettiin tämän varmuuskopion luonnin yhteydessä."
+          "password": "Anna salasana, joka näytettiin tämän varmuuskopion luonnin yhteydessä.",
+          "existing-backups": "Käytä tiedostoa, joka on jo blob-tallennustilassa, sen lataamisen sijaan."
         },
         "errors": {
-          "wrong-password": "Virheellinen salasana. Yritä uudelleen."
+          "wrong-password": "Virheellinen salasana. Yritä uudelleen.",
+          "upload-too-large": "Tämä tiedosto on liian suuri ladattavaksi — se ylittää palvelimen latauskoon rajan (tässä ympäristössä tyypillisesti 100 Mt). Käytä pienempää varmuuskopiota (jätä esimerkiksi binääridata pois) tai pyydä järjestelmänvalvojaa nostamaan rajaa.",
+          "upload-no-response": "Tiedosto lähetettiin, mutta palvelin ei vastannut. Tämä tarkoittaa yleensä, että tiedosto ylittää latauskoon rajan (usein 100 Mt). Kokeile pienempää varmuuskopiota tai pyydä järjestelmänvalvojaa nostamaan rajaa.",
+          "upload-stalled": "Lataus pysähtyi — tietoja ei siirretty hetkeen. Tarkista verkkoyhteytesi ja yritä uudelleen.",
+          "upload-gateway-timeout": "Palvelin ei vastannut ajoissa tiedostoa vastaanotettaessa. Suuret lataukset voivat ylittää yhdyskäytävän aikakatkaisun — yritä uudelleen tai käytä pienempää varmuuskopiota.",
+          "upload-gateway-unavailable": "Latauspalvelu ei ole tilapäisesti käytettävissä. Yritä hetken kuluttua uudelleen.",
+          "upload-unauthorized": "Sinulla ei ole oikeutta ladata tätä tiedostoa, tai istuntosi on vanhentunut. Kirjaudu uudelleen sisään.",
+          "upload-network": "Lataus epäonnistui verkkovirheen tai katkenneen yhteyden vuoksi. Yritä uudelleen.",
+          "upload-failed-status": "Lataus epäonnistui tilakoodilla",
+          "manifest-not-found": "Valittua varmuuskopiota ei enää ole tallennustilassa. Päivitä luettelo ja yritä uudelleen.",
+          "manifest-load-failed": "Tätä varmuuskopiota ei voitu lukea. Tiedosto voi olla vioittunut tai sitä ei ole luotu Virto Commerce -datavarmuuskopiolla."
         }
       },
       "exportImport-main": {
@@ -129,6 +150,10 @@
           "import": {
             "title": "Palautus",
             "description": "Palauta data varmuuskopiotiedostosta tulevaa käyttöä varten"
+          },
+          "storage": {
+            "title": "Varmuuskopioiden tallennustila",
+            "description": "Tarkastele ja siivoa tallennustilassa olevia varmuuskopiotiedostoja"
           }
         }
       }
@@ -141,8 +166,9 @@
     }
   },
   "permissions": {
-    "platform:exportImport:access": "Näytä Varmuuskopiointi/Palautus päävalikossa",
-    "platform:export": "Varmuuskopioi alustan ja moduulien data",
-    "platform:import": "Palauta alustan ja moduulien data"
+    "platform:backuprestore:access": "Näytä Varmuuskopiointi/Palautus päävalikossa",
+    "platform:backuprestore:backup": "Varmuuskopioi alustan ja moduulien data",
+    "platform:backuprestore:restore": "Palauta alustan ja moduulien data",
+    "platform:backuprestore:storage": "Näytä ja hallitse varmuuskopioiden tallennuskansiota"
   }
 }

@@ -1,5 +1,7 @@
 using System;
+using System.IO;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Hangfire;
@@ -11,6 +13,7 @@ using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using VirtoCommerce.AssetsModule.Core.Assets;
+using VirtoCommerce.BackupRestore.Core;
 using VirtoCommerce.Platform.Core;
 using VirtoCommerce.Platform.Core.Exceptions;
 using VirtoCommerce.Platform.Core.ExportImport;
@@ -18,8 +21,6 @@ using VirtoCommerce.Platform.Core.ExportImport.PushNotifications;
 using VirtoCommerce.Platform.Core.Modularity;
 using VirtoCommerce.Platform.Core.PushNotifications;
 using VirtoCommerce.Platform.Core.Security;
-
-using VirtoCommerce.BackupRestore.Core;
 using Permissions = VirtoCommerce.BackupRestore.Core.ModuleConstants.Security.Permissions;
 
 namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
@@ -27,7 +28,7 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
     [Route("api/platform")]
     [ApiExplorerSettings(IgnoreApi = true)]
     [Authorize]
-    public class BackupRestoreController : Controller
+    public partial class BackupRestoreController : Controller
     {
         // Purpose string for IDataProtector. Distinct enough that a key collision with another
         // platform component is unrealistic — the protected blob's only consumer is this controller.
@@ -66,7 +67,7 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
 
         [HttpPost]
         [Route("export")]
-        [Authorize(Permissions.Export)]
+        [Authorize(Permissions.Backup)]
         public ActionResult<PlatformExportStartedResult> ProcessExport([FromBody] PlatformImportExportRequest exportRequest)
         {
             var notification = new PlatformExportPushNotification(_userNameResolver.GetCurrentUserName())
@@ -88,7 +89,12 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
                 protectedPassword = _protector.Protect(plainPassword);
             }
 
-            var jobId = BackgroundJob.Enqueue(() => PlatformBackupBackgroundAsync(exportRequest, protectedPassword, notification, null, CancellationToken.None));
+            // Capture the back-office host now, while we still have the HTTP request; the
+            // Hangfire job runs without an HttpContext. It's baked into the backup file name so
+            // the source of each backup is obvious in the storage list / on download.
+            var backOfficeHost = Request.Host.Host;
+
+            var jobId = BackgroundJob.Enqueue(() => PlatformBackupBackgroundAsync(exportRequest, protectedPassword, backOfficeHost, notification, null, CancellationToken.None));
             notification.JobId = jobId;
             return Ok(new PlatformExportStartedResult
             {
@@ -99,7 +105,7 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
 
         [HttpPost]
         [Route("import")]
-        [Authorize(Permissions.Import)]
+        [Authorize(Permissions.Restore)]
         public ActionResult<PlatformImportPushNotification> ProcessImport([FromBody] PlatformImportExportRequest importRequest)
         {
             var notification = new PlatformImportPushNotification(_userNameResolver.GetCurrentUserName())
@@ -133,7 +139,7 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
 
         [HttpGet]
         [Route("export/download/{fileName}")]
-        [Authorize(Permissions.Export)]
+        [Authorize(Permissions.Backup)]
         public async Task<ActionResult> DownloadExportFile([FromRoute] string fileName)
         {
             // Backups live in shared blob storage (Assets module), so a download request can be served
@@ -227,7 +233,7 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
             }
         }
 
-        public async Task PlatformBackupBackgroundAsync(PlatformImportExportRequest exportRequest, string protectedPassword, PlatformExportPushNotification pushNotification, PerformContext context, CancellationToken cancellationToken)
+        public async Task PlatformBackupBackgroundAsync(PlatformImportExportRequest exportRequest, string protectedPassword, string backOfficeHost, PlatformExportPushNotification pushNotification, PerformContext context, CancellationToken cancellationToken)
         {
             void ProgressCallback(ExportImportProgressInfo x)
             {
@@ -241,7 +247,7 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
             {
                 plainPassword = string.IsNullOrEmpty(protectedPassword) ? null : _protector.Unprotect(protectedPassword);
 
-                var fileName = string.Format(_platformOptions.DefaultExportFileName, DateTime.UtcNow);
+                var fileName = BuildBackupFileName(backOfficeHost);
                 var blobUrl = BackupBlobUrl.GetSafe(fileName);
 
                 // Write the backup straight to shared blob storage. SharpZipLib's ZipOutputStream is a
@@ -278,6 +284,46 @@ namespace VirtoCommerce.BackupRestore.Web.Controllers.Api
                 await _pushNotifier.SendAsync(pushNotification);
             }
         }
+
+        // Build the backup file name and append the back-office host, so a backup's source is
+        // obvious both in the storage list and once downloaded — e.g.
+        // "vc_backup_20260630123456_vcst-qa.govirto.com.zip". Falls back to the plain
+        // platform-configured name when the host is unknown.
+        private string BuildBackupFileName(string backOfficeHost)
+        {
+            var fileName = string.Format(_platformOptions.DefaultExportFileName, DateTime.UtcNow);
+            var slug = SanitizeHostForFileName(backOfficeHost);
+            if (string.IsNullOrEmpty(slug))
+            {
+                return fileName;
+            }
+
+            // Insert the host before the extension via Path helpers, so this doesn't depend on
+            // the exact shape of DefaultExportFileName.
+            var extension = Path.GetExtension(fileName);
+            var stem = Path.GetFileNameWithoutExtension(fileName);
+            return $"{stem}_{slug}{extension}";
+        }
+
+        // Reduce a host to a safe, single file-name segment: keep letters, digits, dot and dash
+        // (so "vcst-qa.govirto.com" survives intact), collapse anything else to '-', and trim
+        // leading/trailing separators. Result never contains a path separator, so it stays a
+        // direct child of the backups folder (see BackupBlobUrl.GetSafe).
+        private static string SanitizeHostForFileName(string host)
+        {
+            if (string.IsNullOrWhiteSpace(host))
+            {
+                return null;
+            }
+
+            var cleaned = UnsafeHostCharsRegex().Replace(host.Trim(), "-");
+            return cleaned.Trim('-', '.');
+        }
+
+        // Compile-time generated regex (SYSLIB1045): matches any char that is NOT a letter,
+        // digit, dot or dash — those are collapsed to '-' to keep the host file-name safe.
+        [GeneratedRegex(@"[^A-Za-z0-9.\-]")]
+        private static partial Regex UnsafeHostCharsRegex();
 
         private static string GeneratePassword()
         {

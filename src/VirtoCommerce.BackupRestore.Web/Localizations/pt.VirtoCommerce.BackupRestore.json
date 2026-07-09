@@ -22,7 +22,8 @@
           "copy-log": "Copiar registro",
           "download-backup": "Baixar backup",
           "backup-password": "Senha do backup",
-          "password-shown-once": "Exibida apenas uma vez"
+          "password-shown-once": "Exibida apenas uma vez",
+          "start-backup": "Iniciar backup"
         },
         "menu": {
           "security": {
@@ -84,7 +85,15 @@
           "copy-error": "Copiar erro",
           "copy-log": "Copiar registro",
           "password-section": "Senha do backup",
-          "password": "Senha do backup"
+          "password": "Senha do backup",
+          "uploading": "Enviando…",
+          "upload-processing": "Envio concluído — validando no servidor…",
+          "cancel-upload": "Cancelar envio",
+          "existing-backups": "Ou restaure a partir de um backup já existente no armazenamento",
+          "no-existing-backups": "Nenhum backup encontrado no armazenamento. Envie um acima ou copie um backup para a pasta 'backups' do armazenamento e, em seguida, atualize.",
+          "backup-count": "Mostrando {{shown}} de {{total}}",
+          "refresh": "Atualizar",
+          "back": "Voltar"
         },
         "menu": {
           "security": {
@@ -110,13 +119,25 @@
           "security-data-admin-preserved": "Sua própria conta de administrador ({{username}}) não será modificada — sua senha e sessão ativa são preservadas."
         },
         "placeholders": {
-          "password": "Digite a senha exibida quando este backup foi criado"
+          "password": "Digite a senha exibida quando este backup foi criado",
+          "filter-backups": "Filtrar backups por nome…"
         },
         "hints": {
-          "password": "Digite a senha exibida quando este backup foi criado."
+          "password": "Digite a senha exibida quando este backup foi criado.",
+          "existing-backups": "Reutilize um arquivo que já está no armazenamento de blobs em vez de enviá-lo."
         },
         "errors": {
-          "wrong-password": "Senha incorreta. Tente novamente."
+          "wrong-password": "Senha incorreta. Tente novamente.",
+          "upload-too-large": "Este arquivo é grande demais para ser enviado — ele excede o limite de tamanho de envio do servidor (normalmente 100 MB neste ambiente). Use um backup menor (por exemplo, exclua os dados binários) ou peça ao administrador para aumentar o limite.",
+          "upload-no-response": "O arquivo foi enviado, mas o servidor não respondeu. Isso geralmente significa que o arquivo excede o limite de tamanho de envio (muitas vezes 100 MB). Tente um backup menor ou peça ao administrador para aumentar o limite.",
+          "upload-stalled": "O envio foi interrompido — nenhum dado foi transferido por um tempo. Verifique sua conexão de rede e tente novamente.",
+          "upload-gateway-timeout": "O servidor não respondeu a tempo ao receber o arquivo. Envios grandes podem exceder o tempo limite do gateway — tente novamente ou use um backup menor.",
+          "upload-gateway-unavailable": "O serviço de envio está temporariamente indisponível. Tente novamente em instantes.",
+          "upload-unauthorized": "Você não tem autorização para enviar este arquivo, ou sua sessão expirou. Faça login novamente.",
+          "upload-network": "O envio falhou devido a um erro de rede ou a uma conexão interrompida. Tente novamente.",
+          "upload-failed-status": "Falha no envio com o status",
+          "manifest-not-found": "O backup selecionado não está mais no armazenamento. Atualize a lista e tente novamente.",
+          "manifest-load-failed": "Não foi possível ler este backup. O arquivo pode estar corrompido ou não foi produzido pelo backup de dados do Virto Commerce."
         }
       },
       "exportImport-main": {
@@ -129,6 +150,10 @@
           "import": {
             "title": "Restauração",
             "description": "Restaurar dados a partir de um arquivo de backup para uso futuro"
+          },
+          "storage": {
+            "title": "Armazenamento de backups",
+            "description": "Revisar e limpar os arquivos de backup no armazenamento"
           }
         }
       }
@@ -141,8 +166,9 @@
     }
   },
   "permissions": {
-    "platform:exportImport:access": "Exibir Backup/Restauração no menu principal",
-    "platform:export": "Fazer backup dos dados da plataforma e dos módulos",
-    "platform:import": "Restaurar dados da plataforma e dos módulos"
+    "platform:backuprestore:access": "Exibir Backup/Restauração no menu principal",
+    "platform:backuprestore:backup": "Fazer backup dos dados da plataforma e dos módulos",
+    "platform:backuprestore:restore": "Restaurar dados da plataforma e dos módulos",
+    "platform:backuprestore:storage": "Visualizar e gerenciar a pasta de armazenamento de backups"
   }
 }

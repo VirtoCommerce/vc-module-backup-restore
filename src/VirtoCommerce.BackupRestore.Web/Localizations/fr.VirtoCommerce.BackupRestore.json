@@ -22,7 +22,8 @@
           "copy-log": "Copier le journal",
           "download-backup": "Télécharger la sauvegarde",
           "backup-password": "Mot de passe de sauvegarde",
-          "password-shown-once": "Affiché une seule fois"
+          "password-shown-once": "Affiché une seule fois",
+          "start-backup": "Démarrer la sauvegarde"
         },
         "menu": {
           "security": {
@@ -84,7 +85,15 @@
           "copy-error": "Copier l'erreur",
           "copy-log": "Copier le journal",
           "password-section": "Mot de passe de sauvegarde",
-          "password": "Mot de passe de sauvegarde"
+          "password": "Mot de passe de sauvegarde",
+          "uploading": "Téléversement…",
+          "upload-processing": "Téléversement terminé — validation sur le serveur…",
+          "cancel-upload": "Annuler le téléversement",
+          "existing-backups": "Ou restaurer à partir d’une sauvegarde déjà présente dans le stockage",
+          "no-existing-backups": "Aucune sauvegarde trouvée dans le stockage. Téléversez-en une ci-dessus ou copiez une sauvegarde dans le dossier « backups » du stockage, puis actualisez.",
+          "backup-count": "Affichage de {{shown}} sur {{total}}",
+          "refresh": "Actualiser",
+          "back": "Retour"
         },
         "menu": {
           "security": {
@@ -110,13 +119,25 @@
           "security-data-admin-preserved": "Votre propre compte administrateur ({{username}}) ne sera pas modifié — votre mot de passe et votre session active sont préservés."
         },
         "placeholders": {
-          "password": "Saisissez le mot de passe affiché lors de la création de cette sauvegarde"
+          "password": "Saisissez le mot de passe affiché lors de la création de cette sauvegarde",
+          "filter-backups": "Filtrer les sauvegardes par nom…"
         },
         "hints": {
-          "password": "Saisissez le mot de passe affiché lors de la création de cette sauvegarde."
+          "password": "Saisissez le mot de passe affiché lors de la création de cette sauvegarde.",
+          "existing-backups": "Réutilisez un fichier déjà présent dans le stockage d’objets blob au lieu de le téléverser."
         },
         "errors": {
-          "wrong-password": "Mot de passe incorrect. Veuillez réessayer."
+          "wrong-password": "Mot de passe incorrect. Veuillez réessayer.",
+          "upload-too-large": "Ce fichier est trop volumineux pour être téléversé — il dépasse la limite de taille de téléversement du serveur (généralement 100 Mo dans cet environnement). Utilisez une sauvegarde plus petite (par exemple, excluez les données binaires) ou demandez à votre administrateur d’augmenter la limite.",
+          "upload-no-response": "Le fichier a été envoyé, mais le serveur n’a jamais répondu. Cela signifie généralement que le fichier dépasse la limite de taille de téléversement (souvent 100 Mo). Essayez une sauvegarde plus petite ou demandez à votre administrateur d’augmenter la limite.",
+          "upload-stalled": "Le téléversement s’est interrompu — aucune donnée n’a été transférée pendant un moment. Vérifiez votre connexion réseau et réessayez.",
+          "upload-gateway-timeout": "Le serveur n’a pas répondu à temps lors de la réception du fichier. Les téléversements volumineux peuvent dépasser le délai d’attente de la passerelle — réessayez ou utilisez une sauvegarde plus petite.",
+          "upload-gateway-unavailable": "Le service de téléversement est temporairement indisponible. Veuillez réessayer dans un instant.",
+          "upload-unauthorized": "Vous n’êtes pas autorisé à téléverser ce fichier, ou votre session a expiré. Veuillez vous reconnecter.",
+          "upload-network": "Le téléversement a échoué en raison d’une erreur réseau ou d’une connexion interrompue. Veuillez réessayer.",
+          "upload-failed-status": "Échec du téléversement avec le statut",
+          "manifest-not-found": "La sauvegarde sélectionnée n’est plus dans le stockage. Actualisez la liste et réessayez.",
+          "manifest-load-failed": "Impossible de lire cette sauvegarde. Le fichier est peut-être corrompu ou n’a pas été produit par la sauvegarde de données Virto Commerce."
         }
       },
       "exportImport-main": {
@@ -129,6 +150,10 @@
           "import": {
             "title": "Restauration",
             "description": "Restaurer les données à partir d’un fichier de sauvegarde pour une utilisation future"
+          },
+          "storage": {
+            "title": "Stockage des sauvegardes",
+            "description": "Consulter et nettoyer les fichiers de sauvegarde dans le stockage"
           }
         }
       }
@@ -141,8 +166,9 @@
     }
   },
   "permissions": {
-    "platform:exportImport:access": "Voir Sauvegarde/Restauration dans le menu principal",
-    "platform:export": "Sauvegarder les données de la plateforme et des modules",
-    "platform:import": "Restaurer les données de la plateforme et des modules"
+    "platform:backuprestore:access": "Voir Sauvegarde/Restauration dans le menu principal",
+    "platform:backuprestore:backup": "Sauvegarder les données de la plateforme et des modules",
+    "platform:backuprestore:restore": "Restaurer les données de la plateforme et des modules",
+    "platform:backuprestore:storage": "Afficher et gérer le dossier de stockage des sauvegardes"
   }
 }
