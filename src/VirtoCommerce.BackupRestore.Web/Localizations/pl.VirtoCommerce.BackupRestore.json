@@ -169,6 +169,8 @@
     "platform:backuprestore:access": "Wyświetl Kopia zapasowa/Przywracanie w menu głównym",
     "platform:backuprestore:backup": "Utwórz kopię zapasową danych platformy i modułów",
     "platform:backuprestore:restore": "Przywróć dane platformy i modułów",
-    "platform:backuprestore:storage": "Wyświetlanie magazynu kopii zapasowych i zarządzanie nim"
+    "platform:backuprestore:storage": "Wyświetlanie magazynu kopii zapasowych i zarządzanie nim",
+    "platform:export": "Eksportuj dane platformy i modułów (przestarzałe)",
+    "platform:import": "Importuj dane platformy i modułów (przestarzałe)"
   }
 }

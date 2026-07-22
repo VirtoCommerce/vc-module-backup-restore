@@ -169,6 +169,8 @@
     "platform:backuprestore:access": "Ver Copia de seguridad/Restauración en el menú principal",
     "platform:backuprestore:backup": "Hacer copia de seguridad de la plataforma y módulos",
     "platform:backuprestore:restore": "Restaurar datos de la plataforma y módulos",
-    "platform:backuprestore:storage": "Ver y gestionar la carpeta de almacenamiento de copias de seguridad"
+    "platform:backuprestore:storage": "Ver y gestionar la carpeta de almacenamiento de copias de seguridad",
+    "platform:export": "Exportar datos de la plataforma y módulos (heredado)",
+    "platform:import": "Importar datos de la plataforma y módulos (heredado)"
   }
 }

@@ -169,6 +169,8 @@
     "platform:backuprestore:access": "Vis Sikkerhetskopiering/Gjenoppretting i hovedmenyen",
     "platform:backuprestore:backup": "Sikkerhetskopier plattform- og moduldata",
     "platform:backuprestore:restore": "Gjenopprett plattform- og moduldata",
-    "platform:backuprestore:storage": "Vis og administrer mappen for lagring av sikkerhetskopier"
+    "platform:backuprestore:storage": "Vis og administrer mappen for lagring av sikkerhetskopier",
+    "platform:export": "Eksporter plattform- og moduldata (utdatert)",
+    "platform:import": "Importer plattform- og moduldata (utdatert)"
   }
 }

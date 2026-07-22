@@ -169,6 +169,8 @@
     "platform:backuprestore:access": "Backup/Wiederherstellung im Hauptmenü anzeigen",
     "platform:backuprestore:backup": "Plattform- und Modul-Daten sichern",
     "platform:backuprestore:restore": "Plattform- und Modul-Daten wiederherstellen",
-    "platform:backuprestore:storage": "Den Sicherungsspeicher-Ordner anzeigen und verwalten"
+    "platform:backuprestore:storage": "Den Sicherungsspeicher-Ordner anzeigen und verwalten",
+    "platform:export": "Plattform- und Modul-Daten exportieren (veraltet)",
+    "platform:import": "Plattform- und Modul-Daten importieren (veraltet)"
   }
 }
