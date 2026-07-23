@@ -169,6 +169,8 @@
     "platform:backuprestore:access": "Visualizza Backup/Ripristino nel menu principale",
     "platform:backuprestore:backup": "Esegui il backup della piattaforma e dei moduli",
     "platform:backuprestore:restore": "Ripristina dati della piattaforma e dei moduli",
-    "platform:backuprestore:storage": "Visualizza e gestisci la cartella di archiviazione dei backup"
+    "platform:backuprestore:storage": "Visualizza e gestisci la cartella di archiviazione dei backup",
+    "platform:export": "Esporta dati della piattaforma e dei moduli (obsoleto)",
+    "platform:import": "Importa dati della piattaforma e dei moduli (obsoleto)"
   }
 }

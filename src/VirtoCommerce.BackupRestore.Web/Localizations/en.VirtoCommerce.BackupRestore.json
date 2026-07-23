@@ -169,6 +169,8 @@
     "platform:backuprestore:access": "View Backup/Restore in the main menu",
     "platform:backuprestore:backup": "Backup Platform and modules data",
     "platform:backuprestore:restore": "Restore Platform and modules data",
-    "platform:backuprestore:storage": "View and manage the backup storage folder"
+    "platform:backuprestore:storage": "View and manage the backup storage folder",
+    "platform:export": "Export platform and modules data (legacy)",
+    "platform:import": "Import platform and modules data (legacy)"
   }
 }

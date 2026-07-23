@@ -169,6 +169,8 @@
     "platform:backuprestore:access": "メインメニューでバックアップ/復元を表示",
     "platform:backuprestore:backup": "プラットフォームとモジュールのデータをバックアップ",
     "platform:backuprestore:restore": "プラットフォームとモジュールのデータを復元",
-    "platform:backuprestore:storage": "バックアップストレージフォルダーの表示と管理"
+    "platform:backuprestore:storage": "バックアップストレージフォルダーの表示と管理",
+    "platform:export": "プラットフォームとモジュールのデータをエクスポート（レガシー）",
+    "platform:import": "プラットフォームとモジュールのデータをインポート（レガシー）"
   }
 }

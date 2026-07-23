@@ -169,6 +169,8 @@
     "platform:backuprestore:access": "Näytä Varmuuskopiointi/Palautus päävalikossa",
     "platform:backuprestore:backup": "Varmuuskopioi alustan ja moduulien data",
     "platform:backuprestore:restore": "Palauta alustan ja moduulien data",
-    "platform:backuprestore:storage": "Näytä ja hallitse varmuuskopioiden tallennuskansiota"
+    "platform:backuprestore:storage": "Näytä ja hallitse varmuuskopioiden tallennuskansiota",
+    "platform:export": "Vie alustan ja moduulien data (vanhentunut)",
+    "platform:import": "Tuo alustan ja moduulien data (vanhentunut)"
   }
 }
