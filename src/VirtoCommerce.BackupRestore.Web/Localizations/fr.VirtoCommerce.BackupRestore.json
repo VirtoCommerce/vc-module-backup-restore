@@ -169,6 +169,8 @@
     "platform:backuprestore:access": "Voir Sauvegarde/Restauration dans le menu principal",
     "platform:backuprestore:backup": "Sauvegarder les données de la plateforme et des modules",
     "platform:backuprestore:restore": "Restaurer les données de la plateforme et des modules",
-    "platform:backuprestore:storage": "Afficher et gérer le dossier de stockage des sauvegardes"
+    "platform:backuprestore:storage": "Afficher et gérer le dossier de stockage des sauvegardes",
+    "platform:export": "Exporter les données de la plateforme et des modules (hérité)",
+    "platform:import": "Importer les données de la plateforme et des modules (hérité)"
   }
 }

@@ -169,6 +169,8 @@
     "platform:backuprestore:access": "Exibir Backup/Restauração no menu principal",
     "platform:backuprestore:backup": "Fazer backup dos dados da plataforma e dos módulos",
     "platform:backuprestore:restore": "Restaurar dados da plataforma e dos módulos",
-    "platform:backuprestore:storage": "Visualizar e gerenciar a pasta de armazenamento de backups"
+    "platform:backuprestore:storage": "Visualizar e gerenciar a pasta de armazenamento de backups",
+    "platform:export": "Exportar dados da plataforma e dos módulos (herdado)",
+    "platform:import": "Importar dados da plataforma e dos módulos (herdado)"
   }
 }

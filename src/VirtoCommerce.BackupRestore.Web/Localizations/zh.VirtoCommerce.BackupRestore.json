@@ -169,6 +169,8 @@
     "platform:backuprestore:access": "在主菜单中查看备份/恢复",
     "platform:backuprestore:backup": "备份平台和模块数据",
     "platform:backuprestore:restore": "恢复平台和模块数据",
-    "platform:backuprestore:storage": "查看和管理备份存储文件夹"
+    "platform:backuprestore:storage": "查看和管理备份存储文件夹",
+    "platform:export": "导出平台和模块数据（旧版）",
+    "platform:import": "导入平台和模块数据（旧版）"
   }
 }
