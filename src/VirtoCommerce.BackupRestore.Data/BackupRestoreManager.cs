@@ -701,79 +701,123 @@ public class BackupRestoreManager : IBackupRestoreManager, IPlatformExportImport
 
         foreach (var module in manifest.Modules)
         {
-            var moduleDescriptor = GetModulesWithExportSupport().FirstOrDefault(x => x.Id == module.Id);
-            if (moduleDescriptor != null)
+            await ExportModuleInternalAsync(zipArchive, binaryDataWriter, manifest, module, progressInfo, progressCallback, cancellationToken);
+        }
+    }
+
+    private async Task ExportModuleInternalAsync(
+        IZipBackupArchive zipArchive,
+        IExportBinaryDataWriter binaryDataWriter,
+        PlatformExportManifest manifest,
+        ExportModuleInfo module,
+        ExportImportProgressInfo progressInfo,
+        Action<ExportImportProgressInfo> progressCallback,
+        CancellationToken cancellationToken)
+    {
+        var moduleDescriptor = GetModulesWithExportSupport().FirstOrDefault(x => x.Id == module.Id);
+        if (moduleDescriptor?.ModuleInstance is not IExportSupport exporter)
+        {
+            return;
+        }
+
+        var moduleZipEntryName = module.Id + ".json";
+        var moduleProgressCallback = CreateModuleProgressCallback(module.Id, progressInfo, progressCallback);
+        var errorsBefore = progressInfo.Errors.Count;
+
+        ReportProgress(progressInfo, progressCallback, $"Exporting '{module.Id}'");
+
+        try
+        {
+            var options = manifest.Options
+                .DefaultIfEmpty(new ExportImportOptions { HandleBinaryData = manifest.HandleBinaryData, ModuleIdentity = new ModuleIdentity(module.Id, SemanticVersion.Parse(module.Version.Trim()), module.Optional) })
+                .FirstOrDefault(x => x.ModuleIdentity.Id == moduleDescriptor.Identity.Id);
+
+            await WriteModuleEntryAsync(
+                zipArchive,
+                binaryDataWriter,
+                exporter,
+                options,
+                moduleZipEntryName,
+                moduleProgressCallback,
+                cancellationToken);
+
+            progressInfo.ProcessedCount++;
+            ReportModuleExportResult(module.Id, errorsBefore, progressInfo, progressCallback);
+        }
+        catch (Exception ex)
+        {
+            progressInfo.ProcessedCount++;
+            ReportProgress(progressInfo, progressCallback, $"Failed to export '{module.Id}': {ex.Message}", ProgressMessageLevel.Error);
+        }
+
+        module.PartUri = moduleZipEntryName;
+    }
+
+    private static Action<ExportImportProgressInfo> CreateModuleProgressCallback(
+        string moduleId,
+        ExportImportProgressInfo progressInfo,
+        Action<ExportImportProgressInfo> progressCallback)
+    {
+        return moduleProgressInfo =>
+        {
+            progressInfo.Description = $"{moduleId}: {moduleProgressInfo.Description}";
+            var newErrors = AppendNewErrors(progressInfo.Errors, moduleProgressInfo.Errors);
+            progressInfo.ProgressLog = newErrors
+                .Select(error => new ProgressMessage { Level = ProgressMessageLevel.Error, Message = error })
+                .ToList();
+
+            try
             {
-                //Create part for module
-                var moduleZipEntryName = module.Id + ".json";
-
-                void ModuleProgressCallback(ExportImportProgressInfo x)
-                {
-                    progressInfo.Description = $"{module.Id}: {x.Description}";
-                    var newErrors = AppendNewErrors(progressInfo.Errors, x.Errors);
-                    progressInfo.ProgressLog = newErrors
-                        .Select(e => new ProgressMessage { Level = ProgressMessageLevel.Error, Message = e })
-                        .ToList();
-                    try
-                    {
-                        progressCallback(progressInfo);
-                    }
-                    finally
-                    {
-                        progressInfo.ProgressLog = new List<ProgressMessage>();
-                    }
-                }
-
-                ReportProgress(progressInfo, progressCallback, $"Exporting '{module.Id}'");
-                if (moduleDescriptor.ModuleInstance is IExportSupport exporter)
-                {
-                    var errorsBefore = progressInfo.Errors.Count;
-                    try
-                    {
-                        var options = manifest.Options
-                            .DefaultIfEmpty(new ExportImportOptions { HandleBinaryData = manifest.HandleBinaryData, ModuleIdentity = new ModuleIdentity(module.Id, SemanticVersion.Parse(module.Version.Trim()), module.Optional) })
-                            .FirstOrDefault(x => x.ModuleIdentity.Id == moduleDescriptor.Identity.Id);
-
-                        if (exporter is IExportBinaryDataSupport binaryDataExporter && options?.HandleBinaryData == true)
-                        {
-                            await using var moduleDataStream = TemporaryFileStream.Create();
-                            await binaryDataExporter.ExportAsync(
-                                moduleDataStream,
-                                binaryDataWriter,
-                                options,
-                                ModuleProgressCallback,
-                                cancellationToken);
-
-                            await moduleDataStream.FlushAsync(cancellationToken);
-                            moduleDataStream.Position = 0;
-
-                            await using var moduleEntryStream = await zipArchive.CreateEntryAsync(moduleZipEntryName);
-                            await moduleDataStream.CopyToAsync(moduleEntryStream, cancellationToken);
-                        }
-                        else
-                        {
-                            await using var moduleEntryStream = await zipArchive.CreateEntryAsync(moduleZipEntryName);
-                            await exporter.ExportAsync(moduleEntryStream, options, ModuleProgressCallback, cancellationToken);
-                        }
-                        progressInfo.ProcessedCount++;
-                        var newErrors = progressInfo.Errors.Count - errorsBefore;
-                        if (newErrors > 0)
-                        {
-                            ReportProgress(progressInfo, progressCallback, $"Exported '{module.Id}' with {newErrors} error(s)", ProgressMessageLevel.Error);
-                        }
-                        else
-                        {
-                            ReportProgress(progressInfo, progressCallback, $"Successfully exported '{module.Id}'");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        progressInfo.ProcessedCount++;
-                        ReportProgress(progressInfo, progressCallback, $"Failed to export '{module.Id}': {ex.Message}", ProgressMessageLevel.Error);
-                    }
-                }
-                module.PartUri = moduleZipEntryName;
+                progressCallback(progressInfo);
             }
+            finally
+            {
+                progressInfo.ProgressLog = new List<ProgressMessage>();
+            }
+        };
+    }
+
+    private static async Task WriteModuleEntryAsync(
+        IZipBackupArchive zipArchive,
+        IExportBinaryDataWriter binaryDataWriter,
+        IExportSupport exporter,
+        ExportImportOptions options,
+        string moduleZipEntryName,
+        Action<ExportImportProgressInfo> progressCallback,
+        CancellationToken cancellationToken)
+    {
+        if (exporter is IExportBinaryDataSupport binaryDataExporter && options?.HandleBinaryData == true)
+        {
+            await using var moduleDataStream = TemporaryFileStream.Create();
+            await binaryDataExporter.ExportAsync(moduleDataStream, binaryDataWriter, options, progressCallback, cancellationToken);
+
+            await moduleDataStream.FlushAsync(cancellationToken);
+            moduleDataStream.Position = 0;
+
+            await using var moduleEntryStream = await zipArchive.CreateEntryAsync(moduleZipEntryName);
+            await moduleDataStream.CopyToAsync(moduleEntryStream, cancellationToken);
+        }
+        else
+        {
+            await using var moduleEntryStream = await zipArchive.CreateEntryAsync(moduleZipEntryName);
+            await exporter.ExportAsync(moduleEntryStream, options, progressCallback, cancellationToken);
+        }
+    }
+
+    private static void ReportModuleExportResult(
+        string moduleId,
+        int errorsBefore,
+        ExportImportProgressInfo progressInfo,
+        Action<ExportImportProgressInfo> progressCallback)
+    {
+        var newErrors = progressInfo.Errors.Count - errorsBefore;
+        if (newErrors > 0)
+        {
+            ReportProgress(progressInfo, progressCallback, $"Exported '{moduleId}' with {newErrors} error(s)", ProgressMessageLevel.Error);
+        }
+        else
+        {
+            ReportProgress(progressInfo, progressCallback, $"Successfully exported '{moduleId}'");
         }
     }
 
