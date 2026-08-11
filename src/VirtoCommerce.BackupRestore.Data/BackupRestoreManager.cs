@@ -10,6 +10,7 @@ using ICSharpCode.SharpZipLib.Zip;
 using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
 using VirtoCommerce.BackupRestore.Core;
+using VirtoCommerce.BackupRestore.Data.ExportImport;
 using VirtoCommerce.Platform.Core.Common;
 using VirtoCommerce.Platform.Core.DynamicProperties;
 using VirtoCommerce.Platform.Core.Events;
@@ -620,6 +621,8 @@ public class BackupRestoreManager : IBackupRestoreManager, IPlatformExportImport
 
     private async Task ImportModulesInternalAsync(IZipBackupArchive zipArchive, PlatformExportManifest manifest, ExportImportProgressInfo progressInfo, Action<ExportImportProgressInfo> progressCallback, CancellationToken cancellationToken)
     {
+        var binaryDataReader = new BackupBinaryDataReader(zipArchive);
+
         foreach (var moduleInfo in manifest.Modules)
         {
             var moduleDescriptor = GetModulesWithImportSupport().FirstOrDefault(x => x.Id == moduleInfo.Id);
@@ -660,7 +663,14 @@ public class BackupRestoreManager : IBackupRestoreManager, IPlatformExportImport
                             var options = manifest.Options
                                 .DefaultIfEmpty(new ExportImportOptions { HandleBinaryData = manifest.HandleBinaryData, ModuleIdentity = new ModuleIdentity(moduleDescriptor.Identity.Id, moduleDescriptor.Identity.Version, false) })
                                 .FirstOrDefault(x => x.ModuleIdentity.Id == moduleDescriptor.Identity.Id);
-                            await importer.ImportAsync(modulePartStream, options, ModuleProgressCallback, cancellationToken);
+                            if (importer is IImportBinaryDataSupport binaryDataImporter)
+                            {
+                                await binaryDataImporter.ImportAsync(modulePartStream, binaryDataReader, options, ModuleProgressCallback, cancellationToken);
+                            }
+                            else
+                            {
+                                await importer.ImportAsync(modulePartStream, options, ModuleProgressCallback, cancellationToken);
+                            }
                             progressInfo.ProcessedCount++;
                             var newErrors = progressInfo.Errors.Count - errorsBefore;
                             if (newErrors > 0)
@@ -687,6 +697,8 @@ public class BackupRestoreManager : IBackupRestoreManager, IPlatformExportImport
 
     private async Task ExportModulesInternalAsync(IZipBackupArchive zipArchive, PlatformExportManifest manifest, ExportImportProgressInfo progressInfo, Action<ExportImportProgressInfo> progressCallback, CancellationToken cancellationToken)
     {
+        var binaryDataWriter = new BackupBinaryDataWriter(zipArchive);
+
         foreach (var module in manifest.Modules)
         {
             var moduleDescriptor = GetModulesWithExportSupport().FirstOrDefault(x => x.Id == module.Id);
@@ -722,10 +734,26 @@ public class BackupRestoreManager : IBackupRestoreManager, IPlatformExportImport
                             .DefaultIfEmpty(new ExportImportOptions { HandleBinaryData = manifest.HandleBinaryData, ModuleIdentity = new ModuleIdentity(module.Id, SemanticVersion.Parse(module.Version.Trim()), module.Optional) })
                             .FirstOrDefault(x => x.ModuleIdentity.Id == moduleDescriptor.Identity.Id);
 
-                        await using (var stream = await zipArchive.CreateEntryAsync(moduleZipEntryName))
+                        if (exporter is IExportBinaryDataSupport binaryDataExporter && options?.HandleBinaryData == true)
                         {
-                            await exporter.ExportAsync(stream, options, ModuleProgressCallback,
+                            await using var moduleDataStream = TemporaryFileStream.Create();
+                            await binaryDataExporter.ExportAsync(
+                                moduleDataStream,
+                                binaryDataWriter,
+                                options,
+                                ModuleProgressCallback,
                                 cancellationToken);
+
+                            await moduleDataStream.FlushAsync(cancellationToken);
+                            moduleDataStream.Position = 0;
+
+                            await using var moduleEntryStream = await zipArchive.CreateEntryAsync(moduleZipEntryName);
+                            await moduleDataStream.CopyToAsync(moduleEntryStream, cancellationToken);
+                        }
+                        else
+                        {
+                            await using var moduleEntryStream = await zipArchive.CreateEntryAsync(moduleZipEntryName);
+                            await exporter.ExportAsync(moduleEntryStream, options, ModuleProgressCallback, cancellationToken);
                         }
                         progressInfo.ProcessedCount++;
                         var newErrors = progressInfo.Errors.Count - errorsBefore;
