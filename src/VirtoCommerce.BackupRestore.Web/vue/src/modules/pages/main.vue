@@ -1,6 +1,6 @@
 <template>
   <VcBlade
-    :title="$t('BACKUP.PAGES.MAIN.TITLE')"
+    :title="$t('BACKUP.MENU.TITLE')"
     width="50%"
   >
     <VcDataTable

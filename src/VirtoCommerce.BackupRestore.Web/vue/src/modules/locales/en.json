@@ -3,7 +3,6 @@
     "MENU": { "TITLE": "Backup & Restore" },
     "PAGES": {
       "MAIN": {
-        "TITLE": "Backup & Restore",
         "COLUMNS": { "ACTION": "Action", "DESCRIPTION": "Description" },
         "BACKUP": { "TITLE": "Backup", "DESCRIPTION": "Save the platform data and settings to a backup file" },
         "RESTORE": { "TITLE": "Restore", "DESCRIPTION": "Restore the platform data and settings from a backup file" },
