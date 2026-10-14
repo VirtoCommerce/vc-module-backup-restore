@@ -1,0 +1,18 @@
+{
+  // Backup and restore admin UI for the Admin Shell host (Module Federation remote)
+  "remote": { "name": "backuprestore_admin", "exposed": "./Module" },
+  "contributions": {
+    "menu": [
+      {
+        "id": "backup-restore",
+        "sectionId": "configuration",
+        "title": "Backup and restore",
+        "icon": "lucide-database-backup",
+        "route": "/backup-restore",
+        "permission": "platform:backuprestore:access",
+        "priority": 80,
+        "replaces": "legacy.exportImport"
+      }
+    ]
+  }
+}

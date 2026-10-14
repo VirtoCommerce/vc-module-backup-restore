@@ -1,0 +1,75 @@
+{
+  "BACKUP": {
+    "MENU": { "TITLE": "Backup and restore" },
+    "PAGES": {
+      "MAIN": {
+        "TITLE": "Backup and restore",
+        "COLUMNS": { "ACTION": "Action", "DESCRIPTION": "Description" },
+        "BACKUP": { "TITLE": "Backup", "DESCRIPTION": "Save the platform data and settings to a backup file" },
+        "RESTORE": { "TITLE": "Restore", "DESCRIPTION": "Restore the platform data and settings from a backup file" },
+        "STORAGE": { "TITLE": "Backup storage", "DESCRIPTION": "Review, download and remove the backup files in storage" }
+      },
+      "BACKUP": {
+        "TITLE": "Backup",
+        "PLATFORM": "Platform data",
+        "MODULES": "Modules",
+        "OPTIONS": {
+          "PASSWORD": "Password-protect the backup",
+          "PASSWORD_HINT": "Encrypts the backup; a one-time password is shown when it's ready",
+          "SECURITY": "Security",
+          "SECURITY_HINT": "Users, roles and API accounts",
+          "BINARY": "Binary data",
+          "BINARY_HINT": "Files and images of the modules that support it",
+          "SETTINGS": "Settings",
+          "SETTINGS_HINT": "Platform and module settings",
+          "DYNAMIC": "Dynamic properties",
+          "DYNAMIC_HINT": "Dynamic property definitions and dictionaries"
+        },
+        "COLUMNS": { "MODULE": "Module", "VERSION": "Version" },
+        "WARN_SECURITY": "The backup will contain user accounts and password hashes. Store it securely.",
+        "WARN_NO_PASSWORD": "The backup will not be encrypted: anyone with the file can read its data.",
+        "PASSWORD": "Backup password",
+        "PASSWORD_NOTE": "Copy this password now: it is shown only once and is needed to restore the backup.",
+        "DOWNLOAD": "Download backup",
+        "TOOLBAR": { "SELECT_ALL": "Select all", "UNSELECT_ALL": "Unselect all", "START": "Start backup", "CANCEL": "Cancel" }
+      },
+      "RESTORE": {
+        "TITLE": "Restore",
+        "UPLOAD": "Upload a backup file (.zip)",
+        "UPLOADING": "Uploading {name}: {percent}%",
+        "CANCEL_UPLOAD": "Cancel upload",
+        "EXISTING": "Or restore a backup that is already in storage",
+        "NO_BACKUPS": "No backup files in storage",
+        "FILE": "Backup file",
+        "INFO": "Backup information",
+        "VERSION": "Platform version",
+        "AUTHOR": "Author",
+        "CREATED": "Created",
+        "ENCRYPTED": "Encrypted",
+        "YES": "Yes",
+        "NO": "No",
+        "PASSWORD": "Backup password",
+        "PASSWORD_HINT": "The password shown when the backup was made",
+        "CONTENT": "Restore",
+        "WARN": "Restoring overwrites the existing data of the selected modules and sections.",
+        "TOOLBAR": { "BACK": "Back", "SELECT_ALL": "Select all", "UNSELECT_ALL": "Unselect all", "START": "Start restore", "CANCEL": "Cancel" }
+      },
+      "STORAGE": {
+        "TITLE": "Backup storage",
+        "EMPTY": "No backup files",
+        "COLUMNS": { "NAME": "File", "SIZE": "Size", "MODIFIED": "Modified" },
+        "TOOLBAR": { "REFRESH": "Refresh", "DELETE": "Delete" },
+        "ACTIONS": { "DOWNLOAD": "Download", "RESTORE": "Restore", "DELETE": "Delete" }
+      }
+    },
+    "PROGRESS": { "STEPS": "Progress", "LOG": "Detailed log" },
+    "JOB": { "STARTED": "Started", "FINISHED": "Finished", "ELAPSED": "Elapsed", "PROCESSED": "Processed", "ERRORS": "Errors" },
+    "ALERTS": {
+      "RESTORE_CONFIRMATION": "Restore {file}? The existing data of the selected sections will be overwritten. This cannot be undone.",
+      "DELETE_BACKUPS": "Delete {count} backup file(s)? This cannot be undone.",
+      "NOT_ZIP": "Choose a .zip backup file",
+      "UPLOAD_NO_RESPONSE": "The file was sent but the server never responded. This usually means the file exceeds the upload size limit (often 100 MB). Try a smaller backup, or ask your administrator to raise the limit.",
+      "UPLOAD_STALLED": "The upload stalled — no data was transferred for a while. Check your network connection and try again."
+    }
+  }
+}
