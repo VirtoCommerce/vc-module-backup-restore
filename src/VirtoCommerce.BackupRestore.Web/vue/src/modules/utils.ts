@@ -32,13 +32,13 @@ export const levelName = (level?: string | number) => (typeof level === "number"
 export type Step = { name: string; status: "active" | "done" | "error"; messages: string[] };
 
 // Per-module steps from the job's progress log ("Exporting 'X'" ... "Successfully exported 'X'"), as the AngularJS blade showed
-export function parseSteps(log: { level?: string | number; message?: string }[] = [], verb: "export" | "import", finished: boolean): Step[] {
+export function parseSteps(log: { level?: string | number; message?: string }[] | undefined, verb: "export" | "import", finished: boolean): Step[] {
   const start = verb === "export" ? /^Exporting '(.+?)'/ : /^Importing '(.+?)'/;
   const success = verb === "export" ? /^Successfully exported '(.+?)'/ : /^Successfully imported '(.+?)'/;
   const failure = verb === "export" ? /^Failed to export '(.+?)'/ : /^Failed to import '(.+?)'/;
   const steps: Step[] = [];
   let current: Step | undefined;
-  for (const entry of log) {
+  for (const entry of log ?? []) {
     const msg = entry.message ?? "";
     const started = start.exec(msg);
     if (started) {

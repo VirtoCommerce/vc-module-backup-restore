@@ -83,7 +83,10 @@ export const backupApi = {
       .filter((x) => x.type === "blob" && x.name?.toLowerCase().endsWith(".zip"))
       .sort((a, b) => String(b.modifiedDate).localeCompare(String(a.modifiedDate)));
   },
-  deleteBlobs: (urls: string[]) => call<void>("DELETE", `/api/assets?${urls.map((x) => `urls=${encodeURIComponent(x)}`).join("&")}`),
+  deleteBlobs: (urls: string[]) => {
+    const query = urls.map((x) => `urls=${encodeURIComponent(x)}`).join("&");
+    return call<void>("DELETE", `/api/assets?${query}`);
+  },
 };
 
 // Legacy watchdog: no upload activity for this long aborts the upload. Progress events keep resetting it while bytes
@@ -110,7 +113,10 @@ export function uploadBackup(file: File, onProgress: (percent: number) => void, 
     xhr.setRequestHeader("Accept", "application/json");
     xhr.upload.onprogress = (e) => {
       arm();
-      if (e.lengthComputable) onProgress((percent = Math.round((e.loaded / e.total) * 100)));
+      if (e.lengthComputable) {
+        percent = Math.round((e.loaded / e.total) * 100);
+        onProgress(percent);
+      }
     };
     xhr.onloadend = () => clearTimeout(watchdog);
     xhr.onload = () => (xhr.status < 300 ? resolve(JSON.parse(xhr.responseText)) : reject(Object.assign(new Error(`${xhr.status} ${xhr.responseText}`), { status: xhr.status })));
