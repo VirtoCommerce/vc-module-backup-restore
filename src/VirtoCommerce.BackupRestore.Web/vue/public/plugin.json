@@ -5,7 +5,7 @@
       {
         "id": "backup-restore",
         "sectionId": "configuration",
-        "title": "Backup and restore",
+        "title": "Backup & Restore",
         "icon": "lucide-database-backup",
         "route": "/backup-restore",
         "permission": "platform:backuprestore:access",
