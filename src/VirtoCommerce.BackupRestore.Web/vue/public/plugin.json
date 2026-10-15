@@ -1,0 +1,17 @@
+{
+  "remote": { "name": "backuprestore_admin", "exposed": "./Module" },
+  "contributions": {
+    "menu": [
+      {
+        "id": "backup-restore",
+        "sectionId": "configuration",
+        "title": "Backup & Restore",
+        "icon": "lucide-database-backup",
+        "route": "/backup-restore",
+        "permission": "platform:backuprestore:access",
+        "priority": 80,
+        "replaces": "legacy.exportImport"
+      }
+    ]
+  }
+}

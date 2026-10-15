@@ -339,3 +339,4 @@ dist/
 **/Properties/launchSettings.json
 /.serena
 /.claude
+src/VirtoCommerce.BackupRestore.Web/plugins/
