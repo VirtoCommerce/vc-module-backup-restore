@@ -1,0 +1,122 @@
+{
+  "BACKUP": {
+    "MENU": {
+      "TITLE": "Säkerhetskopiering och återställning"
+    },
+    "PAGES": {
+      "MAIN": {
+        "COLUMNS": {
+          "ACTION": "Åtgärd",
+          "DESCRIPTION": "Beskrivning"
+        },
+        "BACKUP": {
+          "TITLE": "Säkerhetskopiering",
+          "DESCRIPTION": "Spara plattformens data och inställningar i en säkerhetskopiefil"
+        },
+        "RESTORE": {
+          "TITLE": "Återställning",
+          "DESCRIPTION": "Återställ plattformens data och inställningar från en säkerhetskopiefil"
+        },
+        "STORAGE": {
+          "TITLE": "Lagring av säkerhetskopior",
+          "DESCRIPTION": "Granska, ladda ner och ta bort säkerhetskopiefiler i lagringen"
+        }
+      },
+      "BACKUP": {
+        "TITLE": "Säkerhetskopiering",
+        "PLATFORM": "Plattformsdata",
+        "MODULES": "Moduler",
+        "OPTIONS": {
+          "PASSWORD": "Lösenordsskydda säkerhetskopian",
+          "PASSWORD_HINT": "Krypterar säkerhetskopian; ett engångslösenord visas när den är klar",
+          "SECURITY": "Säkerhet",
+          "SECURITY_HINT": "Användare, roller och API-konton",
+          "BINARY": "Binärdata",
+          "BINARY_HINT": "Filer och bilder från moduler som stöder det",
+          "SETTINGS": "Inställningar",
+          "SETTINGS_HINT": "Plattforms- och modulinställningar",
+          "DYNAMIC": "Dynamiska egenskaper",
+          "DYNAMIC_HINT": "Definitioner och ordlistor för dynamiska egenskaper"
+        },
+        "COLUMNS": {
+          "MODULE": "Modul",
+          "VERSION": "Version"
+        },
+        "WARN_SECURITY": "Säkerhetskopian kommer att innehålla användarkonton och lösenordshashar. Förvara den säkert.",
+        "WARN_NO_PASSWORD": "Säkerhetskopian krypteras inte: alla som har filen kan läsa dess data.",
+        "PASSWORD": "Säkerhetskopielösenord",
+        "PASSWORD_NOTE": "Kopiera lösenordet nu: det visas bara en gång och behövs för att återställa säkerhetskopian.",
+        "DOWNLOAD": "Ladda ner säkerhetskopia",
+        "TOOLBAR": {
+          "SELECT_ALL": "Markera alla",
+          "UNSELECT_ALL": "Avmarkera alla",
+          "START": "Starta säkerhetskopiering",
+          "CANCEL": "Avbryt"
+        }
+      },
+      "RESTORE": {
+        "TITLE": "Återställning",
+        "UPLOAD": "Ladda upp en säkerhetskopiefil (.zip)",
+        "UPLOADING": "Laddar upp {name}: {percent}%",
+        "CANCEL_UPLOAD": "Avbryt uppladdning",
+        "EXISTING": "Eller återställ en säkerhetskopia som redan finns i lagringen",
+        "NO_BACKUPS": "Inga säkerhetskopiefiler i lagringen",
+        "FILE": "Säkerhetskopiefil",
+        "INFO": "Information om säkerhetskopian",
+        "VERSION": "Plattformsversion",
+        "AUTHOR": "Författare",
+        "CREATED": "Skapad",
+        "ENCRYPTED": "Krypterad",
+        "YES": "Ja",
+        "NO": "Nej",
+        "PASSWORD": "Säkerhetskopielösenord",
+        "PASSWORD_HINT": "Lösenordet som visades när säkerhetskopian skapades",
+        "CONTENT": "Data att återställa",
+        "WARN": "Återställningen skriver över befintliga data i de valda modulerna och avsnitten.",
+        "TOOLBAR": {
+          "BACK": "Tillbaka",
+          "SELECT_ALL": "Markera alla",
+          "UNSELECT_ALL": "Avmarkera alla",
+          "START": "Starta återställning",
+          "CANCEL": "Avbryt"
+        }
+      },
+      "STORAGE": {
+        "TITLE": "Lagring av säkerhetskopior",
+        "EMPTY": "Inga säkerhetskopiefiler",
+        "COLUMNS": {
+          "NAME": "Fil",
+          "SIZE": "Storlek",
+          "MODIFIED": "Ändrad"
+        },
+        "TOOLBAR": {
+          "REFRESH": "Uppdatera",
+          "DELETE": "Ta bort"
+        },
+        "ACTIONS": {
+          "DOWNLOAD": "Ladda ner",
+          "RESTORE": "Återställ",
+          "DELETE": "Ta bort"
+        }
+      }
+    },
+    "PROGRESS": {
+      "STEPS": "Förlopp",
+      "LOG": "Detaljerad logg"
+    },
+    "JOB": {
+      "STARTED": "Startad",
+      "FINISHED": "Slutförd",
+      "ELAPSED": "Förfluten tid",
+      "PROCESSED": "Bearbetade",
+      "ERRORS": "Fel"
+    },
+    "ALERTS": {
+      "RESTORE_CONFIRMATION": "Återställa {file}? Befintliga data i de valda avsnitten skrivs över. Detta kan inte ångras.",
+      "DELETE_BACKUPS": "Ta bort {count} säkerhetskopiefil(er)? Detta kan inte ångras.",
+      "NOT_ZIP": "Välj en .zip-säkerhetskopiefil",
+      "UPLOAD_NO_RESPONSE": "Filen skickades, men servern svarade aldrig. Detta betyder vanligtvis att filen överskrider gränsen för uppladdningsstorlek (ofta 100 MB). Prova en mindre säkerhetskopia, eller be administratören att höja gränsen.",
+      "UPLOAD_STALLED": "Uppladdningen avstannade — inga data överfördes på ett tag. Kontrollera din nätverksanslutning och försök igen."
+    }
+  }
+}

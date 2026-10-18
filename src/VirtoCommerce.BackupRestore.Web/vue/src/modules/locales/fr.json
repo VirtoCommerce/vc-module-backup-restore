@@ -1,0 +1,122 @@
+{
+  "BACKUP": {
+    "MENU": {
+      "TITLE": "Sauvegarde et restauration"
+    },
+    "PAGES": {
+      "MAIN": {
+        "COLUMNS": {
+          "ACTION": "Action",
+          "DESCRIPTION": "Description"
+        },
+        "BACKUP": {
+          "TITLE": "Sauvegarde",
+          "DESCRIPTION": "Enregistrer les données et paramètres de la plateforme dans un fichier de sauvegarde"
+        },
+        "RESTORE": {
+          "TITLE": "Restauration",
+          "DESCRIPTION": "Restaurer les données et paramètres de la plateforme à partir d’un fichier de sauvegarde"
+        },
+        "STORAGE": {
+          "TITLE": "Stockage des sauvegardes",
+          "DESCRIPTION": "Consulter, télécharger et supprimer les fichiers de sauvegarde du stockage"
+        }
+      },
+      "BACKUP": {
+        "TITLE": "Sauvegarde",
+        "PLATFORM": "Données de la plateforme",
+        "MODULES": "Modules",
+        "OPTIONS": {
+          "PASSWORD": "Protéger la sauvegarde par mot de passe",
+          "PASSWORD_HINT": "Chiffre la sauvegarde ; un mot de passe à usage unique est affiché lorsqu’elle est prête",
+          "SECURITY": "Sécurité",
+          "SECURITY_HINT": "Utilisateurs, rôles et comptes API",
+          "BINARY": "Données binaires",
+          "BINARY_HINT": "Fichiers et images des modules qui le prennent en charge",
+          "SETTINGS": "Paramètres",
+          "SETTINGS_HINT": "Paramètres de la plateforme et des modules",
+          "DYNAMIC": "Propriétés dynamiques",
+          "DYNAMIC_HINT": "Définitions et dictionnaires des propriétés dynamiques"
+        },
+        "COLUMNS": {
+          "MODULE": "Module",
+          "VERSION": "Version"
+        },
+        "WARN_SECURITY": "La sauvegarde contiendra les comptes utilisateur et les hachages de mots de passe. Conservez-la en lieu sûr.",
+        "WARN_NO_PASSWORD": "La sauvegarde ne sera pas chiffrée : toute personne disposant du fichier pourra lire ses données.",
+        "PASSWORD": "Mot de passe de sauvegarde",
+        "PASSWORD_NOTE": "Copiez ce mot de passe maintenant : il n’est affiché qu’une seule fois et est nécessaire pour restaurer la sauvegarde.",
+        "DOWNLOAD": "Télécharger la sauvegarde",
+        "TOOLBAR": {
+          "SELECT_ALL": "Tout sélectionner",
+          "UNSELECT_ALL": "Tout désélectionner",
+          "START": "Démarrer la sauvegarde",
+          "CANCEL": "Annuler"
+        }
+      },
+      "RESTORE": {
+        "TITLE": "Restauration",
+        "UPLOAD": "Téléverser un fichier de sauvegarde (.zip)",
+        "UPLOADING": "Téléversement de {name} : {percent}%",
+        "CANCEL_UPLOAD": "Annuler le téléversement",
+        "EXISTING": "Ou restaurer une sauvegarde déjà présente dans le stockage",
+        "NO_BACKUPS": "Aucun fichier de sauvegarde dans le stockage",
+        "FILE": "Fichier de sauvegarde",
+        "INFO": "Informations sur la sauvegarde",
+        "VERSION": "Version de la plateforme",
+        "AUTHOR": "Auteur",
+        "CREATED": "Créé le",
+        "ENCRYPTED": "Chiffré",
+        "YES": "Oui",
+        "NO": "Non",
+        "PASSWORD": "Mot de passe de sauvegarde",
+        "PASSWORD_HINT": "Le mot de passe affiché lors de la création de la sauvegarde",
+        "CONTENT": "Données à restaurer",
+        "WARN": "La restauration écrase les données existantes des modules et sections sélectionnés.",
+        "TOOLBAR": {
+          "BACK": "Retour",
+          "SELECT_ALL": "Tout sélectionner",
+          "UNSELECT_ALL": "Tout désélectionner",
+          "START": "Démarrer la restauration",
+          "CANCEL": "Annuler"
+        }
+      },
+      "STORAGE": {
+        "TITLE": "Stockage des sauvegardes",
+        "EMPTY": "Aucun fichier de sauvegarde",
+        "COLUMNS": {
+          "NAME": "Fichier",
+          "SIZE": "Taille",
+          "MODIFIED": "Modifié"
+        },
+        "TOOLBAR": {
+          "REFRESH": "Actualiser",
+          "DELETE": "Supprimer"
+        },
+        "ACTIONS": {
+          "DOWNLOAD": "Télécharger",
+          "RESTORE": "Restaurer",
+          "DELETE": "Supprimer"
+        }
+      }
+    },
+    "PROGRESS": {
+      "STEPS": "Progression",
+      "LOG": "Journal détaillé"
+    },
+    "JOB": {
+      "STARTED": "Démarré",
+      "FINISHED": "Terminé",
+      "ELAPSED": "Durée",
+      "PROCESSED": "Traités",
+      "ERRORS": "Erreurs"
+    },
+    "ALERTS": {
+      "RESTORE_CONFIRMATION": "Restaurer {file} ? Les données existantes des sections sélectionnées seront écrasées. Cette action est irréversible.",
+      "DELETE_BACKUPS": "Supprimer {count} fichier(s) de sauvegarde ? Cette action est irréversible.",
+      "NOT_ZIP": "Choisissez un fichier de sauvegarde .zip",
+      "UPLOAD_NO_RESPONSE": "Le fichier a été envoyé, mais le serveur n’a jamais répondu. Cela signifie généralement que le fichier dépasse la limite de taille de téléversement (souvent 100 Mo). Essayez une sauvegarde plus petite ou demandez à votre administrateur d’augmenter la limite.",
+      "UPLOAD_STALLED": "Le téléversement s’est interrompu — aucune donnée n’a été transférée pendant un moment. Vérifiez votre connexion réseau et réessayez."
+    }
+  }
+}

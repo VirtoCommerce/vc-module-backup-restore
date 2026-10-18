@@ -1,0 +1,122 @@
+{
+  "BACKUP": {
+    "MENU": {
+      "TITLE": "Varmuuskopiointi ja palautus"
+    },
+    "PAGES": {
+      "MAIN": {
+        "COLUMNS": {
+          "ACTION": "Toiminto",
+          "DESCRIPTION": "Kuvaus"
+        },
+        "BACKUP": {
+          "TITLE": "Varmuuskopiointi",
+          "DESCRIPTION": "Tallenna alustan tiedot ja asetukset varmuuskopiotiedostoon"
+        },
+        "RESTORE": {
+          "TITLE": "Palautus",
+          "DESCRIPTION": "Palauta alustan tiedot ja asetukset varmuuskopiotiedostosta"
+        },
+        "STORAGE": {
+          "TITLE": "Varmuuskopioiden tallennustila",
+          "DESCRIPTION": "Tarkastele, lataa ja poista tallennustilassa olevia varmuuskopiotiedostoja"
+        }
+      },
+      "BACKUP": {
+        "TITLE": "Varmuuskopiointi",
+        "PLATFORM": "Alustan tiedot",
+        "MODULES": "Moduulit",
+        "OPTIONS": {
+          "PASSWORD": "Suojaa varmuuskopio salasanalla",
+          "PASSWORD_HINT": "Salaa varmuuskopion; kertakäyttöinen salasana näytetään, kun varmuuskopio on valmis",
+          "SECURITY": "Turvallisuus",
+          "SECURITY_HINT": "Käyttäjät, roolit ja API-tilit",
+          "BINARY": "Binääridata",
+          "BINARY_HINT": "Niitä tukevien moduulien tiedostot ja kuvat",
+          "SETTINGS": "Asetukset",
+          "SETTINGS_HINT": "Alustan ja moduulien asetukset",
+          "DYNAMIC": "Dynaamiset ominaisuudet",
+          "DYNAMIC_HINT": "Dynaamisten ominaisuuksien määritykset ja sanastot"
+        },
+        "COLUMNS": {
+          "MODULE": "Moduuli",
+          "VERSION": "Versio"
+        },
+        "WARN_SECURITY": "Varmuuskopio sisältää käyttäjätilit ja salasanojen tiivisteet. Säilytä se turvallisesti.",
+        "WARN_NO_PASSWORD": "Varmuuskopiota ei salata: kuka tahansa, jolla on tiedosto, voi lukea sen tiedot.",
+        "PASSWORD": "Varmuuskopion salasana",
+        "PASSWORD_NOTE": "Kopioi tämä salasana nyt: se näytetään vain kerran, ja sitä tarvitaan varmuuskopion palauttamiseen.",
+        "DOWNLOAD": "Lataa varmuuskopio",
+        "TOOLBAR": {
+          "SELECT_ALL": "Valitse kaikki",
+          "UNSELECT_ALL": "Poista kaikki valinnat",
+          "START": "Aloita varmuuskopiointi",
+          "CANCEL": "Peruuta"
+        }
+      },
+      "RESTORE": {
+        "TITLE": "Palautus",
+        "UPLOAD": "Lataa varmuuskopiotiedosto (.zip) palvelimelle",
+        "UPLOADING": "Ladataan {name}: {percent}%",
+        "CANCEL_UPLOAD": "Peruuta lataus",
+        "EXISTING": "Tai palauta tallennustilassa jo oleva varmuuskopio",
+        "NO_BACKUPS": "Tallennustilassa ei ole varmuuskopiotiedostoja",
+        "FILE": "Varmuuskopiotiedosto",
+        "INFO": "Varmuuskopion tiedot",
+        "VERSION": "Alustan versio",
+        "AUTHOR": "Tekijä",
+        "CREATED": "Luotu",
+        "ENCRYPTED": "Salattu",
+        "YES": "Kyllä",
+        "NO": "Ei",
+        "PASSWORD": "Varmuuskopion salasana",
+        "PASSWORD_HINT": "Salasana, joka näytettiin varmuuskopion luonnin yhteydessä",
+        "CONTENT": "Palautettavat tiedot",
+        "WARN": "Palautus korvaa valittujen moduulien ja osioiden nykyiset tiedot.",
+        "TOOLBAR": {
+          "BACK": "Takaisin",
+          "SELECT_ALL": "Valitse kaikki",
+          "UNSELECT_ALL": "Poista kaikki valinnat",
+          "START": "Aloita palautus",
+          "CANCEL": "Peruuta"
+        }
+      },
+      "STORAGE": {
+        "TITLE": "Varmuuskopioiden tallennustila",
+        "EMPTY": "Ei varmuuskopiotiedostoja",
+        "COLUMNS": {
+          "NAME": "Tiedosto",
+          "SIZE": "Koko",
+          "MODIFIED": "Muokattu"
+        },
+        "TOOLBAR": {
+          "REFRESH": "Päivitä",
+          "DELETE": "Poista"
+        },
+        "ACTIONS": {
+          "DOWNLOAD": "Lataa",
+          "RESTORE": "Palauta",
+          "DELETE": "Poista"
+        }
+      }
+    },
+    "PROGRESS": {
+      "STEPS": "Edistyminen",
+      "LOG": "Yksityiskohtainen loki"
+    },
+    "JOB": {
+      "STARTED": "Aloitettu",
+      "FINISHED": "Valmis",
+      "ELAPSED": "Kulunut aika",
+      "PROCESSED": "Käsitelty",
+      "ERRORS": "Virheet"
+    },
+    "ALERTS": {
+      "RESTORE_CONFIRMATION": "Palautetaanko {file}? Valittujen osioiden nykyiset tiedot korvataan. Toimintoa ei voi kumota.",
+      "DELETE_BACKUPS": "Poistetaanko {count} varmuuskopiotiedosto(a)? Toimintoa ei voi kumota.",
+      "NOT_ZIP": "Valitse .zip-varmuuskopiotiedosto",
+      "UPLOAD_NO_RESPONSE": "Tiedosto lähetettiin, mutta palvelin ei vastannut. Tämä tarkoittaa yleensä, että tiedosto ylittää latauskoon rajan (usein 100 Mt). Kokeile pienempää varmuuskopiota tai pyydä järjestelmänvalvojaa nostamaan rajaa.",
+      "UPLOAD_STALLED": "Lataus pysähtyi — tietoja ei siirretty hetkeen. Tarkista verkkoyhteytesi ja yritä uudelleen."
+    }
+  }
+}

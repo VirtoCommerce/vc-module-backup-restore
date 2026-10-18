@@ -1,0 +1,122 @@
+{
+  "BACKUP": {
+    "MENU": {
+      "TITLE": "Kopia zapasowa i przywracanie"
+    },
+    "PAGES": {
+      "MAIN": {
+        "COLUMNS": {
+          "ACTION": "Akcja",
+          "DESCRIPTION": "Opis"
+        },
+        "BACKUP": {
+          "TITLE": "Kopia zapasowa",
+          "DESCRIPTION": "Zapisz dane i ustawienia platformy w pliku kopii zapasowej"
+        },
+        "RESTORE": {
+          "TITLE": "Przywracanie",
+          "DESCRIPTION": "Przywróć dane i ustawienia platformy z pliku kopii zapasowej"
+        },
+        "STORAGE": {
+          "TITLE": "Magazyn kopii zapasowych",
+          "DESCRIPTION": "Przeglądaj, pobieraj i usuwaj pliki kopii zapasowych w magazynie"
+        }
+      },
+      "BACKUP": {
+        "TITLE": "Kopia zapasowa",
+        "PLATFORM": "Dane platformy",
+        "MODULES": "Moduły",
+        "OPTIONS": {
+          "PASSWORD": "Chroń kopię zapasową hasłem",
+          "PASSWORD_HINT": "Szyfruje kopię zapasową; po jej utworzeniu wyświetlane jest hasło jednorazowe",
+          "SECURITY": "Bezpieczeństwo",
+          "SECURITY_HINT": "Użytkownicy, role i konta API",
+          "BINARY": "Dane binarne",
+          "BINARY_HINT": "Pliki i obrazy modułów, które to obsługują",
+          "SETTINGS": "Ustawienia",
+          "SETTINGS_HINT": "Ustawienia platformy i modułów",
+          "DYNAMIC": "Właściwości dynamiczne",
+          "DYNAMIC_HINT": "Definicje i słowniki właściwości dynamicznych"
+        },
+        "COLUMNS": {
+          "MODULE": "Moduł",
+          "VERSION": "Wersja"
+        },
+        "WARN_SECURITY": "Kopia zapasowa będzie zawierać konta użytkowników i skróty haseł. Przechowuj ją w bezpiecznym miejscu.",
+        "WARN_NO_PASSWORD": "Kopia zapasowa nie będzie zaszyfrowana: każdy, kto ma plik, może odczytać jej dane.",
+        "PASSWORD": "Hasło kopii zapasowej",
+        "PASSWORD_NOTE": "Skopiuj to hasło teraz: jest wyświetlane tylko raz i jest potrzebne do przywrócenia kopii zapasowej.",
+        "DOWNLOAD": "Pobierz kopię zapasową",
+        "TOOLBAR": {
+          "SELECT_ALL": "Zaznacz wszystko",
+          "UNSELECT_ALL": "Odznacz wszystko",
+          "START": "Rozpocznij kopię zapasową",
+          "CANCEL": "Anuluj"
+        }
+      },
+      "RESTORE": {
+        "TITLE": "Przywracanie",
+        "UPLOAD": "Prześlij plik kopii zapasowej (.zip)",
+        "UPLOADING": "Przesyłanie {name}: {percent}%",
+        "CANCEL_UPLOAD": "Anuluj przesyłanie",
+        "EXISTING": "Lub przywróć kopię zapasową, która jest już w magazynie",
+        "NO_BACKUPS": "Brak plików kopii zapasowych w magazynie",
+        "FILE": "Plik kopii zapasowej",
+        "INFO": "Informacje o kopii zapasowej",
+        "VERSION": "Wersja platformy",
+        "AUTHOR": "Autor",
+        "CREATED": "Utworzono",
+        "ENCRYPTED": "Zaszyfrowano",
+        "YES": "Tak",
+        "NO": "Nie",
+        "PASSWORD": "Hasło kopii zapasowej",
+        "PASSWORD_HINT": "Hasło wyświetlone podczas tworzenia kopii zapasowej",
+        "CONTENT": "Dane do przywrócenia",
+        "WARN": "Przywracanie nadpisuje istniejące dane wybranych modułów i sekcji.",
+        "TOOLBAR": {
+          "BACK": "Wstecz",
+          "SELECT_ALL": "Zaznacz wszystko",
+          "UNSELECT_ALL": "Odznacz wszystko",
+          "START": "Rozpocznij przywracanie",
+          "CANCEL": "Anuluj"
+        }
+      },
+      "STORAGE": {
+        "TITLE": "Magazyn kopii zapasowych",
+        "EMPTY": "Brak plików kopii zapasowych",
+        "COLUMNS": {
+          "NAME": "Plik",
+          "SIZE": "Rozmiar",
+          "MODIFIED": "Zmodyfikowano"
+        },
+        "TOOLBAR": {
+          "REFRESH": "Odśwież",
+          "DELETE": "Usuń"
+        },
+        "ACTIONS": {
+          "DOWNLOAD": "Pobierz",
+          "RESTORE": "Przywróć",
+          "DELETE": "Usuń"
+        }
+      }
+    },
+    "PROGRESS": {
+      "STEPS": "Postęp",
+      "LOG": "Szczegółowy dziennik"
+    },
+    "JOB": {
+      "STARTED": "Rozpoczęto",
+      "FINISHED": "Zakończono",
+      "ELAPSED": "Czas trwania",
+      "PROCESSED": "Przetworzono",
+      "ERRORS": "Błędy"
+    },
+    "ALERTS": {
+      "RESTORE_CONFIRMATION": "Przywrócić {file}? Istniejące dane wybranych sekcji zostaną nadpisane. Tej operacji nie można cofnąć.",
+      "DELETE_BACKUPS": "Usunąć pliki kopii zapasowych ({count})? Tej operacji nie można cofnąć.",
+      "NOT_ZIP": "Wybierz plik kopii zapasowej .zip",
+      "UPLOAD_NO_RESPONSE": "Plik został wysłany, ale serwer nie odpowiedział. Zwykle oznacza to, że plik przekracza limit rozmiaru przesyłania (często 100 MB). Spróbuj mniejszej kopii zapasowej lub poproś administratora o zwiększenie limitu.",
+      "UPLOAD_STALLED": "Przesyłanie zostało wstrzymane — przez pewien czas nie przesłano żadnych danych. Sprawdź połączenie sieciowe i spróbuj ponownie."
+    }
+  }
+}
