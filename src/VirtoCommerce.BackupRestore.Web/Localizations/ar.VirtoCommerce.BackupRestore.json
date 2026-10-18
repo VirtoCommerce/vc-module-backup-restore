@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "platform:backuprestore:access": "عرض النسخ الاحتياطي والاستعادة في القائمة الرئيسية",
+    "platform:backuprestore:backup": "نسخ بيانات المنصة والوحدات احتياطيًا",
+    "platform:backuprestore:restore": "استعادة بيانات المنصة والوحدات",
+    "platform:backuprestore:storage": "عرض مجلد مخزن النسخ الاحتياطية وإدارته",
+    "platform:export": "تصدير بيانات المنصة والوحدات (الإصدار القديم)",
+    "platform:import": "استيراد بيانات المنصة والوحدات (الإصدار القديم)"
+  }
+}
