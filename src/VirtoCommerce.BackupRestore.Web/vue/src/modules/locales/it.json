@@ -1,0 +1,122 @@
+{
+  "BACKUP": {
+    "MENU": {
+      "TITLE": "Backup e ripristino"
+    },
+    "PAGES": {
+      "MAIN": {
+        "COLUMNS": {
+          "ACTION": "Azione",
+          "DESCRIPTION": "Descrizione"
+        },
+        "BACKUP": {
+          "TITLE": "Backup",
+          "DESCRIPTION": "Salva i dati e le impostazioni della piattaforma in un file di backup"
+        },
+        "RESTORE": {
+          "TITLE": "Ripristino",
+          "DESCRIPTION": "Ripristina i dati e le impostazioni della piattaforma da un file di backup"
+        },
+        "STORAGE": {
+          "TITLE": "Archivio dei backup",
+          "DESCRIPTION": "Esamina, scarica e rimuovi i file di backup nell’archivio"
+        }
+      },
+      "BACKUP": {
+        "TITLE": "Backup",
+        "PLATFORM": "Dati della piattaforma",
+        "MODULES": "Moduli",
+        "OPTIONS": {
+          "PASSWORD": "Proteggi il backup con password",
+          "PASSWORD_HINT": "Cifra il backup; al termine viene mostrata una password monouso",
+          "SECURITY": "Sicurezza",
+          "SECURITY_HINT": "Utenti, ruoli e account API",
+          "BINARY": "Dati binari",
+          "BINARY_HINT": "File e immagini dei moduli che lo supportano",
+          "SETTINGS": "Impostazioni",
+          "SETTINGS_HINT": "Impostazioni della piattaforma e dei moduli",
+          "DYNAMIC": "Proprietà dinamiche",
+          "DYNAMIC_HINT": "Definizioni e dizionari delle proprietà dinamiche"
+        },
+        "COLUMNS": {
+          "MODULE": "Modulo",
+          "VERSION": "Versione"
+        },
+        "WARN_SECURITY": "Il backup conterrà gli account utente e gli hash delle password. Conservalo in modo sicuro.",
+        "WARN_NO_PASSWORD": "Il backup non sarà cifrato: chiunque disponga del file potrà leggerne i dati.",
+        "PASSWORD": "Password del backup",
+        "PASSWORD_NOTE": "Copia ora questa password: viene mostrata una sola volta ed è necessaria per ripristinare il backup.",
+        "DOWNLOAD": "Scarica backup",
+        "TOOLBAR": {
+          "SELECT_ALL": "Seleziona tutto",
+          "UNSELECT_ALL": "Deseleziona tutto",
+          "START": "Avvia backup",
+          "CANCEL": "Annulla"
+        }
+      },
+      "RESTORE": {
+        "TITLE": "Ripristino",
+        "UPLOAD": "Carica un file di backup (.zip)",
+        "UPLOADING": "Caricamento di {name}: {percent}%",
+        "CANCEL_UPLOAD": "Annulla caricamento",
+        "EXISTING": "Oppure ripristina un backup già presente nell’archivio",
+        "NO_BACKUPS": "Nessun file di backup nell’archivio",
+        "FILE": "File di backup",
+        "INFO": "Informazioni sul backup",
+        "VERSION": "Versione della piattaforma",
+        "AUTHOR": "Autore",
+        "CREATED": "Creato",
+        "ENCRYPTED": "Cifrato",
+        "YES": "Sì",
+        "NO": "No",
+        "PASSWORD": "Password del backup",
+        "PASSWORD_HINT": "La password mostrata al momento della creazione del backup",
+        "CONTENT": "Dati da ripristinare",
+        "WARN": "Il ripristino sovrascrive i dati esistenti dei moduli e delle sezioni selezionati.",
+        "TOOLBAR": {
+          "BACK": "Indietro",
+          "SELECT_ALL": "Seleziona tutto",
+          "UNSELECT_ALL": "Deseleziona tutto",
+          "START": "Avvia ripristino",
+          "CANCEL": "Annulla"
+        }
+      },
+      "STORAGE": {
+        "TITLE": "Archivio dei backup",
+        "EMPTY": "Nessun file di backup",
+        "COLUMNS": {
+          "NAME": "File",
+          "SIZE": "Dimensione",
+          "MODIFIED": "Modificato"
+        },
+        "TOOLBAR": {
+          "REFRESH": "Aggiorna",
+          "DELETE": "Elimina"
+        },
+        "ACTIONS": {
+          "DOWNLOAD": "Scarica",
+          "RESTORE": "Ripristina",
+          "DELETE": "Elimina"
+        }
+      }
+    },
+    "PROGRESS": {
+      "STEPS": "Avanzamento",
+      "LOG": "Registro dettagliato"
+    },
+    "JOB": {
+      "STARTED": "Avviato",
+      "FINISHED": "Terminato",
+      "ELAPSED": "Tempo trascorso",
+      "PROCESSED": "Elaborati",
+      "ERRORS": "Errori"
+    },
+    "ALERTS": {
+      "RESTORE_CONFIRMATION": "Ripristinare {file}? I dati esistenti delle sezioni selezionate verranno sovrascritti. L’operazione non può essere annullata.",
+      "DELETE_BACKUPS": "Eliminare {count} file di backup? L’operazione non può essere annullata.",
+      "NOT_ZIP": "Scegli un file di backup .zip",
+      "UPLOAD_NO_RESPONSE": "Il file è stato inviato, ma il server non ha mai risposto. Di solito significa che il file supera il limite di dimensione di caricamento (spesso 100 MB). Prova con un backup più piccolo o chiedi all’amministratore di aumentare il limite.",
+      "UPLOAD_STALLED": "Il caricamento si è bloccato — non è stato trasferito alcun dato per un po’. Controlla la connessione di rete e riprova."
+    }
+  }
+}

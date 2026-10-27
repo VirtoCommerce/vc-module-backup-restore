@@ -1,0 +1,122 @@
+{
+  "BACKUP": {
+    "MENU": {
+      "TITLE": "Sicherung & Wiederherstellung"
+    },
+    "PAGES": {
+      "MAIN": {
+        "COLUMNS": {
+          "ACTION": "Aktion",
+          "DESCRIPTION": "Beschreibung"
+        },
+        "BACKUP": {
+          "TITLE": "Sicherung",
+          "DESCRIPTION": "Plattformdaten und Einstellungen in einer Sicherungsdatei speichern"
+        },
+        "RESTORE": {
+          "TITLE": "Wiederherstellung",
+          "DESCRIPTION": "Plattformdaten und Einstellungen aus einer Sicherungsdatei wiederherstellen"
+        },
+        "STORAGE": {
+          "TITLE": "Sicherungsspeicher",
+          "DESCRIPTION": "Sicherungsdateien im Speicher überprüfen, herunterladen und entfernen"
+        }
+      },
+      "BACKUP": {
+        "TITLE": "Sicherung",
+        "PLATFORM": "Plattformdaten",
+        "MODULES": "Module",
+        "OPTIONS": {
+          "PASSWORD": "Sicherung mit Passwort schützen",
+          "PASSWORD_HINT": "Verschlüsselt die Sicherung; ein Einmalpasswort wird angezeigt, sobald sie fertig ist",
+          "SECURITY": "Sicherheit",
+          "SECURITY_HINT": "Benutzer, Rollen und API-Konten",
+          "BINARY": "Binärdaten",
+          "BINARY_HINT": "Dateien und Bilder der Module, die dies unterstützen",
+          "SETTINGS": "Einstellungen",
+          "SETTINGS_HINT": "Plattform- und Moduleinstellungen",
+          "DYNAMIC": "Dynamische Eigenschaften",
+          "DYNAMIC_HINT": "Definitionen und Wörterbücher dynamischer Eigenschaften"
+        },
+        "COLUMNS": {
+          "MODULE": "Modul",
+          "VERSION": "Version"
+        },
+        "WARN_SECURITY": "Die Sicherung enthält Benutzerkonten und Passwort-Hashes. Bewahren Sie sie sicher auf.",
+        "WARN_NO_PASSWORD": "Die Sicherung wird nicht verschlüsselt: Jeder mit Zugriff auf die Datei kann ihre Daten lesen.",
+        "PASSWORD": "Sicherungspasswort",
+        "PASSWORD_NOTE": "Kopieren Sie dieses Passwort jetzt: Es wird nur einmal angezeigt und zum Wiederherstellen der Sicherung benötigt.",
+        "DOWNLOAD": "Sicherung herunterladen",
+        "TOOLBAR": {
+          "SELECT_ALL": "Alle auswählen",
+          "UNSELECT_ALL": "Auswahl aufheben",
+          "START": "Sicherung starten",
+          "CANCEL": "Abbrechen"
+        }
+      },
+      "RESTORE": {
+        "TITLE": "Wiederherstellung",
+        "UPLOAD": "Sicherungsdatei (.zip) hochladen",
+        "UPLOADING": "{name} wird hochgeladen: {percent}%",
+        "CANCEL_UPLOAD": "Upload abbrechen",
+        "EXISTING": "Oder eine bereits im Speicher vorhandene Sicherung wiederherstellen",
+        "NO_BACKUPS": "Keine Sicherungsdateien im Speicher",
+        "FILE": "Sicherungsdatei",
+        "INFO": "Sicherungsinformationen",
+        "VERSION": "Plattformversion",
+        "AUTHOR": "Autor",
+        "CREATED": "Erstellt",
+        "ENCRYPTED": "Verschlüsselt",
+        "YES": "Ja",
+        "NO": "Nein",
+        "PASSWORD": "Sicherungspasswort",
+        "PASSWORD_HINT": "Das bei der Erstellung der Sicherung angezeigte Passwort",
+        "CONTENT": "Wiederherzustellende Daten",
+        "WARN": "Die Wiederherstellung überschreibt die vorhandenen Daten der ausgewählten Module und Bereiche.",
+        "TOOLBAR": {
+          "BACK": "Zurück",
+          "SELECT_ALL": "Alle auswählen",
+          "UNSELECT_ALL": "Auswahl aufheben",
+          "START": "Wiederherstellung starten",
+          "CANCEL": "Abbrechen"
+        }
+      },
+      "STORAGE": {
+        "TITLE": "Sicherungsspeicher",
+        "EMPTY": "Keine Sicherungsdateien",
+        "COLUMNS": {
+          "NAME": "Datei",
+          "SIZE": "Größe",
+          "MODIFIED": "Geändert"
+        },
+        "TOOLBAR": {
+          "REFRESH": "Aktualisieren",
+          "DELETE": "Löschen"
+        },
+        "ACTIONS": {
+          "DOWNLOAD": "Herunterladen",
+          "RESTORE": "Wiederherstellen",
+          "DELETE": "Löschen"
+        }
+      }
+    },
+    "PROGRESS": {
+      "STEPS": "Fortschritt",
+      "LOG": "Detailliertes Protokoll"
+    },
+    "JOB": {
+      "STARTED": "Gestartet",
+      "FINISHED": "Beendet",
+      "ELAPSED": "Dauer",
+      "PROCESSED": "Verarbeitet",
+      "ERRORS": "Fehler"
+    },
+    "ALERTS": {
+      "RESTORE_CONFIRMATION": "{file} wiederherstellen? Die vorhandenen Daten der ausgewählten Bereiche werden überschrieben. Dies kann nicht rückgängig gemacht werden.",
+      "DELETE_BACKUPS": "{count} Sicherungsdatei(en) löschen? Dies kann nicht rückgängig gemacht werden.",
+      "NOT_ZIP": "Wählen Sie eine .zip-Sicherungsdatei",
+      "UPLOAD_NO_RESPONSE": "Die Datei wurde gesendet, aber der Server hat nicht geantwortet. Das bedeutet normalerweise, dass die Datei das Upload-Größenlimit (oft 100 MB) überschreitet. Versuchen Sie eine kleinere Sicherung oder bitten Sie Ihren Administrator, das Limit zu erhöhen.",
+      "UPLOAD_STALLED": "Der Upload ist ins Stocken geraten — eine Zeit lang wurden keine Daten übertragen. Überprüfen Sie Ihre Netzwerkverbindung und versuchen Sie es erneut."
+    }
+  }
+}

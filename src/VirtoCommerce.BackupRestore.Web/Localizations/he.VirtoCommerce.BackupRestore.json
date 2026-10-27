@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "platform:backuprestore:access": "הצגת גיבוי/שחזור בתפריט הראשי",
+    "platform:backuprestore:backup": "גיבוי נתוני הפלטפורמה והמודולים",
+    "platform:backuprestore:restore": "שחזור נתוני הפלטפורמה והמודולים",
+    "platform:backuprestore:storage": "הצגה וניהול של תיקיית אחסון הגיבויים",
+    "platform:export": "ייצוא נתוני הפלטפורמה והמודולים (מדור קודם)",
+    "platform:import": "ייבוא נתוני הפלטפורמה והמודולים (מדור קודם)"
+  }
+}

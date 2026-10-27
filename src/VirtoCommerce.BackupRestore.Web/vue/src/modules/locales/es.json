@@ -1,0 +1,122 @@
+{
+  "BACKUP": {
+    "MENU": {
+      "TITLE": "Copia de seguridad y restauración"
+    },
+    "PAGES": {
+      "MAIN": {
+        "COLUMNS": {
+          "ACTION": "Acción",
+          "DESCRIPTION": "Descripción"
+        },
+        "BACKUP": {
+          "TITLE": "Copia de seguridad",
+          "DESCRIPTION": "Guardar los datos y ajustes de la plataforma en un archivo de copia de seguridad"
+        },
+        "RESTORE": {
+          "TITLE": "Restauración",
+          "DESCRIPTION": "Restaurar los datos y ajustes de la plataforma desde un archivo de copia de seguridad"
+        },
+        "STORAGE": {
+          "TITLE": "Almacenamiento de copias de seguridad",
+          "DESCRIPTION": "Revisar, descargar y eliminar los archivos de copia de seguridad del almacenamiento"
+        }
+      },
+      "BACKUP": {
+        "TITLE": "Copia de seguridad",
+        "PLATFORM": "Datos de la plataforma",
+        "MODULES": "Módulos",
+        "OPTIONS": {
+          "PASSWORD": "Proteger la copia de seguridad con contraseña",
+          "PASSWORD_HINT": "Cifra la copia de seguridad; se muestra una contraseña de un solo uso cuando está lista",
+          "SECURITY": "Seguridad",
+          "SECURITY_HINT": "Usuarios, roles y cuentas de API",
+          "BINARY": "Datos binarios",
+          "BINARY_HINT": "Archivos e imágenes de los módulos que lo admiten",
+          "SETTINGS": "Ajustes",
+          "SETTINGS_HINT": "Ajustes de la plataforma y de los módulos",
+          "DYNAMIC": "Propiedades dinámicas",
+          "DYNAMIC_HINT": "Definiciones y diccionarios de propiedades dinámicas"
+        },
+        "COLUMNS": {
+          "MODULE": "Módulo",
+          "VERSION": "Versión"
+        },
+        "WARN_SECURITY": "La copia de seguridad contendrá cuentas de usuario y hashes de contraseñas. Guárdela de forma segura.",
+        "WARN_NO_PASSWORD": "La copia de seguridad no se cifrará: cualquiera que tenga el archivo podrá leer sus datos.",
+        "PASSWORD": "Contraseña de copia de seguridad",
+        "PASSWORD_NOTE": "Copie esta contraseña ahora: se muestra solo una vez y es necesaria para restaurar la copia de seguridad.",
+        "DOWNLOAD": "Descargar copia de seguridad",
+        "TOOLBAR": {
+          "SELECT_ALL": "Seleccionar todo",
+          "UNSELECT_ALL": "Deseleccionar todo",
+          "START": "Iniciar copia de seguridad",
+          "CANCEL": "Cancelar"
+        }
+      },
+      "RESTORE": {
+        "TITLE": "Restauración",
+        "UPLOAD": "Subir un archivo de copia de seguridad (.zip)",
+        "UPLOADING": "Subiendo {name}: {percent}%",
+        "CANCEL_UPLOAD": "Cancelar subida",
+        "EXISTING": "O restaurar una copia de seguridad que ya está en el almacenamiento",
+        "NO_BACKUPS": "No hay archivos de copia de seguridad en el almacenamiento",
+        "FILE": "Archivo de copia de seguridad",
+        "INFO": "Información de la copia de seguridad",
+        "VERSION": "Versión de la plataforma",
+        "AUTHOR": "Autor",
+        "CREATED": "Creado",
+        "ENCRYPTED": "Cifrado",
+        "YES": "Sí",
+        "NO": "No",
+        "PASSWORD": "Contraseña de copia de seguridad",
+        "PASSWORD_HINT": "La contraseña que se mostró al crear la copia de seguridad",
+        "CONTENT": "Datos a restaurar",
+        "WARN": "La restauración sobrescribe los datos existentes de los módulos y secciones seleccionados.",
+        "TOOLBAR": {
+          "BACK": "Atrás",
+          "SELECT_ALL": "Seleccionar todo",
+          "UNSELECT_ALL": "Deseleccionar todo",
+          "START": "Iniciar restauración",
+          "CANCEL": "Cancelar"
+        }
+      },
+      "STORAGE": {
+        "TITLE": "Almacenamiento de copias de seguridad",
+        "EMPTY": "No hay archivos de copia de seguridad",
+        "COLUMNS": {
+          "NAME": "Archivo",
+          "SIZE": "Tamaño",
+          "MODIFIED": "Modificado"
+        },
+        "TOOLBAR": {
+          "REFRESH": "Actualizar",
+          "DELETE": "Eliminar"
+        },
+        "ACTIONS": {
+          "DOWNLOAD": "Descargar",
+          "RESTORE": "Restaurar",
+          "DELETE": "Eliminar"
+        }
+      }
+    },
+    "PROGRESS": {
+      "STEPS": "Progreso",
+      "LOG": "Registro detallado"
+    },
+    "JOB": {
+      "STARTED": "Iniciado",
+      "FINISHED": "Finalizado",
+      "ELAPSED": "Tiempo transcurrido",
+      "PROCESSED": "Procesados",
+      "ERRORS": "Errores"
+    },
+    "ALERTS": {
+      "RESTORE_CONFIRMATION": "¿Restaurar {file}? Los datos existentes de las secciones seleccionadas se sobrescribirán. Esta acción no se puede deshacer.",
+      "DELETE_BACKUPS": "¿Eliminar {count} archivo(s) de copia de seguridad? Esta acción no se puede deshacer.",
+      "NOT_ZIP": "Elija un archivo de copia de seguridad .zip",
+      "UPLOAD_NO_RESPONSE": "El archivo se envió, pero el servidor no respondió. Esto normalmente significa que el archivo supera el límite de tamaño de subida (a menudo 100 MB). Pruebe con una copia de seguridad más pequeña o pida a su administrador que aumente el límite.",
+      "UPLOAD_STALLED": "La subida se detuvo — no se transfirieron datos durante un tiempo. Compruebe su conexión de red e inténtelo de nuevo."
+    }
+  }
+}

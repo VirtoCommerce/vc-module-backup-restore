@@ -1,0 +1,122 @@
+{
+  "BACKUP": {
+    "MENU": {
+      "TITLE": "Backup e restauração"
+    },
+    "PAGES": {
+      "MAIN": {
+        "COLUMNS": {
+          "ACTION": "Ação",
+          "DESCRIPTION": "Descrição"
+        },
+        "BACKUP": {
+          "TITLE": "Backup",
+          "DESCRIPTION": "Salvar os dados e as configurações da plataforma em um arquivo de backup"
+        },
+        "RESTORE": {
+          "TITLE": "Restauração",
+          "DESCRIPTION": "Restaurar os dados e as configurações da plataforma a partir de um arquivo de backup"
+        },
+        "STORAGE": {
+          "TITLE": "Armazenamento de backups",
+          "DESCRIPTION": "Revisar, baixar e remover os arquivos de backup no armazenamento"
+        }
+      },
+      "BACKUP": {
+        "TITLE": "Backup",
+        "PLATFORM": "Dados da plataforma",
+        "MODULES": "Módulos",
+        "OPTIONS": {
+          "PASSWORD": "Proteger o backup com senha",
+          "PASSWORD_HINT": "Criptografa o backup; uma senha de uso único é exibida quando ele estiver pronto",
+          "SECURITY": "Segurança",
+          "SECURITY_HINT": "Usuários, funções e contas de API",
+          "BINARY": "Dados binários",
+          "BINARY_HINT": "Arquivos e imagens dos módulos que oferecem suporte",
+          "SETTINGS": "Configurações",
+          "SETTINGS_HINT": "Configurações da plataforma e dos módulos",
+          "DYNAMIC": "Propriedades dinâmicas",
+          "DYNAMIC_HINT": "Definições e dicionários de propriedades dinâmicas"
+        },
+        "COLUMNS": {
+          "MODULE": "Módulo",
+          "VERSION": "Versão"
+        },
+        "WARN_SECURITY": "O backup conterá contas de usuário e hashes de senha. Armazene-o com segurança.",
+        "WARN_NO_PASSWORD": "O backup não será criptografado: qualquer pessoa com o arquivo poderá ler seus dados.",
+        "PASSWORD": "Senha do backup",
+        "PASSWORD_NOTE": "Copie esta senha agora: ela é exibida apenas uma vez e é necessária para restaurar o backup.",
+        "DOWNLOAD": "Baixar backup",
+        "TOOLBAR": {
+          "SELECT_ALL": "Selecionar tudo",
+          "UNSELECT_ALL": "Desmarcar tudo",
+          "START": "Iniciar backup",
+          "CANCEL": "Cancelar"
+        }
+      },
+      "RESTORE": {
+        "TITLE": "Restauração",
+        "UPLOAD": "Enviar um arquivo de backup (.zip)",
+        "UPLOADING": "Enviando {name}: {percent}%",
+        "CANCEL_UPLOAD": "Cancelar envio",
+        "EXISTING": "Ou restaurar um backup que já está no armazenamento",
+        "NO_BACKUPS": "Nenhum arquivo de backup no armazenamento",
+        "FILE": "Arquivo de backup",
+        "INFO": "Informações do backup",
+        "VERSION": "Versão da plataforma",
+        "AUTHOR": "Autor",
+        "CREATED": "Criado em",
+        "ENCRYPTED": "Criptografado",
+        "YES": "Sim",
+        "NO": "Não",
+        "PASSWORD": "Senha do backup",
+        "PASSWORD_HINT": "A senha exibida quando o backup foi criado",
+        "CONTENT": "Dados a restaurar",
+        "WARN": "A restauração substitui os dados existentes dos módulos e seções selecionados.",
+        "TOOLBAR": {
+          "BACK": "Voltar",
+          "SELECT_ALL": "Selecionar tudo",
+          "UNSELECT_ALL": "Desmarcar tudo",
+          "START": "Iniciar restauração",
+          "CANCEL": "Cancelar"
+        }
+      },
+      "STORAGE": {
+        "TITLE": "Armazenamento de backups",
+        "EMPTY": "Nenhum arquivo de backup",
+        "COLUMNS": {
+          "NAME": "Arquivo",
+          "SIZE": "Tamanho",
+          "MODIFIED": "Modificado"
+        },
+        "TOOLBAR": {
+          "REFRESH": "Atualizar",
+          "DELETE": "Excluir"
+        },
+        "ACTIONS": {
+          "DOWNLOAD": "Baixar",
+          "RESTORE": "Restaurar",
+          "DELETE": "Excluir"
+        }
+      }
+    },
+    "PROGRESS": {
+      "STEPS": "Progresso",
+      "LOG": "Registro detalhado"
+    },
+    "JOB": {
+      "STARTED": "Iniciado",
+      "FINISHED": "Concluído",
+      "ELAPSED": "Tempo decorrido",
+      "PROCESSED": "Processados",
+      "ERRORS": "Erros"
+    },
+    "ALERTS": {
+      "RESTORE_CONFIRMATION": "Restaurar {file}? Os dados existentes das seções selecionadas serão substituídos. Esta ação não pode ser desfeita.",
+      "DELETE_BACKUPS": "Excluir {count} arquivo(s) de backup? Esta ação não pode ser desfeita.",
+      "NOT_ZIP": "Escolha um arquivo de backup .zip",
+      "UPLOAD_NO_RESPONSE": "O arquivo foi enviado, mas o servidor não respondeu. Isso geralmente significa que o arquivo excede o limite de tamanho de envio (muitas vezes 100 MB). Tente um backup menor ou peça ao administrador para aumentar o limite.",
+      "UPLOAD_STALLED": "O envio foi interrompido — nenhum dado foi transferido por um tempo. Verifique sua conexão de rede e tente novamente."
+    }
+  }
+}

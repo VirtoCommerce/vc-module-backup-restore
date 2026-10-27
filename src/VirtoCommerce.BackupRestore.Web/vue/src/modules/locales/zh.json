@@ -1,0 +1,122 @@
+{
+  "BACKUP": {
+    "MENU": {
+      "TITLE": "备份与恢复"
+    },
+    "PAGES": {
+      "MAIN": {
+        "COLUMNS": {
+          "ACTION": "操作",
+          "DESCRIPTION": "描述"
+        },
+        "BACKUP": {
+          "TITLE": "备份",
+          "DESCRIPTION": "将平台数据和设置保存到备份文件"
+        },
+        "RESTORE": {
+          "TITLE": "恢复",
+          "DESCRIPTION": "从备份文件恢复平台数据和设置"
+        },
+        "STORAGE": {
+          "TITLE": "备份存储",
+          "DESCRIPTION": "查看、下载和删除存储中的备份文件"
+        }
+      },
+      "BACKUP": {
+        "TITLE": "备份",
+        "PLATFORM": "平台数据",
+        "MODULES": "模块",
+        "OPTIONS": {
+          "PASSWORD": "使用密码保护备份",
+          "PASSWORD_HINT": "加密备份；备份就绪后将显示一次性密码",
+          "SECURITY": "安全",
+          "SECURITY_HINT": "用户、角色和 API 账户",
+          "BINARY": "二进制数据",
+          "BINARY_HINT": "支持此功能的模块的文件和图片",
+          "SETTINGS": "设置",
+          "SETTINGS_HINT": "平台和模块设置",
+          "DYNAMIC": "动态属性",
+          "DYNAMIC_HINT": "动态属性定义和字典"
+        },
+        "COLUMNS": {
+          "MODULE": "模块",
+          "VERSION": "版本"
+        },
+        "WARN_SECURITY": "备份将包含用户账户和密码哈希。请妥善保管。",
+        "WARN_NO_PASSWORD": "备份将不会加密：任何拥有该文件的人都可以读取其中的数据。",
+        "PASSWORD": "备份密码",
+        "PASSWORD_NOTE": "请立即复制此密码：它只显示一次，恢复备份时需要使用。",
+        "DOWNLOAD": "下载备份",
+        "TOOLBAR": {
+          "SELECT_ALL": "全选",
+          "UNSELECT_ALL": "取消全选",
+          "START": "开始备份",
+          "CANCEL": "取消"
+        }
+      },
+      "RESTORE": {
+        "TITLE": "恢复",
+        "UPLOAD": "上传备份文件 (.zip)",
+        "UPLOADING": "正在上传 {name}：{percent}%",
+        "CANCEL_UPLOAD": "取消上传",
+        "EXISTING": "或恢复存储中已有的备份",
+        "NO_BACKUPS": "存储中没有备份文件",
+        "FILE": "备份文件",
+        "INFO": "备份信息",
+        "VERSION": "平台版本",
+        "AUTHOR": "作者",
+        "CREATED": "创建时间",
+        "ENCRYPTED": "已加密",
+        "YES": "是",
+        "NO": "否",
+        "PASSWORD": "备份密码",
+        "PASSWORD_HINT": "创建备份时显示的密码",
+        "CONTENT": "恢复内容",
+        "WARN": "恢复将覆盖所选模块和部分的现有数据。",
+        "TOOLBAR": {
+          "BACK": "返回",
+          "SELECT_ALL": "全选",
+          "UNSELECT_ALL": "取消全选",
+          "START": "开始恢复",
+          "CANCEL": "取消"
+        }
+      },
+      "STORAGE": {
+        "TITLE": "备份存储",
+        "EMPTY": "没有备份文件",
+        "COLUMNS": {
+          "NAME": "文件",
+          "SIZE": "大小",
+          "MODIFIED": "修改时间"
+        },
+        "TOOLBAR": {
+          "REFRESH": "刷新",
+          "DELETE": "删除"
+        },
+        "ACTIONS": {
+          "DOWNLOAD": "下载",
+          "RESTORE": "恢复",
+          "DELETE": "删除"
+        }
+      }
+    },
+    "PROGRESS": {
+      "STEPS": "进度",
+      "LOG": "详细日志"
+    },
+    "JOB": {
+      "STARTED": "开始时间",
+      "FINISHED": "结束时间",
+      "ELAPSED": "已用时间",
+      "PROCESSED": "已处理",
+      "ERRORS": "错误"
+    },
+    "ALERTS": {
+      "RESTORE_CONFIRMATION": "恢复 {file}？所选部分的现有数据将被覆盖。此操作无法撤消。",
+      "DELETE_BACKUPS": "删除 {count} 个备份文件？此操作无法撤消。",
+      "NOT_ZIP": "请选择 .zip 备份文件",
+      "UPLOAD_NO_RESPONSE": "文件已发送，但服务器未响应。这通常意味着文件超出了上传大小限制（通常为 100 MB）。请尝试较小的备份，或请管理员提高限制。",
+      "UPLOAD_STALLED": "上传已停滞 — 一段时间内未传输任何数据。请检查您的网络连接，然后重试。"
+    }
+  }
+}

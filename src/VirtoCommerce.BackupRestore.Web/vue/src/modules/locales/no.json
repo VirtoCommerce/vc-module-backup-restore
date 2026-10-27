@@ -1,0 +1,122 @@
+{
+  "BACKUP": {
+    "MENU": {
+      "TITLE": "Sikkerhetskopiering og gjenoppretting"
+    },
+    "PAGES": {
+      "MAIN": {
+        "COLUMNS": {
+          "ACTION": "Handling",
+          "DESCRIPTION": "Beskrivelse"
+        },
+        "BACKUP": {
+          "TITLE": "Sikkerhetskopiering",
+          "DESCRIPTION": "Lagre plattformdata og innstillinger i en sikkerhetskopifil"
+        },
+        "RESTORE": {
+          "TITLE": "Gjenoppretting",
+          "DESCRIPTION": "Gjenopprett plattformdata og innstillinger fra en sikkerhetskopifil"
+        },
+        "STORAGE": {
+          "TITLE": "Lagring av sikkerhetskopier",
+          "DESCRIPTION": "Gå gjennom, last ned og fjern sikkerhetskopifiler i lagringen"
+        }
+      },
+      "BACKUP": {
+        "TITLE": "Sikkerhetskopiering",
+        "PLATFORM": "Plattformdata",
+        "MODULES": "Moduler",
+        "OPTIONS": {
+          "PASSWORD": "Beskytt sikkerhetskopien med passord",
+          "PASSWORD_HINT": "Krypterer sikkerhetskopien; et engangspassord vises når den er klar",
+          "SECURITY": "Sikkerhet",
+          "SECURITY_HINT": "Brukere, roller og API-kontoer",
+          "BINARY": "Binærdata",
+          "BINARY_HINT": "Filer og bilder fra modulene som støtter det",
+          "SETTINGS": "Innstillinger",
+          "SETTINGS_HINT": "Plattform- og modulinnstillinger",
+          "DYNAMIC": "Dynamiske egenskaper",
+          "DYNAMIC_HINT": "Definisjoner og ordbøker for dynamiske egenskaper"
+        },
+        "COLUMNS": {
+          "MODULE": "Modul",
+          "VERSION": "Versjon"
+        },
+        "WARN_SECURITY": "Sikkerhetskopien vil inneholde brukerkontoer og passordhasher. Oppbevar den sikkert.",
+        "WARN_NO_PASSWORD": "Sikkerhetskopien blir ikke kryptert: alle som har filen, kan lese dataene.",
+        "PASSWORD": "Sikkerhetskopipassord",
+        "PASSWORD_NOTE": "Kopier dette passordet nå: det vises bare én gang og trengs for å gjenopprette sikkerhetskopien.",
+        "DOWNLOAD": "Last ned sikkerhetskopi",
+        "TOOLBAR": {
+          "SELECT_ALL": "Velg alle",
+          "UNSELECT_ALL": "Fjern alle valg",
+          "START": "Start sikkerhetskopiering",
+          "CANCEL": "Avbryt"
+        }
+      },
+      "RESTORE": {
+        "TITLE": "Gjenoppretting",
+        "UPLOAD": "Last opp en sikkerhetskopifil (.zip)",
+        "UPLOADING": "Laster opp {name}: {percent}%",
+        "CANCEL_UPLOAD": "Avbryt opplasting",
+        "EXISTING": "Eller gjenopprett en sikkerhetskopi som allerede finnes i lagringen",
+        "NO_BACKUPS": "Ingen sikkerhetskopifiler i lagringen",
+        "FILE": "Sikkerhetskopifil",
+        "INFO": "Informasjon om sikkerhetskopien",
+        "VERSION": "Plattformversjon",
+        "AUTHOR": "Forfatter",
+        "CREATED": "Opprettet",
+        "ENCRYPTED": "Kryptert",
+        "YES": "Ja",
+        "NO": "Nei",
+        "PASSWORD": "Sikkerhetskopipassord",
+        "PASSWORD_HINT": "Passordet som ble vist da sikkerhetskopien ble laget",
+        "CONTENT": "Data som skal gjenopprettes",
+        "WARN": "Gjenoppretting overskriver eksisterende data i de valgte modulene og seksjonene.",
+        "TOOLBAR": {
+          "BACK": "Tilbake",
+          "SELECT_ALL": "Velg alle",
+          "UNSELECT_ALL": "Fjern alle valg",
+          "START": "Start gjenoppretting",
+          "CANCEL": "Avbryt"
+        }
+      },
+      "STORAGE": {
+        "TITLE": "Lagring av sikkerhetskopier",
+        "EMPTY": "Ingen sikkerhetskopifiler",
+        "COLUMNS": {
+          "NAME": "Fil",
+          "SIZE": "Størrelse",
+          "MODIFIED": "Endret"
+        },
+        "TOOLBAR": {
+          "REFRESH": "Oppdater",
+          "DELETE": "Slett"
+        },
+        "ACTIONS": {
+          "DOWNLOAD": "Last ned",
+          "RESTORE": "Gjenopprett",
+          "DELETE": "Slett"
+        }
+      }
+    },
+    "PROGRESS": {
+      "STEPS": "Fremdrift",
+      "LOG": "Detaljert logg"
+    },
+    "JOB": {
+      "STARTED": "Startet",
+      "FINISHED": "Fullført",
+      "ELAPSED": "Medgått tid",
+      "PROCESSED": "Behandlet",
+      "ERRORS": "Feil"
+    },
+    "ALERTS": {
+      "RESTORE_CONFIRMATION": "Gjenopprette {file}? Eksisterende data i de valgte seksjonene blir overskrevet. Dette kan ikke angres.",
+      "DELETE_BACKUPS": "Slette {count} sikkerhetskopifil(er)? Dette kan ikke angres.",
+      "NOT_ZIP": "Velg en .zip-sikkerhetskopifil",
+      "UPLOAD_NO_RESPONSE": "Filen ble sendt, men serveren svarte aldri. Dette betyr vanligvis at filen overskrider grensen for opplastingsstørrelse (ofte 100 MB). Prøv en mindre sikkerhetskopi, eller be administratoren om å øke grensen.",
+      "UPLOAD_STALLED": "Opplastingen stoppet opp — ingen data ble overført på en stund. Kontroller nettverkstilkoblingen og prøv igjen."
+    }
+  }
+}
